@@ -1,0 +1,21 @@
+body {
+    background: #b4daf0 url("../img/body_bg.jpg");
+    background-repeat: no-repeat;
+    background-position-x: center;
+}
+.main-container {
+    background: rgba(70,149,194,0.3);
+}
+
+.nav-setting-item {
+    /*margin: 0 15px;*/
+    width: 40px;
+    line-height: 26px;
+    text-align: center;
+    font-size: 17px;
+}
+.nav-setting {
+    margin: 11px 0 10px 0px;
+    height: 26px;
+    border-left: #d9d9d9 1px solid;
+}

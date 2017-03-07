@@ -1,0 +1,106 @@
+body {
+    background: #b4daf0 url("../img/body_bg.jpg");
+    background-repeat: no-repeat;
+    background-position-x: center;
+}
+.main-container {
+    /*background: rgba(70,149,194,0.3);*/
+}
+.homepage-container {
+    width: 920px;
+    margin: 0 auto;
+}
+
+
+/*个人主页头部*/
+.homepage-header {
+    height: 356px;
+}
+.header-bg-img {
+    width: 920px;
+    height: 300px;
+    filter: blur(1px);
+}
+.homepage-person-detail {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    z-index: 500;
+    text-align: center;
+}
+.header-person {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 5px;
+}
+.header-note {
+    color: #ffffff;
+}
+.header-nav {
+    background: #ffffff;
+    height: 40px;
+    margin-bottom: 16px;
+}
+.header-nav-wrapper {
+    margin: 0 auto;
+    width: 552px;
+}
+.header-nav-item {
+    width: 56px;
+    height: 38px;
+    line-height: 38px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 auto;
+}
+.orange-border-active {
+    border-bottom: solid 3px #eb7350;
+}
+
+
+/*个人主页侧边栏*/
+.homepage-sidebar {
+    width: 300px;
+    margin-right: 20px;
+}
+.homepage-person-focus {
+    background: #fff;
+    border-radius: 3px;
+    height: 25px;
+    padding: 12px 0;
+    margin-bottom: 16px;
+}
+.hm-person-focus-item {
+    width: 100px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+.hm-person-focus-item + .hm-person-focus-item {
+    border-left: rgb(217, 217, 217) 1px solid;
+}
+.hm-sidebar-pop {
+    height: 145px;
+    margin-bottom: 16px;
+    background: #ffffff;
+    border-radius: 3px;
+}
+.pop-top {
+    height: 38px;
+    line-height: 38px;
+    padding: 0 16px;
+    border-bottom: rgb(217, 217, 217) 1px solid;
+}
+.pop-bottom {
+    text-align: center;
+}
+.pop-bot-text {
+    display: block;
+    height: 17px;
+    margin: 45px auto;
+}
+
+.main-content-container {
+    margin-left: 0px;
+}
