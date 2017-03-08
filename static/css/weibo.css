@@ -388,12 +388,70 @@ a:hover {
     font-size: 15px;
     color: #eb7350;
 }
+/*weibo cell cite others weibo*/
+.weibo-cell-cite {
+    background-color: #f2f2f5;
+    margin: 5px -20px -4px -80px;
+    padding: 4px 20px 1px 80px;
+}
+.weibo-cite-detail {
+    width: 500px;
+}
+.weibo-cite-user {
+    padding-top: 5px;
+    height: 18px;
+    margin-bottom: 5px;
+    line-height: 18px;
+    font-weight: 600;
+    font-family: Arial, Microsoft YaHei;
+}
+.weibo-cite-time {
+    margin-bottom: 2px;
+    font-size: 12px;
+    color: #808080;
+}
+.weibo-cite-content {
+    padding-top: 1px;
+    margin-bottom: 2px;
+    letter-spacing: normal;
+    line-height: 23px;
+}
+
+.weibo-cite-cell-item {
+    padding: 0 10px;
+    margin: 2px 0;
+    height: 15px;
+    line-height: 12px;
+    font-size: 12px;
+    text-align: center;
+}
+.weibo-cite-cell-item + .weibo-cite-cell-item {
+    border-left: 1px solid #d9d9d9;
+}
+.weibo-cite-fav-icon {
+    display: inline-block;
+    padding-right: 5px;
+}
+.weibo-cite-cell-fav a:link {
+    color: #808080;
+}
+.weibo-cite-cell-fav a:visited {
+    color: #808080;
+}
+.weibo-cite-cell-fav a:hover {
+    color: #eb7350;
+}
+.weibo-cite-bottom {
+    margin: 4px 0 7px;
+
+}
+
 
 /*comment cell*/
 .weibo-comment-container {
     background: #f2f2f5;
     border-top: solid 1px rgb(217, 217, 217);
-    padding: 16px 0 6px;
+    padding: 16px 0 0px;
 }
 .comment-container {
     margin: 0 20px;
@@ -465,6 +523,7 @@ a:hover {
 }
 .comment-time {
     color: #808080;
+    font-size: 12px;
 }
 .comment-cell-fav a:link {
     color: #808080;
@@ -475,6 +534,18 @@ a:hover {
 .comment-cell-fav a:hover {
     color: #eb7350;
 }
+.comment-cell-fav-item {
+    padding: 0 10px;
+    margin: 2px 0;
+    width: 30px;
+    height: 15px;
+    line-height: 12px;
+    font-size: 12px;
+    text-align: center;
+}
+.comment-cell-fav-item + .comment-cell-fav-item {
+    border-left: 1px solid #d9d9d9;
+}
 .comment-content {
     padding-left: 5px;
 }
@@ -482,8 +553,17 @@ a:hover {
     display: inline-block;
     padding-right: 5px;
 }
-
-
+.weibo-more-comments {
+    height: 35px;
+    line-height: 35px;
+    border-top: solid 1px rgb(217, 217, 217);
+    text-align: center;
+    margin: 0 -20px;
+}
+.more-comments-icon {
+    display: inline-block;
+    margin-left: 3px;
+}
 
 /*微博侧边栏*/
 .main-sidebar {

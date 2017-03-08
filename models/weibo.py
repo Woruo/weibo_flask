@@ -23,6 +23,9 @@ class Weibo(db.Model, ModelMixin):
     comments_num = db.Column(db.Integer, default=0)
     fav_num = db.Column(db.Integer, default=0)
     col_num = db.Column(db.Integer, default=0)
+    cite_num = db.Column(db.Integer, default=0)
+    is_cite = db.Column(db.Boolean, default=False)
+    cite_id = db.Column(db.Integer, default=0)
     is_hidden = db.Column(db.Integer, default=0)
     comments = db.relationship(
         'Comment',
