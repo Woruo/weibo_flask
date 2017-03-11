@@ -563,7 +563,7 @@
                         <div class="weibo-cell-top flex">
                             <div class="weibo-avatar-cell">
                                 <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>
-                                    <img class="weibo-avatar-img" src="{{ w.avatar }}">
+                                    <img class="weibo-avatar-img" src="{{ w.user.avatar }}">
                                 </a>
                             </div>
                             <div class="weibo-detail">
@@ -582,7 +582,7 @@
                                     <div class="float-right relative">
                                         <a class="id-status-panel-control" href="#"><span class="icon-circle-down"></span></a>
                                         <div class="id-status-panel weibo-status-div hide">
-                                            <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">删除</a></div>
+                                            <div class="weibo-status-item"><a href="#" class="delete-button weibo-status-item-a">删除</a></div>
                                             <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">置顶</a></div>
                                             <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为好友圈可见</a></div>
                                             <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为仅自己可见</a></div>
@@ -590,11 +590,15 @@
                                     </div>
                                 </div>
                                 {% if w.has_cite %}
-                                  <div class="weibo-cell-cite">
+                                  <div class="weibo-cell-cite" id="id-weibo-cite-{{ w.cite_id }}" data-id="{{ w.cite_id }}">
                                     <div class="weibo-cite-detail">
                                       {% if not w.cite_w.is_hidden %}
                                         <div>
-                                            <div class="weibo-cite-user"><a href="${ "/weibo/" + w.cite_w.user_id + "/homepage" }">${ w.cite_w.username }</a></div>
+                                            <div class="weibo-cite-user">
+                                                <a href={{ url_for('weibo.homepage', user_id=w.cite_w.user_id) }}>
+                                                    {{ w.cite_w.user.username }}
+                                                </a>
+                                            </div>
                                             <div class="weibo-cite-content">
                                                 {{ w.cite_w.content }}
                                             </div>
@@ -602,13 +606,26 @@
                                                 <div class="weibo-cite-time float-left">{{ w.cite_w.created_time }}</div>
                                                 <div class="weibo-cite-cell-fav float-right flex">
                                                     <div class="weibo-cite-cell-item">
-                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}><span class="weibo-cite-fav-icon icon-exit"></span>{{ w.cite_w.cite_num }}</a>
+                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                          <span class="weibo-cite-fav-icon icon-exit"></span>
+                                                          {% if w.cite_w.cite_num %}
+                                                            {{ w.cite_w.cite_num }}
+                                                          {% else %}
+                                                            0
+                                                          {% endif %}
+                                                        </a>
                                                     </div>
                                                     <div class="weibo-cite-cell-item">
-                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}<span class="weibo-cite-fav-icon icon-bubble2"></span>{{ w.cite_w.comments_num }}</a>
+                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                          <span class="weibo-cite-fav-icon icon-bubble2"></span>
+                                                          {{ w.cite_w.comments_num }}
+                                                        </a>
                                                     </div>
                                                     <div class="weibo-cite-cell-item">
-                                                        <a href=href={{ url_for('weibo.detail', id=w.cite_w.id) }}><span class="weibo-cite-fav-icon icon-heart"></span>{{ w.cite_w.fav_time }}</a>
+                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                          <span class="weibo-cite-fav-icon icon-heart"></span>
+                                                          {{ w.cite_w.fav_time }}
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -638,9 +655,13 @@
                               {% endif %}
                             </div>
                             <div class="weibo-cell-b-item">
-                                <a class="" href="#">
+                                <a class="cite-button" href="#">
                                   <span class="weibo-cell-icon icon-exit"></span>
-                                  转发 {{ w.cite_num }}
+                                  {% if w.cite_num %}
+                                    {{ w.cite_num }}
+                                  {% else %}
+                                    转发
+                                  {% endif %}
                                 </a>
                             </div>
                             <div class="weibo-cell-b-item">

@@ -29,6 +29,23 @@ def delete(user):
     return api_response(status, data, msg)
 
 
+@main.route('/citeShow', methods=['POST'])
+def citeShow():
+    w_id = request.form.get('weibo_id', None)
+    user = current_user()
+    status, data, msg = Weibo.show_cites_weibo(w_id, user)
+    return api_response(status, data, msg)
+
+
+@main.route('/cite/add', methods=['POST'])
+@login_required
+def cite_add(user):
+    form = request.form
+    c = Weibo(form)
+    status, data, msg = c.save_weibo(user)
+    return api_response(status, data, msg)
+
+
 @main.route('/commentShow', methods=['POST'])
 def commentShow():
     w_id = request.form.get('weibo_id', None)

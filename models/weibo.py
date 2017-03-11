@@ -26,7 +26,7 @@ class Weibo(db.Model, ModelMixin):
     cite_num = db.Column(db.Integer, default=0)
     has_cite = db.Column(db.Boolean, default=False)
     cite_id = db.Column(db.Integer, default=0)
-    is_hidden = db.Column(db.Integer, default=0)
+    is_hidden = db.Column(db.Integer, default=False)
     comments = db.relationship(
         'Comment',
         backref='weibo',
@@ -39,12 +39,21 @@ class Weibo(db.Model, ModelMixin):
         self.content = form.get('content', '')
         self.created_time = timestamp()
         self.tag_id = form.get('tag_id', None)
+        self.cite_id = form.get('cite_id', None)
 
     def save_weibo(self, user):
         w = self.content.strip()
         l = len(w)
-        if l < 3:
-            return False, None, '微博长度至少为3个字符'
+        if self.cite_id is not None:
+            self.has_cite = True
+            cite_weibo = Weibo.query.get(self.cite_id)
+            cite_weibo.cite_num += 1
+            cite_weibo.save()
+            if l == 0:
+                self.content = "转发微博"
+        l = len(w)
+        if l < 1:
+            return False, None, '微博长度至少为1个字符'
         elif l > 140:
             return False, None, '微博长度不能超过140个字符'
         else:
@@ -59,6 +68,24 @@ class Weibo(db.Model, ModelMixin):
             return True, {'id': self.id}, '删除微博成功'
         else:
             return False, None, '非本人微博'
+
+    @classmethod
+    def show_cites_weibo(cls, weibo_id, user):
+        if weibo_id is None:
+            return False, None, '查询转发内容失败，该微博不存在'
+        cites = Weibo.query.filter_by(cite_id=weibo_id).all()
+        cs = []
+        for c in cites:
+            c.user = User.query.get(c.user_id)
+            r = c.response()
+            if WFavorite.query.filter_by(weibo_id=c.id, user_id=user.id).first() is not None:
+                r['is_fav'] = True
+            else:
+                r['is_fav'] = False
+            cs.append(r)
+        print(cs)
+        return True, cs, '查询转发评论成功'
+
 
     def response(self):
         return dict(

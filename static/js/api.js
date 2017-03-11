@@ -49,8 +49,19 @@ api.weiboDelete = function (form, response) {
     api.post(url, form, response)
 };
 
+
+api.citeShow = function (form, response) {
+  var url = '/api/weibo/citeShow';
+  api.post(url, form, response)
+}
+
+api.citeAdd = function (form, response) {
+  var url = '/api/weibo/cite/add';
+  api.post(url, form, response)
+}
+
 api.commentShow = function (form, response) {
-    var url = '/api/weibo/commentShow'
+    var url = '/api/weibo/commentShow';
     api.post(url, form, response)
 };
 
@@ -73,4 +84,3 @@ api.commentFavorite = function(form, response) {
     var url = '/api/weibo/comment/favorite';
     api.post(url, form, response)
 };
-
