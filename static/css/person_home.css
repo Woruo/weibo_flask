@@ -24,9 +24,10 @@ body {
 .homepage-person-detail {
     position: absolute;
     top: 20%;
-    left: 50%;
+    left: 340px;
     z-index: 500;
     text-align: center;
+    width: 240px;
 }
 .header-person {
     color: #ffffff;
@@ -36,6 +37,25 @@ body {
 }
 .header-note {
     color: #ffffff;
+}
+.header-option {
+    margin-top: 15px;
+    justify-content: center;
+}
+.header-option-item {
+    background: -webkit-linear-gradient(top, #5f636d 0%,#535861 100%);
+    color: #fff;
+    box-shadow: 0px 2px 1px rgba(0,0,0,.2);
+    width: 105px;
+    height: 35px;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 35px;
+    margin: 0 6px;
+}
+.header-option-item-active {
+    background: -webkit-linear-gradient(top, #f4722e 0%,#f05807 100%);
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
 }
 .header-nav {
     background: #ffffff;
@@ -80,19 +100,39 @@ body {
 .hm-person-focus-item + .hm-person-focus-item {
     border-left: rgb(217, 217, 217) 1px solid;
 }
+
+
+.section-top {
+    height: 38px;
+    line-height: 38px;
+    padding: 0 16px;
+    border-bottom: rgb(217, 217, 217) 1px solid;
+}
+.section-more {
+    height: 35px;
+    line-height: 35px;
+    padding: 0 16px;
+    border-top: rgb(217, 217, 217) 1px solid;
+    text-align: center;
+}
+.icon-more {
+    display: inline-block;
+    padding-left: 4px;
+}
+/*侧栏微关系*/
+.rel-section-bottom {
+    padding: 16px;
+}
+
+
+/*侧栏欢迎度*/
 .hm-sidebar-pop {
     height: 145px;
     margin-bottom: 16px;
     background: #ffffff;
     border-radius: 3px;
 }
-.pop-top {
-    height: 38px;
-    line-height: 38px;
-    padding: 0 16px;
-    border-bottom: rgb(217, 217, 217) 1px solid;
-}
-.pop-bottom {
+.pop-section-bottom {
     text-align: center;
 }
 .pop-bot-text {
@@ -104,3 +144,108 @@ body {
 .main-content-container {
     margin-left: 0px;
 }
+
+/*侧栏推荐微博*/
+.recomm-weibo {
+    width: 300px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    margin-bottom: 16px;
+}
+.recomm-weibo-top {
+    height: 40px;
+    padding: 0 16px;
+    line-height: 40px;
+    border-bottom: 1px solid #d9d9d9;
+}
+.recomm-content-container {
+    height: 620px;
+    overflow: scroll;
+}
+
+/*侧边栏个人信息*/
+.homepage-person-info {
+    width: 300px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    margin-bottom: 16px;
+}
+.info-section-bottom {
+    padding: 16px;
+}
+.info-section-item {
+    padding: 7px 0 5px;
+    line-height: 18px;
+}
+.info-section-item + .info-section-item {
+    border-top: 1px solid #d9d9d9;
+}
+
+/*侧边栏个人文章*/
+.hm-sidebar-article {
+    width: 300px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    margin-bottom: 16px;
+}
+.article-section-bottom {
+    padding: 6px;
+}
+.article-section-item {
+    background-color: #f2f2f5;
+}
+.article-section-item + .article-section-item {
+    margin-top: 6px;
+}
+.article-section-content {
+    padding: 6px;
+}
+.article-item-img {
+    height: 160px;
+    width: 288px;
+}
+.article-section-item-cont {
+    color: #808080;
+    margin-top: 2px;
+}
+
+
+/*侧边栏微关系*/
+.homepage-person-rel {
+    width: 300px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    margin-bottom: 16px;
+}
+.rel-section-common-focus {
+    border-bottom: 1px solid #d9d9d9;
+}
+.rel-common-focus-person{
+    margin: 15px 0;
+}
+.rel-section-focus-too {
+    margin-top: 16px;
+}
+.rel-focus-too-person {
+    margin-top: 15px;
+}
+.focus-avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.rel-common-focus-item, .rel-focus-too-item {
+    width: 67px;
+    text-align: center;
+}
+
+
+
+
+
+
+

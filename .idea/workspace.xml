@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d50d713d-3fb3-4b00-adca-104e558f01c2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/weibo_detail.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/weibo_detail.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Wor.db" afterPath="$PROJECT_DIR$/Wor.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/weibo.py" afterPath="$PROJECT_DIR$/models/weibo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/img/cover.png" afterPath="$PROJECT_DIR$/static/img/cover.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/person_focus_detail.css" afterPath="$PROJECT_DIR$/static/css/person_focus_detail.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/person_home.css" afterPath="$PROJECT_DIR$/static/css/person_home.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/weibo.css" afterPath="$PROJECT_DIR$/static/css/weibo.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/weibo_detail.css" afterPath="$PROJECT_DIR$/static/css/weibo_detail.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/person_focus_detail.html" afterPath="$PROJECT_DIR$/templates/person_focus_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/person_home.html" afterPath="$PROJECT_DIR$/templates/person_home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/weibo_detail.html" afterPath="$PROJECT_DIR$/templates/weibo_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/weibo_home.html" afterPath="$PROJECT_DIR$/templates/weibo_home.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/weibo_flask$weibo_flask.coverage" NAME="weibo_flask Coverage Results" MODIFIED="1488880140204" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/weibo_flask$weibo_flask.coverage" NAME="weibo_flask Coverage Results" MODIFIED="1489031313182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -37,47 +41,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="weibo_home.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tem/weibo_home.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-9">
-              <caret line="58" column="13" lean-forward="false" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="weibo_detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/weibo_detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="235" column="53" lean-forward="true" selection-start-line="235" selection-start-column="53" selection-end-line="235" selection-end-column="71" />
+            <state relative-caret-position="5004">
+              <caret line="291" column="32" lean-forward="false" selection-start-line="291" selection-start-column="32" selection-end-line="319" selection-end-column="38" />
               <folding>
-                <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <marker date="1488956410000" expanded="false" signature="10532:12955" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="weibo.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="weibo.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/css/weibo.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="453" column="21" lean-forward="false" selection-start-line="453" selection-start-column="21" selection-end-line="453" selection-end-column="21" />
+            <state relative-caret-position="12420">
+              <caret line="690" column="14" lean-forward="false" selection-start-line="690" selection-start-column="8" selection-end-line="690" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -86,53 +66,11 @@
       <file leaf-file-name="weibo_detail.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/css/weibo_detail.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="160" column="0" lean-forward="false" selection-start-line="160" selection-start-column="0" selection-end-line="168" selection-end-column="1" />
+            <state relative-caret-position="162">
+              <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
               <folding>
-                <marker date="1488952310000" expanded="true" signature="4351:4415" ph="..." />
+                <marker date="1489030431000" expanded="true" signature="884:960" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="weibo_unlogin.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/weibo_unlogin.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="38" column="7" lean-forward="false" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="weibo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/weibo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="weibo.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/weibo.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="60" column="18" lean-forward="false" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="person_home.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/person_home.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="103" column="6" lean-forward="false" selection-start-line="103" selection-start-column="1" selection-end-line="103" selection-end-column="6" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -140,8 +78,18 @@
       <file leaf-file-name="person_focus_detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/person_focus_detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+            <state relative-caret-position="4860">
+              <caret line="270" column="28" lean-forward="false" selection-start-line="263" selection-start-column="28" selection-end-line="270" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="person_focus_detail.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/css/person_focus_detail.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="36" column="17" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -150,8 +98,8 @@
       <file leaf-file-name="person_home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/person_home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="11" column="34" lean-forward="false" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+            <state relative-caret-position="594">
+              <caret line="33" column="12" lean-forward="false" selection-start-line="33" selection-start-column="12" selection-end-line="55" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -169,36 +117,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>weibo-detail-sidebar</find>
-      <find>min</find>
-      <find>item</find>
-      <find>weibo-cell-b-item</find>
-      <find>weibo-comment-container</find>
-      <find>focus</find>
-      <find>weibo-commen</find>
-      <find>weibo-send-te</find>
-      <find>这是齐全的一天微博</find>
-      <find>orange</find>
-      <find>comment</find>
-      <find>comment-ava</find>
-      <find>cite-ava</find>
-      <find>删除</find>
-      <find>weibo-status-div</find>
-      <find>cite-set</find>
-      <find>weibo-detail-c</find>
+      <find>background-col</find>
+      <find>background-co</find>
+      <find>icon-arrow-right2</find>
+      <find>flex</find>
+      <find>sidebar-top</find>
+      <find>comment-ti</find>
+      <find>&lt;a</find>
+      <find>Wor</find>
+      <find>comment-chat-mo</find>
+      <find>img</find>
+      <find>comment-chat</find>
       <find>border</find>
-      <find>转发</find>
-      <find>cite-comments-pa</find>
-      <find>weibo-status-item-a</find>
-      <find>水水水</find>
-      <find>weibo-cell-bot</find>
-      <find>cite-cell-item</find>
-      <find>cite-cell-fav</find>
-      <find>评论</find>
-      <find>weibo-deta</find>
-      <find>收藏</find>
+      <find>icon</find>
+      <find>comment-send-bu</find>
+      <find>cite-commen</find>
+      <find>cite-comments-</find>
+      <find>white-a</find>
+      <find>orange-a</find>
+      <find>follow-detail</find>
+      <find>focus-per</find>
+      <find>focus</find>
+      <find>focus-</find>
+      <find>focus-de</find>
+      <find>focus-person-t</find>
       <find>weibo-comment-cell</find>
-      <find>weibo-more</find>
+      <find>focus-person-</find>
+      <find>focus-person-page</find>
+      <find>follow-con</find>
+      <find>focus-container-bo</find>
+      <find>min-hei</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -208,9 +156,14 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/models/weibo.py" />
+        <option value="$PROJECT_DIR$/static/css/person_home.css" />
         <option value="$PROJECT_DIR$/static/css/weibo_detail.css" />
+        <option value="$PROJECT_DIR$/templates/person_home.html" />
+        <option value="$PROJECT_DIR$/templates/weibo_home.html" />
         <option value="$PROJECT_DIR$/templates/weibo_detail.html" />
         <option value="$PROJECT_DIR$/static/css/weibo.css" />
+        <option value="$PROJECT_DIR$/templates/person_focus_detail.html" />
+        <option value="$PROJECT_DIR$/static/css/person_focus_detail.css" />
       </list>
     </option>
   </component>
@@ -221,9 +174,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="492" />
+    <option name="x" value="77" />
     <option name="y" value="23" />
-    <option name="width" value="1028" />
+    <option name="width" value="1034" />
     <option name="height" value="804" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -268,70 +221,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weibo_flask" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weibo_flask" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weibo_flask" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weibo_flask" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weibo_flask" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weibo_flask" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weibo_flask" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weibo_flask" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -636,14 +525,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="492" y="23" width="1028" height="804" extended-state="0" />
-    <editor active="true" />
+    <frame x="77" y="23" width="1034" height="804" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21459228" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24367622" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -655,6 +543,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27910239" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -670,6 +559,58 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/templates/weibo_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5004">
+          <caret line="291" column="32" lean-forward="false" selection-start-line="291" selection-start-column="32" selection-end-line="319" selection-end-column="38" />
+          <folding>
+            <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/weibo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12420">
+          <caret line="690" column="14" lean-forward="false" selection-start-line="690" selection-start-column="8" selection-end-line="690" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/weibo_detail.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="14" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+          <folding>
+            <marker date="1489030431000" expanded="true" signature="884:960" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/person_focus_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4860">
+          <caret line="270" column="28" lean-forward="false" selection-start-line="263" selection-start-column="28" selection-end-line="270" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/person_focus_detail.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/person_home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="33" column="12" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="55" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py" />
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -692,20 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/weibo_home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-90">
-          <caret line="2" column="16" lean-forward="true" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tem/weibo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="546" column="74" lean-forward="true" selection-start-line="546" selection-start-column="74" selection-end-line="546" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/weibo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -720,11 +647,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tem/weibo_home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="66" column="26" lean-forward="true" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tem/weibo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="551" column="42" lean-forward="true" selection-start-line="551" selection-start-column="42" selection-end-line="551" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/weibo_unlogin.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="38" column="7" lean-forward="false" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="7" />
-          <folding />
+        <state relative-caret-position="450">
+          <caret line="80" column="22" lean-forward="true" selection-start-line="69" selection-start-column="4" selection-end-line="80" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/person_home.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="29" column="17" lean-forward="true" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -732,90 +679,71 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/weibo_home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2142">
+          <caret line="681" column="59" lean-forward="true" selection-start-line="681" selection-start-column="59" selection-end-line="681" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/weibo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="60" column="18" lean-forward="false" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/person_home.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="103" column="6" lean-forward="false" selection-start-line="103" selection-start-column="1" selection-end-line="103" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/person_focus_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="51">
+          <caret line="52" column="44" lean-forward="true" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/person_home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="11" column="34" lean-forward="false" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tem/weibo_home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="58" column="13" lean-forward="false" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+        <state relative-caret-position="594">
+          <caret line="33" column="12" lean-forward="false" selection-start-line="33" selection-start-column="12" selection-end-line="55" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/weibo_detail.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="160" column="0" lean-forward="false" selection-start-line="160" selection-start-column="0" selection-end-line="168" selection-end-column="1" />
+        <state relative-caret-position="162">
+          <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
           <folding>
-            <marker date="1488952310000" expanded="true" signature="4351:4415" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/weibo_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="235" column="53" lean-forward="true" selection-start-line="235" selection-start-column="53" selection-end-line="235" selection-end-column="71" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1488956410000" expanded="false" signature="10532:12955" ph="..." />
+            <marker date="1489030431000" expanded="true" signature="884:960" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/weibo.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="453" column="21" lean-forward="false" selection-start-line="453" selection-start-column="21" selection-end-line="453" selection-end-column="21" />
+        <state relative-caret-position="12420">
+          <caret line="690" column="14" lean-forward="false" selection-start-line="690" selection-start-column="8" selection-end-line="690" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/weibo_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5004">
+          <caret line="291" column="32" lean-forward="false" selection-start-line="291" selection-start-column="32" selection-end-line="319" selection-end-column="38" />
+          <folding>
+            <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/person_focus_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4860">
+          <caret line="270" column="28" lean-forward="false" selection-start-line="263" selection-start-column="28" selection-end-line="270" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/person_focus_detail.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="36" column="17" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
           <folding />
         </state>
       </provider>

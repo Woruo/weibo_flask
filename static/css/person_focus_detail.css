@@ -4,16 +4,229 @@
     background: #ffffff;
     margin-bottom: 16px;
     border-radius: 3px;
+    padding: 2px;
+}
+.focus-detail, .black-detail, .follow-detail {
+    display: block;
+    padding: 10px 14px 5px 14px;
+    height: 23px;
+    line-height: 23px;
+}
+
+.gray-a {
+    width: 268px;
+    line-height: 23px;
+    padding-left: 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+.gray-a:visited {
+    background: #f2f2f5;
+}
+.gray-a:hover {
+    color: #eb7350;
+    background: #f2f2f5;
 }
 
 
 
 
-
 /*关注页右边栏*/
+/*关注者详情*/
 .focus-person-container {
-    height: 2000px;
+    min-height: 100px;
     margin-bottom: 16px;
     background: #ffffff;
     border-radius: 3px;
+}
+.focus-container-top {
+    margin: 0 10px;
+    padding: 7px 0;
+    border-bottom: solid 1px rgb(217, 217, 217);
+    font-weight: bold;
+    height: 23px;
+    line-height: 23px;
+}
+.focus-person-ava-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.focus-person-cell {
+    margin: 6px 0 0 6px;
+    background: #f2f2f5;
+    border-radius: 3px;
+    width: 274px;
+    height: 108px;
+    padding: 16px 0 16px 16px;
+}
+.focus-person-avatar {
+    padding-top: 29px;
+    border-right: solid 1px rgb(217, 217, 217);
+    width: 66px;
+}
+.focus-person-detail {
+    margin-left: 16px;
+}
+.focus-person-name {
+    margin-bottom: 5px;
+    height: 17px;
+    line-height: 17px;
+    font-weight: bold;
+}
+.focus-person-station, .focus-person-intro, .focus-person-rec {
+    margin-bottom: 5px;
+    height: 17px;
+    line-height: 17px;
+}
+.icon-checkmark {
+    padding-right: 3px;
+}
+.focus-person-tag {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 0 10px;
+    width: 62px;
+    height: 24px;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 13px;
+}
+.focus-person-setting {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 13px;
+    margin-left: 5px;
+}
+.focus-setting-icon {
+    margin-top: 1px;
+    display: inline-block;
+}
+.focus-container-bot {
+    padding-bottom: 6px;
+}
+
+.focus-person-page {
+    border-top: solid 1px rgb(217, 217, 217);
+    padding: 4px 0;
+    height: 26px;
+    justify-content: center;
+    font-size: 12px;
+}
+.focus-person-page-items {
+    margin: 0 5px;
+    padding: 0 8px;
+    height: 20px;
+    line-height: 20px;
+}
+.focus-person-page-before {
+    margin-right: 20px;
+    border-right: 1px solid #d9d9d9;
+    width: 100px;
+    text-align: center;
+}
+.focus-person-page-next {
+    margin-left: 20px;
+    width: 100px;
+    border-left: 1px solid #d9d9d9;
+    text-align: center;
+}
+
+/*粉丝详情*/
+.follow-person-container {
+    min-height: 100px;
+    margin-bottom: 16px;
+    background: #ffffff;
+    border-radius: 3px;
+}
+.follow-container-top {
+    margin: 0 10px;
+    padding: 7px 0;
+    border-bottom: solid 1px rgb(217, 217, 217);
+    font-weight: bold;
+    height: 23px;
+    line-height: 23px;
+}
+.follow-container-bottom {
+
+}
+.follower-container {
+    padding: 1px 16px 16px 16px;
+}
+.follow-detail-div {
+    width: 500px;
+}
+.follow-person-cell {
+    padding: 16px 0;
+    height: 88px;
+}
+.follow-person-cell + .follow-person-cell {
+    border-top: solid 1px rgb(217, 217, 217);
+}
+.follow-person-avatar {
+    margin-right: 15px;
+}
+.follow-person-avatar-img {
+    width: 50px;
+    height: 50px;
+}
+.follow-user {
+    font-weight: 700;
+    height: 18px;
+    line-height: 18px;
+}
+.follow-user-pop, .follow-user-location, .follow-user-rec {
+    padding-top: 8px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+}
+.follow-user-pop-item {
+    padding-right: 10px;
+}
+.follow-user-pop-item + .follow-user-pop-item {
+    border-left: 1px solid rgb(217, 217, 217);
+    padding: 0 10px;
+}
+.follow-person-focus {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 0 10px;
+    width: 62px;
+    height: 24px;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 13px;
+}
+.follow-person-setting {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    width: 45px;
+    height: 24px;
+    padding: 0 10px;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 13px;
+    margin-left: 6px;
+}
+.focus-setting-icon {
+    margin-top: 1px;
+    display: inline-block;
+}
+.follow-setting-icon {
+    padding-left: 5px;
 }
