@@ -1,0 +1,137 @@
+var commentTempalte = function (c) {
+    t = `
+<div id="id-comment-cell-${ c.id }" data-id="${ c.id }" class="weibo-comment-cell flex">
+	<div class="comment-avatar">
+		<a href=" ${ "/weibo/" + c.user_id + "/homepage" }">
+			<img class="comment-avatar-img" src="${ c.avatar }">
+		</a>
+	</div>
+	<div class="comment-detail">
+		<div class="comment-user">
+			<a href="${ "/weibo/" + c.user_id + "/homepage" }">${ c.username }:</a>
+			<span class="comment-content">
+			${ c.content }
+		</span>
+		</div>
+		<div class="clearfix">
+			<div class="comment-time float-left">${ c.created_time }</div>
+			<div class="comment-cell-fav float-right">
+        <a class="comment-fav-button" href="#">
+            <span class="comment-fav-icon icon-heart"></span>
+            <span class="comment-fav-text">赞 <span class="comment-fav-num">${ c.fav_num }</span></span>
+        </a>
+			</div>
+		</div>
+	</div>
+</div>
+`
+    return t
+};
+
+var commentTempalte_fav = function (c) {
+    t = `
+<div id="id-comment-cell-${ c.id }" data-id="${ c.id }" class="weibo-comment-cell flex">
+	<div class="comment-avatar">
+		<a href=" ${ "/weibo/" + c.user_id + "/homepage" }">
+			<img class="comment-avatar-img" src="${ c.avatar }">
+		</a>
+	</div>
+	<div class="comment-detail">
+		<div class="comment-user">
+			<a href="${ "/weibo/" + c.user_id + "/homepage" }">${ c.username }:</a>
+			<span class="comment-content">
+			${ c.content }
+		</span>
+		</div>
+		<div class="clearfix">
+			<div class="comment-time float-left">${ c.created_time }</div>
+			<div class="comment-cell-fav float-right">
+                <a class="comment-fav-button lightbutton" href="#">
+                    <span class="comment-fav-icon icon-heart weibo-cell-icon-big"></span>
+                    <span class="comment-fav-text">赞 <span class="comment-fav-num">${ c.fav_num }</span></span>
+                </a>
+			</div>
+		</div>
+	</div>
+</div>
+`
+    return t
+};
+
+var weiboTemplate = function (w) {
+    t = `
+<div id="id-weibo-cell-${ w.id }" data-id="${ w.id}" class="weibo-cell">
+	<div class="weibo-cell-top flex">
+		<div class="weibo-avatar-cell">
+			<a href="${ "/weibo/" + w.user_id + "/homepage"}">
+				<img class="weibo-avatar-img" src="${ w.avatar }">
+			</a>
+		</div>
+		<div class="weibo-detail clearfix">
+			<div class="float-left">
+				<div class="weibo-user"><a href="${ "/weibo/" + w.user_id + "/homepage" }">${ w.username }</a></div>
+				<div class="weibo-time">${ w.created_time }</div>
+				<div class="weibo-content">
+					${ w.content }
+				</div>
+			</div>
+			<div class="float-right relative">
+				<a class="id-status-panel-control" href="#"><span class="icon-circle-down"></span></a>
+				<div class="id-status-panel weibo-status-div hide">
+					<div class="weibo-status-item"><a href="#" class="weibo-status-item-a delete-button">删除</a></div>
+					<div class="weibo-status-item"><a href="#" class="weibo-status-item-a top-button">置顶</a></div>
+					<div class="weibo-status-item"><a href="#" class="weibo-status-item-a friend-see-button">转换为好友圈可见</a></div>
+					<div class="weibo-status-item"><a href="#" class="weibo-status-item-a only-me-button">转换为仅自己可见</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="weibo-cell-bottom flex">
+		<div class="weibo-cell-b-item">
+			<a class="collect-button" href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
+		</div>
+		<div class="weibo-cell-b-item">
+			<a class="" href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
+		</div>
+		<div class="weibo-cell-b-item">
+			<a class="comment-button" href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
+		</div>
+		<div class="weibo-cell-b-item">
+			<a class="fav-button" href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
+		</div>
+	</div>
+	<div class="weibo-comment-container hide">
+		<div class="comment-container">
+			<div class="comment-input-div flex">
+				<div class="comment-avatar">
+					<img class="comment-avatar-img" src="${ w.avatar }">
+				</div>
+				<div class="comment-right">
+					<div class="comment-send-div">
+						<textarea class="comment-send-textarea"></textarea>
+					</div>
+					<div class="clearfix">
+						<div class="comment-send-tool float-left flex">
+							<div class="comment-send-item">
+								<a href="#"><span class="weibo-send-icon icon-smile"></span></a>
+							</div>
+							<div class="comment-send-item">
+								<a href="#"><span class="weibo-send-icon icon-image"></span></a>
+							</div>
+						</div>
+						<div class="comment-setting float-right">
+							<a class="comment-send-button button-white-a" href="#">
+								评论
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="weibo-comments">
+			</div>
+		</div>
+	</div>
+</div>
+`
+    return t
+};

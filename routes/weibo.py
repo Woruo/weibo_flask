@@ -24,3 +24,9 @@ def timeline_view(user_id):
 @main.route('/<int:user_id>/homepage')
 def homepage(user_id):
     return render_template('person_home.html')
+
+
+@main.route('/weibo/<int:id>/detail')
+def detail(id):
+    w = Weibo.query.get(id)
+    return render_template('weibo_detail.html', w=w)

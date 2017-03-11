@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>微博 详细页</title>
+    <link rel="stylesheet" href="../static/css/weibo.css">
+    <link rel="stylesheet" href="../static/css/weibo_detail.css">
+    <link rel="stylesheet" href="../static/fonts/icomoon/style.css">
+</head>
+<body>
+    <div class="nav">
+        <div class="nav-top flex">
+            <div class="nav-logo"><a href="#"><span class="logo-icon icon-github"></span>微博</a></div>
+            <div class="nav-container clearfix">
+                <div class="weibo-search-div float-left">
+                    <input class="weibo-search" type="search" placeholder="大家正在搜">
+                </div>
+                <div class="nav-item-list float-right flex">
+                    <div class="nav-item"><a href="#">首页</a></div>
+                    <div class="nav-item"><a href="#">视频</a></div>
+                    <div class="nav-item"><a href="#">发现</a></div>
+                    <div class="nav-item"><a href="#">游戏</a></div>
+                    <div class="nav-item"><a href="#">Wor若</a></div>
+                </div>
+            </div>
+            <div class="nav-setting flex">
+                <div class="nav-setting-item"><a href="#"><span class="icon-cog"></span></a></div>
+                <div class="nav-setting-item"><a href="#"><span class="icon-pencil"></span></a></div>
+            </div>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="weibo-frame flex">
+            <div class="weibo-detail-container ">
+                <div class="weibo-cell">
+                    <div class="weibo-cell-top flex">
+                        <div class="weibo-avatar-cell">
+                            <a href="#">
+                                <img class="weibo-avatar-img" src="/static/img/avatar_img/2.jpg">
+                            </a>
+                        </div>
+                        <div class="weibo-detail">
+                            <div class="clearfix">
+                                <div class="float-left">
+                                    <div class="weibo-user"><a href="#">Wor若</a></div>
+                                    <div class="weibo-time">11分钟前</div>
+                                    <div class="weibo-content">
+                                        这是齐全的一天微博，哈哈哈，要拿这条修改哦
+                                        水水水
+                                    </div>
+                                </div>
+                                <div class="float-right relative">
+                                    <a href="#"><span class="icon-circle-down"></span></a>
+                                    <div class="weibo-status-div hide">
+                                        <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">删除</a></div>
+                                        <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">置顶</a></div>
+                                        <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为好友圈可见</a></div>
+                                        <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为仅自己可见</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="weibo-cell-cite">
+                                <div class="weibo-cite-detail">
+                                    <div>
+                                        <div class="weibo-cite-user"><a href="#">Wor若</a></div>
+                                        <div class="weibo-cite-content">
+                                            这是一条被转发的微博，这是一条被转发的微博，这是一条被转发的微博，
+                                            这是一条被转发的微博，这是一条被转发的微博
+                                            水水水水水水水水水水水水水水水水水水水水水
+                                            水水水水水水水水水水水水水水水水水水水水水
+                                            水水水水水水水水水水水水水水水水水水水水水
+                                        </div>
+                                        <div class="weibo-cite-bottom clearfix">
+                                            <div class="weibo-cite-time float-left">11分钟前</div>
+                                            <div class="weibo-cite-cell-fav float-right flex">
+                                                <div class="weibo-cite-cell-item">
+                                                    <a href="#"><span class="weibo-cite-fav-icon icon-exit"></span>135</a>
+                                                </div>
+                                                <div class="weibo-cite-cell-item">
+                                                    <a href="#"><span class="weibo-cite-fav-icon icon-bubble2"></span>9</a>
+                                                </div>
+                                                <div class="weibo-cite-cell-item">
+                                                    <a href="#"><span class="weibo-cite-fav-icon icon-heart"></span>9</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="weibo-cite-empty">
+                                        <div class="weibo-empty-content"><span class="icon-cancel-circle"></span>抱歉，该微博已被原作者删除</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weibo-cell-bottom flex">
+                        <div class="weibo-cell-b-item">
+                            <a href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
+                        </div>
+                        <div class="weibo-cell-b-item">
+                            <a href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
+                        </div>
+                        <div class="weibo-cell-b-item">
+                            <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
+                        </div>
+                        <div class="weibo-cell-b-item">
+                            <a href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
+                        </div>
+                    </div>
+                    <div class="weibo-comment-container">
+                        <div class="comment-container">
+                            <div class="comment-input-div flex">
+                                <div class="comment-avatar">
+                                    <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
+                                </div>
+                                <div class="comment-right">
+                                    <div class="comment-send-div">
+                                        <textarea class="comment-send-textarea"></textarea>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="comment-send-tool float-left flex">
+                                            <div class="comment-send-item">
+                                                <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
+                                            </div>
+                                            <div class="comment-send-item">
+                                                <a href="#"><span class="weibo-send-icon icon-image"></span></a>
+                                            </div>
+                                            <div class="comment-send-choice">
+                                                <div><input type="checkbox" >同时转发到我的微博</div>
+                                                <div><input type="checkbox" >同时评论给 瓜</div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-setting float-right">
+                                            <a class="comment-send-button button-white-a" href="#">
+                                                评论
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="weibo-comments">
+                                <div class="weibo-comment-cell flex">
+                                    <div class="comment-avatar">
+                                        <a href="#">
+                                            <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="comment-detail">
+                                        <div class="comment-user">
+                                            <a href="#">Wor若:</a>
+                                            <span class="comment-content">
+                                                我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            </span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="comment-time float-left">11分钟前</div>
+                                            <div class="comment-cell-fav float-right flex">
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#">删除</a>
+                                                </div>
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#">回复</a>
+                                                </div>
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-chat-container">
+                                            <div class="comment-chat-cell">
+                                                <div class="comment-chat-user">
+                                                    <a href="#">包:</a>
+                                                     <span class="comment-chat-content">
+                                                         哈哈哈，沙发你好啊
+                                                    </span>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <div class="comment-chat-time float-left">11分钟前</div>
+                                                    <div class="comment-chat-fav float-right flex">
+                                                        <div class="comment-chat-fav-item">
+                                                            <a href="#">删除</a>
+                                                        </div>
+                                                        <div class="comment-chat-fav-item">
+                                                            <a href="#"><span class="comment-chat-fav-icon icon-heart"></span>赞</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-cell">
+                                                <div class="comment-chat-user">
+                                                    <a href="#">包:</a>
+                                                     <span class="comment-chat-content">
+                                                         哈哈哈，沙发你好啊
+                                                    </span>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <div class="comment-chat-time float-left">11分钟前</div>
+                                                    <div class="comment-chat-fav float-right flex">
+                                                        <div class="comment-chat-fav-item">
+                                                            <a href="#">删除</a>
+                                                        </div>
+                                                        <div class="comment-chat-fav-item">
+                                                            <a href="#"><span class="comment-chat-fav-icon icon-heart"></span>赞</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-cell">
+                                                <div class="comment-chat-user">
+                                                    <a href="#">包:</a>
+                                                     <span class="comment-chat-content">
+                                                         哈哈哈，沙发你好啊
+                                                    </span>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <div class="comment-chat-time float-left">11分钟前</div>
+                                                    <div class="comment-chat-fav float-right flex">
+                                                        <div class="comment-chat-fav-item">
+                                                            <a href="#">删除</a>
+                                                        </div>
+                                                        <div class="comment-chat-fav-item">
+                                                            <a href="#"><span class="comment-chat-fav-icon icon-heart"></span>赞</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-cell">
+                                                <div class="comment-chat-user">
+                                                    <a class="orange-a" href="#">包:</a>
+                                                     <span class="comment-chat-content">
+                                                         哈哈哈，沙发你好啊
+                                                    </span>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <div class="comment-chat-time float-left">11分钟前</div>
+                                                    <div class="comment-chat-fav float-right flex">
+                                                        <div class="comment-chat-fav-item">
+                                                            <a href="#">删除</a>
+                                                        </div>
+                                                        <div class="comment-chat-fav-item">
+                                                            <a href="#"><span class="comment-chat-fav-icon icon-heart"></span>赞</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-more">
+                                                <a class="orange-a" href="#">共<span class="comment-chat-num">12</span>条回复</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weibo-comment-cell flex">
+                                    <div class="comment-avatar">
+                                        <a href="#">
+                                            <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="comment-detail">
+                                        <div class="comment-user">
+                                            <a class="orange-a" href="#">Wor若:</a>
+                                            <span class="comment-content">
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                            我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                        </span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="comment-time float-left">11分钟前</div>
+                                            <div class="comment-cell-fav float-right flex">
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#">删除</a>
+                                                </div>
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#">回复</a>
+                                                </div>
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weibo-comment-cell flex">
+                                    <div class="comment-avatar">
+                                        <a href="#">
+                                            <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="comment-detail">
+                                        <div class="comment-user">
+                                            <a class="orange-a" href="#">Wor若:</a>
+                                            <span class="comment-content">
+                                            我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+                                        </span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="comment-time float-left">11分钟前</div>
+                                            <div class="comment-cell-fav float-right flex">
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#">删除</a>
+                                                </div>
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#">回复</a>
+                                                </div>
+                                                <div class="comment-cell-fav-item">
+                                                    <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weibo-more-comments">
+                                    查看更多<span class="more-comments-icon icon-circle-down"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weibo-cite-container">
+                        <div class="cite-container">
+                            <div class="cite-input-div">
+                                <div class="cite-top flex">
+                                    <div class="cite-top-item cite-top-item-active"><a href="#">转发到微博</a></div>
+                                    <div class="cite-top-item"><a href="#">转发到私信</a></div>
+                                </div>
+                                <div class="cite-bottom">
+                                    <div class="cite-send-div">
+                                        <textarea class="cite-send-textarea"></textarea>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="cite-send-tool float-left flex">
+                                            <div class="cite-send-item">
+                                                <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
+                                            </div>
+                                            <div class="cite-send-item">
+                                                <a href="#"><span class="weibo-send-icon icon-image"></span></a>
+                                            </div>
+                                            <div class="cite-send-choice">
+                                                <div><input type="checkbox" >同时评论给 好东西传送门</div>
+                                                <div><input type="checkbox" >同时评论给原文作者 瓜</div>
+                                            </div>
+                                        </div>
+                                        <div class="cite-setting float-right">
+                                            <a class="cite-status-radio" href="#"><span class="cite-status">公开</span><span class="icon-circle-down"></span></a>
+                                            <div class="cite-status-div hide">
+                                                <div class="cite-status-item"><a href="#" class="cite-status-item-a">公开</a></div>
+                                                <div class="cite-status-item"><a href="#" class="cite-status-item-a">好友圈</a></div>
+                                                <div class="cite-status-item"><a href="#" class="cite-status-item-a">仅自己可见</a></div>
+                                            </div>
+                                            <a class="cite-send-button button-white-a" href="#">
+                                                转发
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cite-comments">
+                                <div class="weibo-cite-cell flex">
+                                    <div class="comment-avatar">
+                                        <a href="#">
+                                            <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="cite-detail">
+                                        <div class="cite-user">
+                                            <a class="orange-a" href="#">Wor若:</a>
+                                            <span class="cite-content">
+                                               第一次转发哈哈哈
+                                            </span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="cite-time float-left">11分钟前</div>
+                                            <div class="cite-cell-fav float-right flex">
+                                                <div class="cite-cell-item">
+                                                    <a href="#">删除</a>
+                                                </div>
+                                                <div class="cite-cell-item">
+                                                    <a href="#">转发</a>
+                                                </div>
+                                                <div class="cite-cell-item">
+                                                    <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weibo-cite-cell flex">
+                                    <div class="comment-avatar">
+                                        <a href="#">
+                                            <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="cite-detail">
+                                        <div class="cite-user">
+                                            <a class="orange-a" href="#">Wor若:</a>
+                                            <span class="cite-content">
+                                               第一次转发哈哈哈
+                                            </span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="cite-time float-left">11分钟前</div>
+                                            <div class="cite-cell-fav float-right flex">
+                                                <div class="cite-cell-item">
+                                                    <a href="#">删除</a>
+                                                </div>
+                                                <div class="cite-cell-item">
+                                                    <a href="#">转发</a>
+                                                </div>
+                                                <div class="cite-cell-item">
+                                                    <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weibo-cite-cell flex">
+                                    <div class="comment-avatar">
+                                        <a href="#">
+                                            <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="cite-detail">
+                                        <div class="cite-user">
+                                            <a class="orange-a" href="#">Wor若:</a>
+                                            <span class="cite-content">
+                                               第一次转发哈哈哈
+                                            </span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="cite-time float-left">11分钟前</div>
+                                            <div class="cite-cell-fav float-right flex">
+                                                <div class="cite-cell-item">
+                                                    <a href="#">删除</a>
+                                                </div>
+                                                <div class="cite-cell-item">
+                                                    <a href="#">转发</a>
+                                                </div>
+                                                <div class="cite-cell-item">
+                                                    <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weibo-cite-cell flex">
+                                    <div class="comment-avatar">
+                                        <a href="#">
+                                            <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="cite-detail">
+                                        <div class="cite-user">
+                                            <a class="orange-a" href="#">Wor若:</a>
+                                            <span class="cite-content">
+                                               第一次转发哈哈哈
+                                            </span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="cite-time float-left">11分钟前</div>
+                                            <div class="cite-cell-fav float-right flex">
+                                                <div class="cite-cell-item">
+                                                    <a href="#">删除</a>
+                                                </div>
+                                                <div class="cite-cell-item">
+                                                    <a href="#">转发</a>
+                                                </div>
+                                                <div class="cite-cell-item">
+                                                    <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cite-comments-page flex">
+                                <div class="cite-page-items cite-page-before"><a href="#">上一页</a></div>
+                                <div class="cite-page-items"><a href="#">1</a></div>
+                                <div class="cite-page-items"><a href="#">2</a></div>
+                                <div class="cite-page-items"><a href="#">3</a></div>
+                                <div class="cite-page-items"><a href="#">…</a></div>
+                                <div class="cite-page-items"><a href="#">35</a></div>
+                                <div class="cite-page-items cite-page-next"><a href="#">下一页</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weibo-detail-sidebar">
+                <div class="sidebar-top clearfix">
+                    <div class="float-left"><a href="#">相关推荐</a></div>
+                    <div class="float-right"><span class="logo-icon icon-spinner2"></span><a href="#">刷新</a></div>
+                </div>
+                <div class="sidebar-content-container">
+                    <div class="rec-weibo-cell">
+                        <div class="rec-weibo-cell-top flex">
+                            <div class="rec-weibo-cell-avatar">
+                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
+                            </div>
+                            <div class="rec-weibo-cell-person">
+                                <a href="#">凤凰科技</a>
+                            </div>
+                            <div class="rec-weibo-cell-time">
+                                <a href="#">03月06日 18:12</a>
+                            </div>
+                        </div>
+                        <div class="rec-weibo-cell-content">
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                        </div>
+                        <div class="rec-weibo-cell-bottom clearfix">
+                            <div class="float-right flex">
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-weibo-cell">
+                        <div class="rec-weibo-cell-top flex">
+                            <div class="rec-weibo-cell-avatar">
+                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
+                            </div>
+                            <div class="rec-weibo-cell-person">
+                                <a href="#">凤凰科技</a>
+                            </div>
+                            <div class="rec-weibo-cell-time">
+                                <a href="#">03月06日 18:12</a>
+                            </div>
+                        </div>
+                        <div class="rec-weibo-cell-content">
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                        </div>
+                        <div class="rec-weibo-cell-bottom clearfix">
+                            <div class="float-right flex">
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-weibo-cell">
+                        <div class="rec-weibo-cell-top flex">
+                            <div class="rec-weibo-cell-avatar">
+                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
+                            </div>
+                            <div class="rec-weibo-cell-person">
+                                <a href="#">凤凰科技</a>
+                            </div>
+                            <div class="rec-weibo-cell-time">
+                                <a href="#">03月06日 18:12</a>
+                            </div>
+                        </div>
+                        <div class="rec-weibo-cell-content">
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                        </div>
+                        <div class="rec-weibo-cell-bottom clearfix">
+                            <div class="float-right flex">
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-weibo-cell">
+                        <div class="rec-weibo-cell-top flex">
+                            <div class="rec-weibo-cell-avatar">
+                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
+                            </div>
+                            <div class="rec-weibo-cell-person">
+                                <a href="#">凤凰科技</a>
+                            </div>
+                            <div class="rec-weibo-cell-time">
+                                <a href="#">03月06日 18:12</a>
+                            </div>
+                        </div>
+                        <div class="rec-weibo-cell-content">
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                        </div>
+                        <div class="rec-weibo-cell-bottom clearfix">
+                            <div class="float-right flex">
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-weibo-cell">
+                        <div class="rec-weibo-cell-top flex">
+                            <div class="rec-weibo-cell-avatar">
+                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
+                            </div>
+                            <div class="rec-weibo-cell-person">
+                                <a href="#">凤凰科技</a>
+                            </div>
+                            <div class="rec-weibo-cell-time">
+                                <a href="#">03月06日 18:12</a>
+                            </div>
+                        </div>
+                        <div class="rec-weibo-cell-content">
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                        </div>
+                        <div class="rec-weibo-cell-bottom clearfix">
+                            <div class="float-right flex">
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-weibo-cell">
+                        <div class="rec-weibo-cell-top flex">
+                            <div class="rec-weibo-cell-avatar">
+                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
+                            </div>
+                            <div class="rec-weibo-cell-person">
+                                <a href="#">凤凰科技</a>
+                            </div>
+                            <div class="rec-weibo-cell-time">
+                                <a href="#">03月06日 18:12</a>
+                            </div>
+                        </div>
+                        <div class="rec-weibo-cell-content">
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                        </div>
+                        <div class="rec-weibo-cell-bottom clearfix">
+                            <div class="float-right flex">
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-weibo-cell">
+                        <div class="rec-weibo-cell-top flex">
+                            <div class="rec-weibo-cell-avatar">
+                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
+                            </div>
+                            <div class="rec-weibo-cell-person">
+                                <a href="#">凤凰科技</a>
+                            </div>
+                            <div class="rec-weibo-cell-time">
+                                <a href="#">03月06日 18:12</a>
+                            </div>
+                        </div>
+                        <div class="rec-weibo-cell-content">
+                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
+                        </div>
+                        <div class="rec-weibo-cell-bottom clearfix">
+                            <div class="float-right flex">
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
+                                </div>
+                                <div class="rec-weibo-b-item">
+                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-container">
+            Copyright © 2017 Wor.
+        </div>
+    </div>
+    <div class="weibo-send-container hide">
+                <div class="weibo-send-note">有什么新鲜事想告诉大家?</div>
+                <div class="weibo-send-div">
+                    <textarea class="weibo-send-textarea"></textarea>
+                </div>
+                <div class="clearfix">
+                    <div class="weibo-send-tool float-left flex">
+                        <div class="weibo-send-item">
+                            <a href="#"><span class="weibo-send-icon icon-smile"></span>表情</a>
+                        </div>
+                        <div class="weibo-send-item">
+
+                            <a href="#"><span class="weibo-send-icon icon-image"></span>图片</a>
+                        </div>
+                        <div class="weibo-send-item">
+                            <a href="#"><span class="weibo-send-icon icon-video-camera"></span>视频</a>
+                        </div>
+                        <div class="weibo-send-item">
+                            <a href="#"><span class="weibo-send-icon icon-accessibility"></span>话题</a>
+                        </div>
+                        <div class="weibo-send-item">
+                            <a href="#"><span class="weibo-send-icon icon-droplet"></span>头条文章</a>
+                        </div>
+                    </div>
+                    <div class="weibo-setting float-right">
+                        <a class="weibo-send-button button-white-a" href="#">
+                            发布
+                        </a>
+                    </div>
+                </div>
+            </div>
+</body>
+</html>
