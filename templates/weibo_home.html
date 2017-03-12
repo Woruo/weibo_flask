@@ -20,10 +20,10 @@
                 </div>
                 <div class="nav-item-list float-right flex">
                     <div class="nav-item"><a href="#">首页</a></div>
-                    <div class="nav-item"><a href="#">视频</a></div>
+                    <div class="nav-item"><a href="#">后端</a></div>
+                    <div class="nav-item"><a href="#">前端</a></div>
                     <div class="nav-item"><a href="#">发现</a></div>
-                    <div class="nav-item"><a href="#">游戏</a></div>
-                    <div class="nav-item"><a href="#">Wor若</a></div>
+                    <div class="nav-item"><a href="#">{{ user.username }}</a></div>
                 </div>
             </div>
             <div class="nav-setting flex">
@@ -39,7 +39,12 @@
             <div class="main-nav-item-t"><a class="white-a" href="#">我的赞</a></div>
             <div class="main-nav-line"></div>
             <div class="main-nav-item-m"><a class="white-a" href="#">热门微博</a></div>
-            <div class="main-nav-item-m"><a class="white-a" href="#">热门视频</a></div>
+            <div class="main-nav-line"></div>
+            <div class="main-nav-item-m"><a class="white-a" href="#">后端</a></div>
+            <div class="main-nav-item-m"><a class="white-a" href="#">前端</a></div>
+            <div class="main-nav-item-m"><a class="white-a" href="#">生活</a></div>
+            <div class="main-nav-item-m"><a class="white-a" href="#">互联网</a></div>
+            <div class="main-nav-item-m"><a class="white-a" href="#">长微博</a></div>
             <div class="main-nav-line"></div>
         </div>
         <div class="main-content-container ">
@@ -51,20 +56,19 @@
                 <div class="clearfix">
                     <div class="weibo-send-tool float-left flex">
                         <div class="weibo-send-item">
-                            <a href="#"><span class="weibo-send-icon icon-smile"></span>表情</a>
+                            <a href="#"><span class="weibo-send-icon icon-smile"></span>后端</a>
                         </div>
                         <div class="weibo-send-item">
-
-                            <a href="#"><span class="weibo-send-icon icon-image"></span>图片</a>
+                            <a href="#"><span class="weibo-send-icon icon-image"></span>前端</a>
                         </div>
                         <div class="weibo-send-item">
-                            <a href="#"><span class="weibo-send-icon icon-video-camera"></span>视频</a>
+                            <a href="#"><span class="weibo-send-icon icon-video-camera"></span>生活</a>
                         </div>
                         <div class="weibo-send-item">
-                            <a href="#"><span class="weibo-send-icon icon-accessibility"></span>话题</a>
+                            <a href="#"><span class="weibo-send-icon icon-accessibility"></span>互联网</a>
                         </div>
                         <div class="weibo-send-item">
-                            <a href="#"><span class="weibo-send-icon icon-droplet"></span>头条文章</a>
+                            <a href="#"><span class="weibo-send-icon icon-droplet"></span>长微博</a>
                         </div>
                     </div>
                     <div id="id-weibo-send-button" class="weibo-setting float-right">
@@ -77,10 +81,10 @@
             <div class="weibo-nav clearfix">
                 <div class="weibo-nav-items float-left flex">
                     <div class="weibo-nav-item"><a href="#">全部</a></div>
-                    <div class="weibo-nav-item"><a href="#">原创</a></div>
-                    <div class="weibo-nav-item"><a href="#">图片</a></div>
-                    <div class="weibo-nav-item"><a href="#">视频</a></div>
-                    <div class="weibo-nav-item"><a href="#">音乐</a></div>
+                    <div class="weibo-nav-item"><a href="#">后端</a></div>
+                    <div class="weibo-nav-item"><a href="#">前端</a></div>
+                    <div class="weibo-nav-item"><a href="#">生活</a></div>
+                    <div class="weibo-nav-item"><a href="#">长微博</a></div>
                 </div>
                 <div class="weibo-nav-search float-right">
                     <input class="input-weibo-nav-search" placeholder="搜索我关注人的微博">
@@ -304,22 +308,22 @@
                         <img class="skin-cover-img" src="/static/img/cover.png">
                     </div>
                     <div class="person-avatar-div">
-                        <a href="#"><img class="person-avatar" src="/static/img/avatar_img/4.jpg"></a>
+                        <a href={{ url_for('weibo.homepage', user_id=user.id) }}><img class="person-avatar" src={{ user.avatar }}></a>
                     </div>
                     <div class="person-detail">
                         <div class="person-name">
-                            <span class="person-name-left"><a href="#">Wor若</a></span>
+                            <span class="person-name-left"><a href="#">{{ user.username }}</a></span>
                             <span class="person-name-right">LV4</span>
                         </div>
                         <div class="person-focus flex">
                             <div class="person-focus-item">
-                                <a href="#">25 <span>关注</span></a>
+                                <a href="#">{{ folowed_n }} <span>关注</span></a>
                             </div>
                             <div class="person-focus-item">
-                                <a href="#">30 <span>粉丝</span></a>
+                                <a href="#">{{ followers_n }} <span>粉丝</span></a>
                             </div>
                             <div class="person-focus-item">
-                                <a href="#">45 <span>微博</span></a>
+                                <a href="#">{{ ws_l }} <span>微博</span></a>
                             </div>
                         </div>
                     </div>

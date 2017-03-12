@@ -306,4 +306,3 @@ class CFavorite(db.Model, ModelMixin):
             weibo_id=self.weibo_id,
             comment_id=self.comment_id,
         )
-
