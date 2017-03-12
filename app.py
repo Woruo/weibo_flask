@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_migrate import Migrate, MigrateCommand
-from flask_script import Manager
+from flask_script import Manager, Shell
 from models import db
+from models.user import User, Follow
+from models.weibo import Weibo, WCollect, WFavorite, Comment
 
 from routes.user import main as routes_user
 from routes.weibo import main as routes_weibo
@@ -43,8 +45,14 @@ def server():
     app.run(**config)
 
 
+def make_shell_context():
+    return dict(app=app, db=db, User=User, Follow=Follow, Comment=Comment)
+
+
 def configure_manager():
     Migrate(app, db)
+    manager.add_command('db', MigrateCommand)
+    manager.add_command("shell", Shell(make_context=make_shell_context))
     manager.add_command('db', MigrateCommand)
 
 

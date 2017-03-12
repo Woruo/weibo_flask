@@ -1,5 +1,5 @@
 body {
-    background: #b4daf0 url("../img/body_bg.jpg");
+    background: #b4daf0 url("/static/img/body_bg.jpg");
     background-repeat: no-repeat;
     background-position-x: center;
 }

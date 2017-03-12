@@ -11,7 +11,8 @@ def weibo_view():
 
 
 @main.route('/<int:user_id>/timeline')
-def timeline_view(user_id):
+@login_required
+def timeline_view(user, user_id):
     u = current_user()
     ws = Weibo.query.order_by(Weibo.id.desc()).all()
     for w in ws:
@@ -26,7 +27,15 @@ def timeline_view(user_id):
 
 @main.route('/<int:user_id>/homepage')
 def homepage(user_id):
-    return render_template('person_home.html')
+    u = User.query.get(user_id)
+    c_u = current_user()
+    ws = Weibo.query.filter_by(user_id=user_id).order_by(Weibo.id.desc()).all()
+    ws_l = len(ws)
+    folowed_n = len(u.followed.all())
+    followers_n = len(u.followers.all())
+    print('homepage', u.username, len(ws),folowed_n, followers_n)
+    return render_template('person_home.html', weibos=ws, u=u, ws_l=ws_l,
+                            current_u=c_u, folowed_n=folowed_n, followers_n=followers_n)
 
 
 @main.route('/weibo/<int:id>/detail')

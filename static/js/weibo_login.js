@@ -220,38 +220,6 @@ var weiboTemplate = function (w) {
                     </div>
                 </div>
             </div>
-            {% if w.has_cite %}
-              <div class="weibo-cell-cite" id="id-weibo-cite-${ w.cite_id }" data-id="${ w.cite_id }">
-                <div class="weibo-cite-detail">
-                  {% if not w.cite_w.is_hidden %}
-                    <div>
-                        <div class="weibo-cite-user"><a href="${ "/weibo/" + w.cite_w.user_id + "/homepage" }">${ w.cite_w.username }</a></div>
-                        <div class="weibo-cite-content">
-                            ${ w.cite_w.content }
-                        </div>
-                        <div class="weibo-cite-bottom clearfix">
-                            <div class="weibo-cite-time float-left">${ w.cite_w.created_time }</div>
-                            <div class="weibo-cite-cell-fav float-right flex">
-                                <div class="weibo-cite-cell-item">
-                                    <a href="${ "/weibo/" + w.cite_w.id + "/detail" }"><span class="weibo-cite-fav-icon icon-exit"></span>${ w.cite_w.cite_num }</a>
-                                </div>
-                                <div class="weibo-cite-cell-item">
-                                    <a href="${ "/weibo/" + w.cite_w.id + "/detail" }"><span class="weibo-cite-fav-icon icon-bubble2"></span>${ w.cite_w.comments_num }</a>
-                                </div>
-                                <div class="weibo-cite-cell-item">
-                                    <a href="${ "/weibo/" + w.cite_w.id + "/detail" }"><span class="weibo-cite-fav-icon icon-heart"></span>${ w.cite_w.fav_time }</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  {% else %}
-                    <div class="weibo-cite-empty">
-                        <div class="weibo-empty-content"><span class="icon-cancel-circle"></span>抱歉，该微博已被原作者删除</div>
-                    </div>
-                  {% endif %}
-                </div>
-            </div>
-          {% endif%}
         </div>
     </div>
     <div class="weibo-cell-bottom flex">
@@ -323,8 +291,8 @@ var weiboTemplate = function (w) {
                                 <a href="#"><span class="weibo-send-icon icon-image"></span></a>
                             </div>
                             <div class="cite-send-choice">
-                                <div><input type="checkbox" >同时评论给 好东西传送门</div>
-                                <div><input type="checkbox" >同时评论给原文作者 瓜</div>
+                                <div><input type="checkbox" >同时评论给 XXX</div>
+                                <div><input type="checkbox" >同时评论给原文作者 XXX</div>
                             </div>
                         </div>
                         <div class="cite-setting float-right">
@@ -427,7 +395,7 @@ var bindEventCiteToggle = function () {
       var weibo_cell = citeContainer.parent()
       var weibo_user = $.trim(weibo_cell.find('.weibo-user').text())
       var weibo_content = $.trim(weibo_cell.find('.weibo-content').text())
-      var cited_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
+      var origin_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
       if (citeContainer.hasClass('hide')) {
           var weibo_id = citeContainer.parent().data('id');
           var cite_send_textarea = citeContainer.find('.cite-send-textarea')
@@ -447,7 +415,7 @@ var bindEventCiteToggle = function () {
                       }
                   }
                   citeContainer.children().children('.cite-comments').append(cites)
-                  if (cited_weibo_id) {
+                  if (origin_weibo_id) {
                     var content = '//@' + weibo_user + ':' + weibo_content
                     log('cite textarea', content)
                     cite_send_textarea.text(content)
@@ -469,16 +437,12 @@ var bindEventWeiboCiteAdd = function () {
   $('.weibo-container').on('click', '.cite-send-button', function () {
       var content = $(this).parent().parent().prev().children().val();
       var weibo_id = $(this).closest('.weibo-cell').data('id');
-      var cited_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
+      var origin_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
       var weiboCitesContainer = $(this).parents('.cite-container').children('.cite-comments');
-      if (cited_weibo_id) {
-        var cite_id = cited_weibo_id
-      } else {
-        var cite_id = weibo_id
-      }
       var form = {
           content: content,
-          cite_id: cite_id
+          cite_id: weibo_id,
+          origin_w_id: origin_weibo_id
       };
       var response = function (r) {
           log('cite add response', r);

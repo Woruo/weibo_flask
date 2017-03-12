@@ -26,6 +26,7 @@ class Weibo(db.Model, ModelMixin):
     cite_num = db.Column(db.Integer, default=0)
     has_cite = db.Column(db.Boolean, default=False)
     cite_id = db.Column(db.Integer, default=0)
+    origin_w_id = db.Column(db.Integer, default=0)
     is_hidden = db.Column(db.Integer, default=False)
     comments = db.relationship(
         'Comment',
@@ -97,6 +98,8 @@ class Weibo(db.Model, ModelMixin):
             created_time=self.created_time,
             user_id=self.user_id,
             fav_num=self.fav_num,
+            col_num=self.col_num,
+            cite_num=self.cite_num,
         )
 
 
@@ -303,3 +306,4 @@ class CFavorite(db.Model, ModelMixin):
             weibo_id=self.weibo_id,
             comment_id=self.comment_id,
         )
+

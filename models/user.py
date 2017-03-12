@@ -29,7 +29,9 @@ class User(db.Model, ModelMixin):
     created_time = db.Column(db.Integer, default=0)
     avatar = db.Column(db.String())
     email = db.Column(db.String(), default='')
-    signature = db.Column(db.String())
+    note = db.Column(db.String(), default='')
+    location = db.Column(db.String(), default='')
+    intro = db.Column(db.String(), default='')
     weibos = db.relationship('Weibo', backref='user', lazy='dynamic', order_by="desc(Weibo.id)")
     comments = db.relationship('Comment', backref='user', lazy='dynamic', order_by="desc(Comment.id)")
     followed = db.relationship('Follow',
@@ -107,3 +109,21 @@ class User(db.Model, ModelMixin):
 
     def is_admin(self):
         return self.id == 1
+
+
+if __name__ == "__main__":
+    u1 = User.query.get(1)
+    form = dict(
+        username='bao',
+        password=123,
+    )
+    u2 = User(form)
+    us = User.query.all()
+    print('u1', u1)
+    print('u2', u2)
+    u1.follow(u2)
+    print(u1.is_following(u2))
+    u2.follow(u1)
+    print(u1.is_followed_by(u2))
+    print('u1.followed', u1.followed)
+    print('u1.followers', u1.followers)

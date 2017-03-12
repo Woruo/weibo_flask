@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>我的主页 微博</title>
+    <title>{{ u.username }} 微博</title>
     <link rel="stylesheet" href="/static/css/weibo.css">
     <link rel="stylesheet" href="/static/css/person_home.css">
     <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
@@ -37,23 +37,27 @@
             <div class="homepage-header relative">
                 <div class="homepage-person-detail">
                     <div class="header-avatar">
-                        <img class="big-avatar" src="../static/img/4.jpg">
+                        <img class="big-avatar" src="{{ u.avatar }}">
                     </div>
-                    <div class="header-person">Wor若</div>
-                    <div class="header-note">这是我的吃瓜主页</div>
+                    <div class="header-person">{{ u.username }}</div>
+                    <div class="header-note">{{ u.note }}</div>
+                    {% if current_u and current_u.id != u.id %}
                     <div class="header-option flex">
                         <div class="header-option-item header-option-item-active"><a class="button-white-a" href="#">关注</a></div>
                         <div class="header-option-item"><a class="button-white-a" href="#">私信</a></div>
                     </div>
+                    {% endif %}
                 </div>
                 <div class="header-bg">
-                    <img class="header-bg-img" src="../static/img/cover.png">
+                    <img class="header-bg-img" src="/static/img/cover.png">
                 </div>
                 <div class="header-nav">
                     <div class="header-nav-wrapper flex">
                         <div class="header-nav-item orange-border-active"><a href="#">我的主页</a></div>
                         <div class="header-nav-item"><a href="#">我的相册</a></div>
+                        {% if current_u and current_u.id == u.id  %}
                         <div class="header-nav-item"><a href="#">管理中心</a></div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -61,25 +65,25 @@
                 <div class="homepage-sidebar">
                     <div class="homepage-person-focus flex">
                         <div class="hm-person-focus-item">
-                            <a href="#">25</a>
+                            <a href="#">{{ folowed_n }}</a>
                             <span>关注</span>
                         </div>
                         <div class="hm-person-focus-item">
-                            <a href="#">30</a>
+                            <a href="#">{{ followers_n }}</a>
                             <span>粉丝</span>
                         </div>
                         <div class="hm-person-focus-item">
-                            <a href="#">45</a>
+                            <a href="#">{{ ws_l }}</a>
                             <span>微博</span>
                         </div>
                     </div>
                     <div class="homepage-person-info">
                         <div class="section-top">个人信息</div>
                         <div class="info-section-bottom">
-                            <div class="info-section-item info-section-note">个性签名: 我是吃瓜群众</div>
-                            <div class="info-section-item info-section-location">湖南湘潭</div>
-                            <div class="info-section-item info-section-email">邮箱: gua@qq.com</div>
-                            <div class="info-section-item info-section-intro">简介: 掏粪工</div>
+                            <div class="info-section-item info-section-note">个性签名: {{ u.note }}</div>
+                            <div class="info-section-item info-section-location">{{ u.location }}</div>
+                            <div class="info-section-item info-section-email">邮箱: {{ u.email }}</div>
+                            <div class="info-section-item info-section-intro">简介: {{ u.intro }}</div>
                         </div>
                         <div class="section-more"><a href="#">查看更多<span class="icon-more icon-arrow-right2"></span></a></div>
                     </div>
@@ -411,1263 +415,214 @@
                         </div>
                     </div>
                     <div class="weibo-container">
-                        <div class="weibo-cell">
-                            <div class="weibo-cell-top flex">
-                                <div class="weibo-avatar-cell">
-                                    <a href="#">
-                                        <img class="weibo-avatar-img" src="/static/img/avatar_img/2.jpg">
-                                    </a>
-                                </div>
-                                <div class="weibo-detail">
-                                    <div class="clearfix">
-                                        <div class="float-left">
-                                            <div class="weibo-user"><a href="#">Wor若</a></div>
-                                            <div class="weibo-time">11分钟前</div>
-                                            <div class="weibo-content">
-                                                这是齐全的一天微博，哈哈哈，要拿这条修改哦
-                                                水水水
-                                            </div>
-                                        </div>
-                                        <div class="float-right relative">
-                                            <a href="#"><span class="icon-circle-down"></span></a>
-                                            <div class="weibo-status-div hide">
-                                                <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">删除</a></div>
-                                                <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">置顶</a></div>
-                                                <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为好友圈可见</a></div>
-                                                <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为仅自己可见</a></div>
-                                            </div>
-                                        </div>
+                        {% for w in weibos %}
+                            <div id="id-weibo-cell-{{ w.id }}" data-id="{{ w.id }}" class="weibo-cell">
+                                <div class="weibo-cell-top flex">
+                                    <div class="weibo-avatar-cell">
+                                        <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>
+                                            <img class="weibo-avatar-img" src="{{ w.user.avatar }}">
+                                        </a>
                                     </div>
-                                    <div class="weibo-cell-cite">
-                                        <div class="weibo-cite-detail">
-                                            <div class="weibo-cite-user"><a href="#">Wor若</a></div>
-                                            <div class="weibo-cite-content">
-                                                这是一条被转发的微博，这是一条被转发的微博，这是一条被转发的微博，
-                                                这是一条被转发的微博，这是一条被转发的微博
-                                                水水水水水水水水水水水水水水水水水水水水水
-                                                水水水水水水水水水水水水水水水水水水水水水
-                                                水水水水水水水水水水水水水水水水水水水水水
+                                    <div class="weibo-detail">
+                                        <div class="clearfix">
+                                            <div class="float-left">
+                                                <div class="weibo-user">
+                                                  <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>
+                                                    {{ w.user.username }}
+                                                  </a>
+                                                </div>
+                                                <div class="weibo-time">{{ w.created_time }}</div>
+                                                <div class="weibo-content">
+                                                    {{ w.content }}
+                                                </div>
                                             </div>
-                                            <div class="weibo-cite-bottom clearfix">
-                                                <div class="weibo-cite-time float-left">11分钟前</div>
-                                                <div class="weibo-cite-cell-fav float-right flex">
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href="#"><span class="weibo-cite-fav-icon icon-exit"></span>135</a>
-                                                    </div>
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href="#"><span class="weibo-cite-fav-icon icon-bubble2"></span>9</a>
-                                                    </div>
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href="#"><span class="weibo-cite-fav-icon icon-heart"></span>9</a>
-                                                    </div>
+                                            <div class="float-right relative">
+                                                <a class="id-status-panel-control" href="#"><span class="icon-circle-down"></span></a>
+                                                <div class="id-status-panel weibo-status-div hide">
+                                                    <div class="weibo-status-item"><a href="#" class="delete-button weibo-status-item-a">删除</a></div>
+                                                    <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">置顶</a></div>
+                                                    <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为好友圈可见</a></div>
+                                                    <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为仅自己可见</a></div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="weibo-cell-bottom flex">
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
-                                </div>
-                            </div>
-                            <div class="weibo-comment-container">
-                                <div class="comment-container">
-                                    <div class="comment-input-div flex">
-                                        <div class="comment-avatar">
-                                            <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                        </div>
-                                        <div class="comment-right">
-                                            <div class="comment-send-div">
-                                                <textarea class="comment-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="comment-send-tool float-left flex">
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
+                                        {% if w.has_cite %}
+                                          <div class="weibo-cell-cite" id="id-weibo-cite-{{ w.cite_id }}" data-id="{{ w.cite_id }}">
+                                            <div class="weibo-cite-detail">
+                                              {% if not w.cite_w.is_hidden %}
+                                                <div>
+                                                    <div class="weibo-cite-user">
+                                                        <a href={{ url_for('weibo.homepage', user_id=w.cite_w.user_id) }}>
+                                                            {{ w.cite_w.user.username }}
+                                                        </a>
                                                     </div>
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
+                                                    <div class="weibo-cite-content">
+                                                        {{ w.cite_w.content }}
                                                     </div>
-                                                    <div class="comment-send-choice">
-                                                        <div><input type="checkbox" >同时转发到我的微博</div>
-                                                        <div><input type="checkbox" >同时评论给 瓜</div>
+                                                    <div class="weibo-cite-bottom clearfix">
+                                                        <div class="weibo-cite-time float-left">{{ w.cite_w.created_time }}</div>
+                                                        <div class="weibo-cite-cell-fav float-right flex">
+                                                            <div class="weibo-cite-cell-item">
+                                                                <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                                  <span class="weibo-cite-fav-icon icon-exit"></span>
+                                                                  {% if w.cite_w.cite_num %}
+                                                                    {{ w.cite_w.cite_num }}
+                                                                  {% else %}
+                                                                    0
+                                                                  {% endif %}
+                                                                </a>
+                                                            </div>
+                                                            <div class="weibo-cite-cell-item">
+                                                                <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                                  <span class="weibo-cite-fav-icon icon-bubble2"></span>
+                                                                  {{ w.cite_w.comments_num }}
+                                                                </a>
+                                                            </div>
+                                                            <div class="weibo-cite-cell-item">
+                                                                <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                                  <span class="weibo-cite-fav-icon icon-heart"></span>
+                                                                  {{ w.cite_w.fav_time }}
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="comment-setting float-right">
-                                                    <a class="comment-send-button button-white-a" href="#">
-                                                        评论
-                                                    </a>
+                                              {% else %}
+                                                <div class="weibo-cite-empty">
+                                                    <div class="weibo-empty-content"><span class="icon-cancel-circle"></span>抱歉，该微博已被原作者删除</div>
                                                 </div>
+                                              {% endif %}
                                             </div>
                                         </div>
+                                      {% endif%}
                                     </div>
-                                    <div class="weibo-comments">
-                                        <div class="weibo-comment-cell flex">
+                                </div>
+                                <div class="weibo-cell-bottom flex">
+                                    <div class="weibo-cell-b-item">
+                                      {% if w.is_collected %}
+                                        <a class="collect-button lightbutton" href="#">
+                                            <span class="weibo-cell-icon icon-star-full weibo-cell-icon-big"></span>
+                                            <span class="weibo-cell-b-item-text">已收藏</span>
+                                        </a>
+                                      {% else %}
+                                        <a class="collect-button" href="#">
+                                            <span class="weibo-cell-icon icon-star-empty"></span>
+                                            <span class="weibo-cell-b-item-text">收藏</span>
+                                        </a>
+                                      {% endif %}
+                                    </div>
+                                    <div class="weibo-cell-b-item">
+                                        <a class="cite-button" href="#">
+                                          <span class="weibo-cell-icon icon-exit"></span>
+                                          {% if w.cite_num %}
+                                            {{ w.cite_num }}
+                                          {% else %}
+                                            转发
+                                          {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="weibo-cell-b-item">
+                                      <a class="comment-button" href="#">
+                                        <span class="weibo-cell-icon icon-bubble2"></span>{{ w.comments_num }}
+                                      </a>
+                                    </div>
+                                    <div class="weibo-cell-b-item">
+                                        {% if w.is_favored %}
+                                          <a class="fav-button lightbutton" href="#">
+                                              <span class="weibo-cell-icon icon-heart weibo-cell-icon-big"></span>
+                                              <span class="weibo-cell-b-item-text"><span class="weibo-fav-num">{{ w.fav_num }}</span></span>
+                                          </a>
+                                        {% else %}
+                                          <a class="fav-button" href="#">
+                                              <span class="weibo-cell-icon icon-heart"></span>
+                                              <span class="weibo-cell-b-item-text"><span class="weibo-fav-num">{{ w.fav_num }}</span></span>
+                                          </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="weibo-comment-container hide">
+                                    <div class="comment-container">
+                                        <div class="comment-input-div flex">
                                             <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
+                                                <img class="comment-avatar-img" src="${ w.avatar }">
                                             </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
+                                            <div class="comment-right">
+                                                <div class="comment-send-div">
+                                                    <textarea class="comment-send-textarea"></textarea>
                                                 </div>
                                                 <div class="clearfix">
-                                                    <div class="comment-time float-left">11分钟前</div>
-                                                    <div class="comment-cell-fav float-right flex">
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">删除</a>
+                                                    <div class="comment-send-tool float-left flex">
+                                                        <div class="comment-send-item">
+                                                            <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
                                                         </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">回复</a>
+                                                        <div class="comment-send-item">
+                                                            <a href="#"><span class="weibo-send-icon icon-image"></span></a>
                                                         </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
+                                                        <div class="comment-send-choice">
+                                                            <div><input type="checkbox" >同时转发到我的微博</div>
+                                                            {% if w.has_cite %}
+                                                                <div><input type="checkbox" >同时评论给 {{ w.cite_w.user.username }}</div>
+                                                            {% endif %}
                                                         </div>
+                                                    </div>
+                                                    <div class="comment-setting float-right">
+                                                        <a class="comment-send-button button-white-a" href="#">
+                                                            评论
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
+                                        <div class="weibo-comments">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weibo-cite-container hide">
+                                    <div class="cite-container">
+                                        <div class="cite-input-div">
+                                            <div class="cite-top flex">
+                                                <div class="cite-top-item cite-top-item-active"><a href="#">转发到微博</a></div>
+                                                <div class="cite-top-item"><a href="#">转发到私信</a></div>
                                             </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
+                                            <div class="cite-bottom">
+                                                <div class="cite-send-div">
+                                                    <textarea class="cite-send-textarea"></textarea>
                                                 </div>
                                                 <div class="clearfix">
-                                                    <div class="comment-time float-left">11分钟前</div>
-                                                    <div class="comment-cell-fav float-right flex">
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">删除</a>
+                                                    <div class="cite-send-tool float-left flex">
+                                                        <div class="cite-send-item">
+                                                            <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
                                                         </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">回复</a>
+                                                        <div class="cite-send-item">
+                                                            <a href="#"><span class="weibo-send-icon icon-image"></span></a>
                                                         </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
+                                                        <div class="cite-send-choice">
+                                                            <div><input type="checkbox" >同时评论给 {{ w.username }}</div>
+                                                            {% if w.has_cite %}
+                                                              <div><input type="checkbox" >同时评论给原文作者 {{ w.cite_w.user.username }}</div>
+                                                            {% endif %}
                                                         </div>
+                                                    </div>
+                                                    <div class="cite-setting float-right">
+                                                        <a class="cite-status-radio" href="#"><span class="cite-status">公开</span><span class="icon-circle-down"></span></a>
+                                                        <div class="cite-status-div hide">
+                                                            <div class="cite-status-item"><a href="#" class="cite-status-item-a">公开</a></div>
+                                                            <div class="cite-status-item"><a href="#" class="cite-status-item-a">好友圈</a></div>
+                                                            <div class="cite-status-item"><a href="#" class="cite-status-item-a">仅自己可见</a></div>
+                                                        </div>
+                                                        <a class="cite-send-button button-white-a" href="#">
+                                                            转发
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="comment-time float-left">11分钟前</div>
-                                                    <div class="comment-cell-fav float-right flex">
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">回复</a>
-                                                        </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-more-comments">
-                                            查看更多<span class="more-comments-icon icon-circle-down"></span>
+                                        <div class="cite-comments">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="weibo-cite-container">
-                                <div class="cite-container">
-                                    <div class="cite-input-div">
-                                        <div class="cite-top flex">
-                                            <div class="cite-top-item cite-top-item-active"><a href="#">转发到微博</a></div>
-                                            <div class="cite-top-item"><a href="#">转发到私信</a></div>
-                                        </div>
-                                        <div class="cite-bottom">
-                                            <div class="cite-send-div">
-                                                <textarea class="cite-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="cite-send-tool float-left flex">
-                                                    <div class="cite-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                    </div>
-                                                    <div class="cite-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                    </div>
-                                                    <div class="cite-send-choice">
-                                                        <div><input type="checkbox" >同时评论给 好东西传送门</div>
-                                                        <div><input type="checkbox" >同时评论给原文作者 瓜</div>
-                                                    </div>
-                                                </div>
-                                                <div class="cite-setting float-right">
-                                                    <a class="cite-status-radio" href="#"><span class="cite-status">公开</span><span class="icon-circle-down"></span></a>
-                                                    <div class="cite-status-div hide">
-                                                        <div class="cite-status-item"><a href="#" class="cite-status-item-a">公开</a></div>
-                                                        <div class="cite-status-item"><a href="#" class="cite-status-item-a">好友圈</a></div>
-                                                        <div class="cite-status-item"><a href="#" class="cite-status-item-a">仅自己可见</a></div>
-                                                    </div>
-                                                    <a class="cite-send-button button-white-a" href="#">
-                                                        转发
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cite-comments">
-                                        <div class="weibo-cite-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="cite-detail">
-                                                <div class="cite-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="cite-content">
-                                                       第一次转发哈哈哈
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="cite-time float-left">11分钟前</div>
-                                                    <div class="cite-cell-fav float-right flex">
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">转发</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-cite-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="cite-detail">
-                                                <div class="cite-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="cite-content">
-                                                       第一次转发哈哈哈
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="cite-time float-left">11分钟前</div>
-                                                    <div class="cite-cell-fav float-right flex">
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">转发</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-cite-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="cite-detail">
-                                                <div class="cite-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="cite-content">
-                                                       第一次转发哈哈哈
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="cite-time float-left">11分钟前</div>
-                                                    <div class="cite-cell-fav float-right flex">
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">转发</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-cite-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="cite-detail">
-                                                <div class="cite-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="cite-content">
-                                                       第一次转发哈哈哈
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="cite-time float-left">11分钟前</div>
-                                                    <div class="cite-cell-fav float-right flex">
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">转发</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cite-comments-page flex">
-                                        <div class="cite-page-items cite-page-before"><a href="#">上一页</a></div>
-                                        <div class="cite-page-items"><a href="#">1</a></div>
-                                        <div class="cite-page-items"><a href="#">2</a></div>
-                                        <div class="cite-page-items"><a href="#">3</a></div>
-                                        <div class="cite-page-items"><a href="#">…</a></div>
-                                        <div class="cite-page-items"><a href="#">35</a></div>
-                                        <div class="cite-page-items cite-page-next"><a href="#">下一页</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="weibo-cell">
-                            <div class="weibo-cell-top flex">
-                                <div class="weibo-avatar-cell">
-                                    <a href="#">
-                                        <img class="weibo-avatar-img" src="/static/img/avatar_img/2.jpg">
-                                    </a>
-                                </div>
-                                <div class="weibo-detail">
-                                    <div class="clearfix">
-                                        <div class="float-left">
-                                            <div class="weibo-user"><a href="#">Wor若</a></div>
-                                            <div class="weibo-time">11分钟前</div>
-                                            <div class="weibo-content">
-                                                这是齐全的一天微博，哈哈哈，要拿这条修改哦
-                                                水水水
-                                            </div>
-                                        </div>
-                                        <div class="float-right relative">
-                                            <a href="#"><span class="icon-circle-down"></span></a>
-                                            <div class="weibo-status-div hide">
-                                                <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">删除</a></div>
-                                                <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">置顶</a></div>
-                                                <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为好友圈可见</a></div>
-                                                <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为仅自己可见</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="weibo-cell-cite">
-                                        <div class="weibo-cite-detail">
-                                            <div class="weibo-cite-user"><a href="#">Wor若</a></div>
-                                            <div class="weibo-cite-content">
-                                                这是一条被转发的微博，这是一条被转发的微博，这是一条被转发的微博，
-                                                这是一条被转发的微博，这是一条被转发的微博
-                                                水水水水水水水水水水水水水水水水水水水水水
-                                                水水水水水水水水水水水水水水水水水水水水水
-                                                水水水水水水水水水水水水水水水水水水水水水
-                                            </div>
-                                            <div class="weibo-cite-bottom clearfix">
-                                                <div class="weibo-cite-time float-left">11分钟前</div>
-                                                <div class="weibo-cite-cell-fav float-right flex">
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href="#"><span class="weibo-cite-fav-icon icon-exit"></span>135</a>
-                                                    </div>
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href="#"><span class="weibo-cite-fav-icon icon-bubble2"></span>9</a>
-                                                    </div>
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href="#"><span class="weibo-cite-fav-icon icon-heart"></span>9</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="weibo-cell-bottom flex">
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
-                                </div>
-                            </div>
-                            <div class="weibo-comment-container">
-                                <div class="comment-container">
-                                    <div class="comment-input-div flex">
-                                        <div class="comment-avatar">
-                                            <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                        </div>
-                                        <div class="comment-right">
-                                            <div class="comment-send-div">
-                                                <textarea class="comment-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="comment-send-tool float-left flex">
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                    </div>
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                    </div>
-                                                    <div class="comment-send-choice">
-                                                        <div><input type="checkbox" >同时转发到我的微博</div>
-                                                        <div><input type="checkbox" >同时评论给 瓜</div>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-setting float-right">
-                                                    <a class="comment-send-button button-white-a" href="#">
-                                                        评论
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="weibo-comments">
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="comment-time float-left">11分钟前</div>
-                                                    <div class="comment-cell-fav float-right flex">
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">回复</a>
-                                                        </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                    我是长的评论哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="comment-time float-left">11分钟前</div>
-                                                    <div class="comment-cell-fav float-right flex">
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">回复</a>
-                                                        </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="comment-time float-left">11分钟前</div>
-                                                    <div class="comment-cell-fav float-right flex">
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#">回复</a>
-                                                        </div>
-                                                        <div class="comment-cell-fav-item">
-                                                            <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-more-comments">
-                                            查看更多<span class="more-comments-icon icon-circle-down"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="weibo-cite-container">
-                                <div class="cite-container">
-                                    <div class="cite-input-div">
-                                        <div class="cite-top flex">
-                                            <div class="cite-top-item cite-top-item-active"><a href="#">转发到微博</a></div>
-                                            <div class="cite-top-item"><a href="#">转发到私信</a></div>
-                                        </div>
-                                        <div class="cite-bottom">
-                                            <div class="cite-send-div">
-                                                <textarea class="cite-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="cite-send-tool float-left flex">
-                                                    <div class="cite-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                    </div>
-                                                    <div class="cite-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                    </div>
-                                                    <div class="cite-send-choice">
-                                                        <div><input type="checkbox" >同时评论给 好东西传送门</div>
-                                                        <div><input type="checkbox" >同时评论给原文作者 瓜</div>
-                                                    </div>
-                                                </div>
-                                                <div class="cite-setting float-right">
-                                                    <a class="cite-status-radio" href="#"><span class="cite-status">公开</span><span class="icon-circle-down"></span></a>
-                                                    <div class="cite-status-div hide">
-                                                        <div class="cite-status-item"><a href="#" class="cite-status-item-a">公开</a></div>
-                                                        <div class="cite-status-item"><a href="#" class="cite-status-item-a">好友圈</a></div>
-                                                        <div class="cite-status-item"><a href="#" class="cite-status-item-a">仅自己可见</a></div>
-                                                    </div>
-                                                    <a class="cite-send-button button-white-a" href="#">
-                                                        转发
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cite-comments">
-                                        <div class="weibo-cite-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="cite-detail">
-                                                <div class="cite-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="cite-content">
-                                                       第一次转发哈哈哈
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="cite-time float-left">11分钟前</div>
-                                                    <div class="cite-cell-fav float-right flex">
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">转发</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-cite-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="cite-detail">
-                                                <div class="cite-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="cite-content">
-                                                       第一次转发哈哈哈
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="cite-time float-left">11分钟前</div>
-                                                    <div class="cite-cell-fav float-right flex">
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">转发</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-cite-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="cite-detail">
-                                                <div class="cite-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="cite-content">
-                                                       第一次转发哈哈哈
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="cite-time float-left">11分钟前</div>
-                                                    <div class="cite-cell-fav float-right flex">
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">转发</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-cite-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="cite-avatar-img" src="../static/img/avatar_img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="cite-detail">
-                                                <div class="cite-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="cite-content">
-                                                       第一次转发哈哈哈
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="cite-time float-left">11分钟前</div>
-                                                    <div class="cite-cell-fav float-right flex">
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">删除</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#">转发</a>
-                                                        </div>
-                                                        <div class="cite-cell-item">
-                                                            <a href="#"><span class="cite-fav-icon icon-heart"></span>赞</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cite-comments-page flex">
-                                        <div class="cite-page-items cite-page-before"><a href="#">上一页</a></div>
-                                        <div class="cite-page-items"><a href="#">1</a></div>
-                                        <div class="cite-page-items"><a href="#">2</a></div>
-                                        <div class="cite-page-items"><a href="#">3</a></div>
-                                        <div class="cite-page-items"><a href="#">…</a></div>
-                                        <div class="cite-page-items"><a href="#">35</a></div>
-                                        <div class="cite-page-items cite-page-next"><a href="#">下一页</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="weibo-cell">
-                            <div class="weibo-cell-top flex">
-                                <div class="weibo-avatar-cell">
-                                    <a href="#">
-                                        <img class="weibo-avatar-img" src="../static/img/4.jpg">
-                                    </a>
-                                </div>
-                                <div class="weibo-detail">
-                                    <div class="weibo-user">Wor若</div>
-                                    <div class="weibo-time">11分钟前</div>
-                                    <div class="weibo-content">
-                                        这是我的第一条微博，哈哈哈
-                                        那个什么女权，买100还要送50，不要精英主义
-                                        想办法让微博变长一点，看看效果怎么样，好像还不错，嘻嘻
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="weibo-cell-bottom flex">
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
-                                </div>
-                            </div>
-                            <div class="weibo-comment-container">
-                                <div class="comment-container">
-                                    <div class="comment-input-div flex">
-                                        <div class="comment-avatar">
-                                            <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                        </div>
-                                        <div class="comment-right">
-                                            <div class="comment-send-div">
-                                                <textarea class="comment-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="comment-send-tool float-left flex">
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                    </div>
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-setting float-right">
-                                                    <a class="comment-send-button button-white-a" href="#">
-                                                        评论
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="weibo-comments">
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/2.png">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">若:</a>
-                                                    <span class="comment-content">
-                                                    我是板凳，哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/4.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">瓜:</a>
-                                                    <span class="comment-content">
-                                                    不错
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="weibo-cell">
-                            <div class="weibo-cell-top flex">
-                                <div class="weibo-avatar-cell">
-                                    <a href="#">
-                                        <img class="weibo-avatar-img" src="../static/img/3.jpg">
-                                    </a>
-                                </div>
-                                <div class="weibo-detail">
-                                    <div class="weibo-user">Wor若</div>
-                                    <div class="weibo-time">11分钟前</div>
-                                    <div class="weibo-content">
-                                        这是第二条微博，哈哈哈
-                                        就是想让微博的timeline变长啊
-                                        话说微博不能超过140个字呢，然后图片该怎么上传呢？
-                                        还不知道
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="weibo-cell-bottom flex">
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
-                                </div>
-                            </div>
-                            <div class="weibo-comment-container">
-                                <div class="comment-container">
-                                    <div class="comment-input-div flex">
-                                        <div class="comment-avatar">
-                                            <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                        </div>
-                                        <div class="comment-right">
-                                            <div class="comment-send-div">
-                                                <textarea class="comment-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="comment-send-tool float-left flex">
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                    </div>
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-setting float-right">
-                                                    <a class="comment-send-button button-white-a" href="#">
-                                                        评论
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="weibo-comments">
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/2.png">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">若:</a>
-                                                    <span class="comment-content">
-                                                    我是板凳，哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/4.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">瓜:</a>
-                                                    <span class="comment-content">
-                                                    不错
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="weibo-cell">
-                            <div class="weibo-cell-top flex">
-                                <div class="weibo-avatar-cell">
-                                    <a href="#">
-                                        <img class="weibo-avatar-img" src="../static/img/2.png">
-                                    </a>
-                                </div>
-                                <div class="weibo-detail">
-                                    <div class="weibo-user"><a href="#">Wor若</a></div>
-                                    <div class="weibo-time">11分钟前</div>
-                                    <div class="weibo-content">
-                                        这是第三条微博，哈哈哈
-                                        水水水
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="weibo-cell-bottom flex">
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
-                                </div>
-                            </div>
-                            <div class="weibo-comment-container">
-                                <div class="comment-container">
-                                    <div class="comment-input-div flex">
-                                        <div class="comment-avatar">
-                                            <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                        </div>
-                                        <div class="comment-right">
-                                            <div class="comment-send-div">
-                                                <textarea class="comment-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="comment-send-tool float-left flex">
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                    </div>
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-setting float-right">
-                                                    <a class="comment-send-button button-white-a" href="#">
-                                                        评论
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="weibo-comments">
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="comment-time float-left">11分钟前</div>
-                                                    <div class="comment-cell-fav float-right">
-                                                        <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="weibo-cell">
-                            <div class="weibo-cell-top flex">
-                                <div class="weibo-avatar-cell">
-                                    <a href="#">
-                                        <img class="weibo-avatar-img" src="../static/img/2.png">
-                                    </a>
-                                </div>
-                                <div class="weibo-detail clearfix">
-                                    <div class="float-left">
-                                        <div class="weibo-user"><a href="#">Wor若</a></div>
-                                        <div class="weibo-time">11分钟前</div>
-                                        <div class="weibo-content">
-                                            这是齐全的一天微博，哈哈哈，要拿这条修改哦
-                                            水水水
-                                        </div>
-                                    </div>
-                                    <div class="float-right">
-                                        <a href="#"><span class="icon-circle-down"></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="weibo-cell-bottom flex">
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
-                                </div>
-                            </div>
-                            <div class="weibo-comment-container">
-                                <div class="comment-container">
-                                    <div class="comment-input-div flex">
-                                        <div class="comment-avatar">
-                                            <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                        </div>
-                                        <div class="comment-right">
-                                            <div class="comment-send-div">
-                                                <textarea class="comment-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="comment-send-tool float-left flex">
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                    </div>
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-setting float-right">
-                                                    <a class="comment-send-button button-white-a" href="#">
-                                                        评论
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="weibo-comments">
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="comment-time float-left">11分钟前</div>
-                                                    <div class="comment-cell-fav float-right">
-                                                        <a href="#"><span class="comment-fav-icon icon-heart"></span>赞</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="weibo-cell">
-                            <div class="weibo-cell-top flex">
-                                <div class="weibo-avatar-cell">
-                                    <a href="#">
-                                        <img class="weibo-avatar-img" src="../static/img/4.jpg">
-                                    </a>
-                                </div>
-                                <div class="weibo-detail">
-                                    <div class="weibo-user">Wor若</div>
-                                    <div class="weibo-time">11分钟前</div>
-                                    <div class="weibo-content">
-                                        这是我的第一条微博，哈哈哈
-                                        那个什么女权，买100还要送50，不要精英主义
-                                        想办法让微博变长一点，看看效果怎么样，好像还不错，嘻嘻
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="weibo-cell-bottom flex">
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-star-empty"></span>收藏</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>转发</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>评论</a>
-                                </div>
-                                <div class="weibo-cell-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>赞</a>
-                                </div>
-                            </div>
-                            <div class="weibo-comment-container">
-                                <div class="comment-container">
-                                    <div class="comment-input-div flex">
-                                        <div class="comment-avatar">
-                                            <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                        </div>
-                                        <div class="comment-right">
-                                            <div class="comment-send-div">
-                                                <textarea class="comment-send-textarea"></textarea>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="comment-send-tool float-left flex">
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                    </div>
-                                                    <div class="comment-send-item">
-                                                        <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-setting float-right">
-                                                    <a class="comment-send-button button-white-a" href="#">
-                                                        评论
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="weibo-comments">
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/3.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">Wor若:</a>
-                                                    <span class="comment-content">
-                                                    我是沙发，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/2.png">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">若:</a>
-                                                    <span class="comment-content">
-                                                    我是板凳，哈哈哈哈哈哈
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                        <div class="weibo-comment-cell flex">
-                                            <div class="comment-avatar">
-                                                <a href="#">
-                                                    <img class="comment-avatar-img" src="../static/img/4.jpg">
-                                                </a>
-                                            </div>
-                                            <div class="comment-detail">
-                                                <div class="comment-user">
-                                                    <a href="#">瓜:</a>
-                                                    <span class="comment-content">
-                                                    不错
-                                                </span>
-                                                </div>
-                                                <div class="comment-time">11分钟前</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
