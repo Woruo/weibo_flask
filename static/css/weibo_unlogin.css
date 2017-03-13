@@ -110,3 +110,35 @@ body {
     color: #ff8140;
     padding-bottom: 5px;
 }
+
+
+/*weibo cell*/
+.w-cell {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    padding: 20px 20px 20px 20px;
+}
+.w-cell + .w-cell {
+    margin-top: 10px;
+}
+.w-content {
+    line-height: 23px;
+}
+.w-bottom {
+    height: 20px;
+    margin-top:5px;
+    font-size: 12px;
+    color: #808080;
+    line-height: 20px;
+}
+.w-avatar-img {
+    width: 18px;
+    height: 18px;
+}
+.w-user {
+    padding-right: 10px;
+}
+.w-time {
+    padding-right: 10px;
+}

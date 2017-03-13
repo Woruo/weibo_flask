@@ -249,12 +249,30 @@ a:hover {
     font-size: 15px;
 }
 .weibo-send-tool {
-    padding-top: 10px;
-    height: 24px;
+    padding-top: 5px;
+    height: 30px;
+}
+.weibo-send-tag {
+    height: 30px;
+    line-height: 30px;
 }
 .weibo-send-item {
-    margin-right: 18px;
+    margin-right: 10px;
     font-size: 14px;
+    padding: 3px 5px;
+    border: 1px solid #fff;
+}
+.weibo-send-tag-active {
+    border: 1px solid #eb7350;
+}
+.weibo-send-tag-active a:link {
+    color: #eb7350;
+}
+.weibo-send-tag-active a:visited {
+    color: #eb7350;
+}
+.weibo-send-tag-active a:hover {
+    color: #eb7350;
 }
 .weibo-send-icon {
     display: inline-block;
@@ -284,6 +302,7 @@ a:hover {
     height: 38px;
     background: #ffffff;
     border-radius: 3px;
+    margin-bottom: 10px;
 }
 .weibo-nav-item {
     padding-left: 14px;
@@ -308,6 +327,37 @@ a:hover {
     min-height: 1000px;
 }
 
+/*微博收藏栏*/
+.weibo-collect-bar {
+    height: 38px;
+    background: #ffffff;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+.weibo-collect-item {
+    margin: 0 10px;
+    padding: 7px 0 14px;
+    height: 23px;
+    line-height: 23px;
+}
+.weibo-collect-num {
+    font-size: 12px;
+    padding-left: 5px;
+}
+.weibo-collect-item-active {
+    font-weight: bold;
+    border-bottom: 1px solid #fa7d3c;
+}
+/*微博点赞栏*/
+.weibo-fav-bar {
+    height: 38px;
+    background: #ffffff;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    padding-left: 14px;
+    line-height: 38px;
+}
+
 /*微博cell*/
 .weibo-cell {
     margin-top: 10px;
@@ -330,6 +380,12 @@ a:hover {
 .weibo-detail {
     margin-left: 10px;
     width: 500px;
+}
+.weibo-detail-left {
+    width: 486px;
+}
+.weibo-detail-right {
+    width: 14px;
 }
 .weibo-user {
     padding-top: 5px;

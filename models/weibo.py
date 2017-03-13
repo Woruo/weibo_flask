@@ -34,7 +34,7 @@ class Weibo(db.Model, ModelMixin):
         lazy='dynamic',
         order_by=lambda: Comment.created_time.desc()
     )
-    tag_id = db.Column(db.String(), db.ForeignKey('weibotags.id'))
+    tag_id = db.Column(db.Integer, db.ForeignKey('weibotags.id'))
 
     def __init__(self, form):
         self.content = form.get('content', '')
@@ -55,7 +55,7 @@ class Weibo(db.Model, ModelMixin):
         l = len(w)
         if l < 1:
             return False, None, '微博长度至少为1个字符'
-        elif l > 140:
+        elif self.tag_id != '5' and l > 140:
             return False, None, '微博长度不能超过140个字符'
         else:
             self.user = user

@@ -1,5 +1,6 @@
 from routes import *
 from models.user import User
+from models.weibo import Weibo
 from utils import log
 from routes import *
 
@@ -10,7 +11,9 @@ main = Blueprint('user', __name__)
 def login_view():
     u = current_user()
     if u is None:
-        return render_template('weibo.html')
+        ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.id.desc()).all()
+        print('weibo', len(ws))
+        return render_template('weibo.html', weibos=ws)
     else:
         return redirect(url_for('weibo.timeline_view', user_id=u.id))
 

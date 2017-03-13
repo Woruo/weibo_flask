@@ -5,11 +5,6 @@ from models.weibo import Weibo, WCollect, WFavorite
 main = Blueprint('weibo', __name__)
 
 
-@main.route('/')
-def weibo_view():
-    return render_template('weibo.html')
-
-
 @main.route('/<int:user_id>/timeline')
 @login_required
 def timeline_view(u, user_id):

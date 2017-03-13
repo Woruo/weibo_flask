@@ -45,6 +45,7 @@ var bindEventStatusPanelToggle = function () {
     })
 };
 
+
 var commentTempalte = function (c) {
   t = `
   <div id="id-comment-cell-${ c.id }" data-id="${ c.id }" class="weibo-comment-cell flex">
@@ -79,7 +80,6 @@ var commentTempalte = function (c) {
   `
     return t
 };
-
 
 var commentTempalte_fav = function (c) {
     t = `
@@ -118,6 +118,7 @@ var commentTempalte_fav = function (c) {
 `
     return t
 };
+
 
 var citeTempalte = function (c) {
   t = `
@@ -191,6 +192,7 @@ var citeTempalte_fav = function (c) {
   `
   return t
 }
+
 
 var weiboTemplate = function (w) {
     t = `
@@ -318,12 +320,51 @@ var weiboTemplate = function (w) {
     return t
 };
 
+
+// 首页微博显示
+var bindEventWeiboHomeShow = function () {
+
+}
+// 我的收藏微博显示
+var bindEventWeiboCollectShow = function () {
+
+}
+// 我的赞微博显示
+var bindEventWeiboFavShow = function () {
+
+}
+// 不同Tag标签微博显示
+var bindEventWeiboTagShow = function () {
+
+}
+
+
+var bindEventWeiboTag = function () {
+  $('.weibo-send-item').on('click', function () {
+    log('weibo-tag click')
+    var self = $(this);
+    var active_item = $('.weibo-send-tag-active');
+    log(self, active_item)
+    if (self.data('id') == active_item.data('id')) {
+        self.removeClass('weibo-send-tag-active')
+    } else {
+        $('.weibo-send-tag-active').removeClass('weibo-send-tag-active');
+        self.addClass('weibo-send-tag-active')
+    }
+  });
+}
+
 var bindEventWeiboAdd = function () {
     $('#id-weibo-send-button').on('click', function () {
         var content = $('#id-weibo-content').val();
+        var tag_id = $('.weibo-send-tag-active').data('id');
         var form = {
-            content: content
+            content: content,
         };
+        log('weibo add form', content, tag_id)
+        if ( $.inArray(tag_id, [1,2,3,4,5]) != -1 ) {
+          form['tag_id'] = tag_id
+        }
         log('weibo add click', form);
         var response = function (r) {
             log('weibo add r', r);
@@ -337,31 +378,6 @@ var bindEventWeiboAdd = function () {
             }
         };
         api.weiboAdd(form, response);
-        return false
-    })
-};
-
-var bindEventCommentAdd = function () {
-    $('.weibo-container').on('click', '.comment-send-button', function () {
-        var content = $(this).parent().parent().prev().children().val();
-        var weibo_id = $(this).closest('.weibo-cell').data('id');
-        var weiboCommentsContainer = $(this).parents('.comment-container').children('.weibo-comments');
-        log('comment add click', content, weibo_id);
-        var form = {
-            content: content,
-            weibo_id: weibo_id
-        };
-        var response = function (r) {
-            log('comment add response', r);
-            if (r.success) {
-                var comment = commentTempalte(r.data);
-                log(weiboCommentsContainer, $(this))
-                weiboCommentsContainer.prepend(comment).slideDown('slow');
-            } else {
-                log('add comment fail')
-            }
-        };
-        api.commentAdd(form, response);
         return false
     })
 };
@@ -389,6 +405,8 @@ var bindEventWeiboDelete = function () {
 };
 
 
+
+// 微博转发
 var bindEventCiteToggle = function () {
   $('.weibo-container').on('click', '.cite-button', function () {
       var citeContainer = $(this).parent().parent().next().next();
@@ -460,6 +478,7 @@ var bindEventWeiboCiteAdd = function () {
 }
 
 
+// 微博收藏
 var weiboCollect = function (form, collect_btn) {
     var response = function (r) {
             if (r.success) {
@@ -511,6 +530,7 @@ var bindEventWeiboCollect = function () {
 };
 
 
+// 微博点赞
 var weiboFavorite = function (form, fav_btn) {
     var response = function (r) {
         if (r.success) {
@@ -558,6 +578,35 @@ var bindEventWeiboFav = function () {
 };
 
 
+
+
+var bindEventCommentAdd = function () {
+    $('.weibo-container').on('click', '.comment-send-button', function () {
+        var content = $(this).parent().parent().prev().children().val();
+        var weibo_id = $(this).closest('.weibo-cell').data('id');
+        var weiboCommentsContainer = $(this).parents('.comment-container').children('.weibo-comments');
+        log('comment add click', content, weibo_id);
+        var form = {
+            content: content,
+            weibo_id: weibo_id
+        };
+        var response = function (r) {
+            log('comment add response', r);
+            if (r.success) {
+                var comment = commentTempalte(r.data);
+                log(weiboCommentsContainer, $(this))
+                weiboCommentsContainer.prepend(comment).slideDown('slow');
+            } else {
+                log('add comment fail')
+            }
+        };
+        api.commentAdd(form, response);
+        return false
+    })
+};
+
+
+// 评论点赞
 var commentFavorite = function (form, fav_btn) {
     var response = function (r) {
         if (r.success) {
@@ -617,6 +666,7 @@ var bindEventPersonInfoPanelToggle = function () {
 var bindEvent = function () {
     bindEventCommentToggle();
     bindEventStatusPanelToggle();
+    bindEventWeiboTag();
     bindEventWeiboAdd();
     bindEventCiteToggle();
     bindEventWeiboCiteAdd();

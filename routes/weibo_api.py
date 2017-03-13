@@ -6,11 +6,25 @@ from models.user import User
 main = Blueprint('weiboApi', __name__)
 
 
+@main.route('/collect/show', methods=['POST'])
+@login_required
+def collect_show(user):
+    pass
+    
+
+
+@main.route('/favor/show', methods=['POST'])
+@login_required
+def favor_show(user):
+    pass
+
+
 @main.route('/add', methods=['POST'])
 @login_required
 def add(user):
     form = request.form
     w = Weibo(form)
+    print('weibo add', w, type(w.tag_id))
     status, data, msg = w.save_weibo(user)
     print('weibo add', status, data, msg)
     return api_response(status, data, msg)
