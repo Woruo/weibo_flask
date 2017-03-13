@@ -23,6 +23,61 @@ def timeline_view(u, user_id):
     return render_template('weibo_home.html', weibos=ws, user=u, ws_l=ws_l, folowed_n=folowed_n, followers_n=followers_n)
 
 
+@main.route('/<int:user_id>/col_weibo')
+@login_required
+def col_weibo_view(u, user_id):
+    ws = Weibo.query.order_by(Weibo.id.desc()).all()
+    folowed_n = len(u.followed.all())
+    followers_n = len(u.followers.all())
+    w_u = Weibo.query.filter_by(user_id=u.id).all()
+    ws_l = len(w_u)
+    for w in ws:
+        w.user = User.query.filter_by(id=w.user_id).first()
+        w.is_collected = WCollect.query.filter_by(user_id=u.id, weibo_id=w.id).first() is not None
+        w.is_favored = WFavorite.query.filter_by(user_id=u.id, weibo_id=w.id).first() is not None
+        w.cite_w = Weibo.query.filter_by(id=w.cite_id).first()
+        if w.cite_w is not None:
+            w.cite_w.user = User.query.filter_by(id=w.cite_w.user_id).first()
+    return render_template('weibo_collect.html', weibos=ws, user=u, ws_l=ws_l, folowed_n=folowed_n, followers_n=followers_n)
+
+
+
+@main.route('/<int:user_id>/fav_weibo')
+@login_required
+def fav_weibo_view(u, user_id):
+    ws = Weibo.query.order_by(Weibo.id.desc()).all()
+    folowed_n = len(u.followed.all())
+    followers_n = len(u.followers.all())
+    w_u = Weibo.query.filter_by(user_id=u.id).all()
+    ws_l = len(w_u)
+    for w in ws:
+        w.user = User.query.filter_by(id=w.user_id).first()
+        w.is_collected = WCollect.query.filter_by(user_id=u.id, weibo_id=w.id).first() is not None
+        w.is_favored = WFavorite.query.filter_by(user_id=u.id, weibo_id=w.id).first() is not None
+        w.cite_w = Weibo.query.filter_by(id=w.cite_id).first()
+        if w.cite_w is not None:
+            w.cite_w.user = User.query.filter_by(id=w.cite_w.user_id).first()
+    return render_template('weibo_favor.html', weibos=ws, user=u, ws_l=ws_l, folowed_n=folowed_n, followers_n=followers_n)
+
+
+@main.route('/<int:user_id>/tag/<int:tag_id>')
+@login_required
+def tag_weibo_view(u, user_id, tag_id):
+    ws = Weibo.query.order_by(Weibo.id.desc()).all()
+    folowed_n = len(u.followed.all())
+    followers_n = len(u.followers.all())
+    w_u = Weibo.query.filter_by(user_id=u.id).all()
+    ws_l = len(w_u)
+    for w in ws:
+        w.user = User.query.filter_by(id=w.user_id).first()
+        w.is_collected = WCollect.query.filter_by(user_id=u.id, weibo_id=w.id).first() is not None
+        w.is_favored = WFavorite.query.filter_by(user_id=u.id, weibo_id=w.id).first() is not None
+        w.cite_w = Weibo.query.filter_by(id=w.cite_id).first()
+        if w.cite_w is not None:
+            w.cite_w.user = User.query.filter_by(id=w.cite_w.user_id).first()
+    return render_template('weibo_home.html', weibos=ws, user=u, ws_l=ws_l, folowed_n=folowed_n, followers_n=followers_n)
+
+
 @main.route('/<int:user_id>/homepage')
 def homepage(user_id):
     u = User.query.get(user_id)

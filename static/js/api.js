@@ -39,6 +39,11 @@ api.register = function (form, response){
     api.post(url, form, response)
 };
 
+// api.weiboColShow = function (response) {
+//     var url = '/api/weibo/collect/show';
+//     api.get(url, response)
+// };
+
 api.weiboAdd = function (form, response) {
     var url = '/api/weibo/add';
     api.post(url, form, response)

@@ -321,24 +321,6 @@ var weiboTemplate = function (w) {
 };
 
 
-// 首页微博显示
-var bindEventWeiboHomeShow = function () {
-
-}
-// 我的收藏微博显示
-var bindEventWeiboCollectShow = function () {
-
-}
-// 我的赞微博显示
-var bindEventWeiboFavShow = function () {
-
-}
-// 不同Tag标签微博显示
-var bindEventWeiboTagShow = function () {
-
-}
-
-
 var bindEventWeiboTag = function () {
   $('.weibo-send-item').on('click', function () {
     log('weibo-tag click')

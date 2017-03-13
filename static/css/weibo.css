@@ -360,10 +360,12 @@ a:hover {
 
 /*微博cell*/
 .weibo-cell {
-    margin-top: 10px;
     background: #fff;
     border-radius: 3px;
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+.weibo-cell + .weibo-cell {
+    margin-top: 10px;
 }
 .weibo-cell-top {
     padding: 20px 20px 4px 20px;

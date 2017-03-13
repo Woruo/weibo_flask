@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import time
+# from models.user import User
+# from models.weibo import Weibo, WCollect, WFavorite
 
 db = SQLAlchemy()
 

@@ -39,6 +39,13 @@ def login():
     return api_response(True, {'id': user_id}, message=msg)
 
 
+@main.route('/logout')
+@login_required
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('.login_view'))
+
+
 @main.route('/profile')
 def user_profile():
     user = current_user()

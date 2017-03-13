@@ -134,6 +134,15 @@ class WCollect(db.Model, ModelMixin):
             w.save()
             return True, wc.response(), '取消收藏成功'
 
+    @classmethod
+    def show_collect_weibo(cls, user):
+        wcollects = user.wcollects.all()
+        ws = []
+        for wc in wcollects:
+            w = Weibo.query.get(wc.weibo_id)
+            ws.append(w.response())
+        return True, ws, '查询用户收藏微博成功'
+
     def response(self):
         return dict(
             id=self.id,

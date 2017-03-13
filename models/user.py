@@ -2,8 +2,6 @@ from . import ModelMixin
 from . import db
 from . import timestamp
 
-
-
 class Follow(db.Model, ModelMixin):
     __tablename__ = 'follows'
     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
@@ -25,7 +23,7 @@ class User(db.Model, ModelMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String())
-    password = db.Column(db.String())
+    password_hash = db.Column(db.String())
     created_time = db.Column(db.Integer, default=0)
     avatar = db.Column(db.String())
     email = db.Column(db.String(), default='')
