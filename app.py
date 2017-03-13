@@ -2,8 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager, Shell
 from models import db
-from models.user import User, Follow
-from models.weibo import Weibo, WCollect, WFavorite, Comment
+
 
 from routes.user import main as routes_user
 from routes.weibo import main as routes_weibo
@@ -12,6 +11,14 @@ from routes.weibo_api import main as routes_api_weibo
 app = Flask(__name__)
 db_path = 'Wor.db'
 secret_key = 'random_string'
+FLASKY_MAIL_SUBJECT_PREFIX = '[Weibo_register]'
+FLASKY_MAIL_SENDER = '731051689@qq.com'
+FLASKY_ADMIN = 'Wor若'
+MAIL_SERVER = 'smtp.qq.com'
+MAIL_PORT = 587
+MAIL_USERNAME = '731051689@qq.com'
+MAIL_PASSWORD = 'pwyiftwecmccbbfh'
+
 manager = Manager(app)
 
 
@@ -26,7 +33,10 @@ def configure_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_path)
     db.init_app(app)
+    from routes import mail
+    mail.init_app(app)
     register_route(app)
+
 
 
 def configured_app():
@@ -46,6 +56,8 @@ def server():
 
 
 def make_shell_context():
+    from models.user import User, Follow
+    from models.weibo import Weibo, WCollect, WFavorite, Comment
     return dict(app=app, db=db, User=User, Follow=Follow, Comment=Comment)
 
 

@@ -2,6 +2,7 @@ from . import ModelMixin
 from . import db
 from . import timestamp
 from models.user import User
+from random import randint
 
 
 class weiboTag(db.Model, ModelMixin):
@@ -87,6 +88,25 @@ class Weibo(db.Model, ModelMixin):
         print(cs)
         return True, cs, '查询转发评论成功'
 
+    @classmethod
+    def add_fake_weibo(cls, user):
+        weibo = ['什么标签都没有的微博啊啊啊啊啊～', '后端啊啊啊啊啊啊～', '前端啊啊啊啊啊啊～', '生活啊啊啊啊啊啊～', '互联网啊啊啊啊啊啊～',
+                 '长微博啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                 啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                 啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                 啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                 啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                 啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                 啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～']
+        for i in range(1, 30):
+            id = i % 5
+            form = {
+                'content': weibo[id],
+                'tag_id': id,
+                'user_id': user.id
+            }
+            w = Weibo(**form)
+            w.save()
 
     def response(self):
         return dict(
@@ -143,6 +163,20 @@ class WCollect(db.Model, ModelMixin):
             ws.append(w.response())
         return True, ws, '查询用户收藏微博成功'
 
+    @classmethod
+    def add_fake_wcollect(cls):
+        ws = Weibo.query.all()
+        us = User.query.all()
+        for i in range(15):
+            j = randint(0, len(ws))
+            k = randint(0, len(us))
+            form = {
+                'weibo_id': ws[j].id,
+                'user_id': us[k].id
+            }
+            wc = WCollect(**form)
+            wc.save()
+
     def response(self):
         return dict(
             id=self.id,
@@ -180,6 +214,20 @@ class WFavorite(db.Model, ModelMixin):
             w.fav_num -= 1
             w.save()
             return True, wf.response(), '取消喜欢成功'
+
+    @classmethod
+    def add_fake_wfavorite(cls):
+        ws = Weibo.query.all()
+        us = User.query.all()
+        for i in range(20):
+            j = randint(0, len(ws))
+            k = randint(0, len(us))
+            form = {
+                'weibo_id': ws[j].id,
+                'user_id': us[k].id
+            }
+            wf = WFavorite(**form)
+            wf.save()
 
     def response(self):
         return dict(
@@ -235,6 +283,27 @@ class Comment(db.Model, ModelMixin):
         self.save()
         return True, self.response(), '评论成功'
 
+    @classmethod
+    def add_fake_comment(cls):
+        comment = ['我是沙发～', '沙发好，我是地板啊啊啊啊～，别踩我，疼！', '楼上真搞笑～', '这个微博的主题是什么啊啊啊～',
+                   '长评论啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                   啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                   啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
+                   啊啊啊啊啊啊～啊啊啊啊啊啊～听说可以100字', '诶呀，我就是想评论一下而已']
+        l = len(comment)
+        ws = Weibo.query.all()
+        us = User.query.all()
+        for w in ws:
+            for i in range(l):
+                user = us[randint(0, len(us))]
+                form = {
+                    'content': comment[id],
+                    'weibo_id': w.id,
+                    'user_id': user.id
+                }
+                c = Comment(**form)
+                c.save()
+
     def response(self):
         return dict(
             id=self.id,
@@ -245,36 +314,6 @@ class Comment(db.Model, ModelMixin):
             user_id=self.user_id,
             fav_num=self.fav_num,
         )
-
-
-class Commentchat(db.Model, ModelMixin):
-    __tablename__ = 'commentchats'
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String())
-    created_time = db.Column(db.Integer, default=0)
-    user_id = db.Column(db.Integer)
-    weibo_id = db.Column(db.Integer)
-    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
-    fav_num = db.Column(db.Integer, default=0)
-
-    def __int__(self, form):
-        self.content = form.get('content', '')
-        self.created_time = timestamp()
-        self.comment_id = form.get('comment_id', None)
-        self.weibo_id = form.get('weibo_id', None)
-
-    def save_chat(self, user):
-        length = len(self.content.strip())
-        if length < 1:
-            return False, None, '评论需大于1个字符'
-        elif length > 100:
-            return False, None, '评论不能超过100个字符'
-        self.user_id = user.id
-        self.user = user
-        self.comment = Comment.query.get(self.comment_id)
-        self.comment.chat_num += 1
-        self.save()
-        return True, self.response(), '评论成功'
 
 
 class CFavorite(db.Model, ModelMixin):
@@ -307,6 +346,125 @@ class CFavorite(db.Model, ModelMixin):
             c.fav_num -= 1
             c.save()
             return True, cf.response(), '取消喜欢成功'
+
+    def response(self):
+        return dict(
+            id=self.id,
+            user_id=self.user_id,
+            weibo_id=self.weibo_id,
+            comment_id=self.comment_id,
+        )
+
+
+class Commentchat(db.Model, ModelMixin):
+    __tablename__ = 'commentchats'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String())
+    created_time = db.Column(db.Integer, default=0)
+    user_id = db.Column(db.Integer)
+    weibo_id = db.Column(db.Integer)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+    fav_num = db.Column(db.Integer, default=0)
+
+    def __int__(self, form):
+        self.content = form.get('content', '')
+        self.created_time = timestamp()
+        self.comment_id = form.get('comment_id', None)
+        self.weibo_id = form.get('weibo_id', None)
+
+    def save_chat(self, user):
+        length = len(self.content.strip())
+        if length < 1:
+            return False, None, '评论需大于1个字符'
+        elif length > 100:
+            return False, None, '评论不能超过100个字符'
+        self.user_id = user.id
+        self.user = user
+        self.comment = Comment.query.get(self.comment_id)
+        self.comment.chat_num += 1
+        self.save()
+        return True, self.response(), '评论成功'
+
+    @classmethod
+    def add_fake_commentchat(cls):
+        comment = ['哈哈哈，成功捕捉一枚野生瓜']
+        g = User.query.filter_by(username='瓜').first()
+        cs = Comment.query.filter_by(user_id=g.id).all()
+        us = User.query.all()
+        for c in cs:
+            for i in range(10):
+                user = us[randint(0, len(us))]
+                w = Weibo.query.get(c.weibo_id)
+                form = {
+                    'content': comment,
+                    'comment_id': c.id,
+                    'user_id': user.id,
+                    'weibo_id': w.id
+                }
+                c = Comment(**form)
+                c.save()
+
+    @classmethod
+    def show_comment_chats(cls, comment_id, user):
+        if comment_id is None:
+            return False, None, '查询评论失败，该微博不存在'
+        cchats = Commentchat.query.filter_by(comment_id=comment_id).all()
+        ccs = []
+        for c in cchats:
+            c.user = User.query.get(c.user_id)
+            r = c.response()
+            if CFavorite.query.filter_by(comment_id=c.id, user_id=user.id).first() is not None:
+                r['is_fav'] = True
+            else:
+                r['is_fav'] = False
+            ccs.append(r)
+        print(ccs)
+        return True, ccs, '查询评论成功'
+
+    def response(self):
+        return dict(
+            id=self.id,
+            content=self.content,
+            username=self.user.username,
+            avatar=self.user.avatar,
+            created_time=self.created_time,
+            user_id=self.user_id,
+            fav_num=self.fav_num,
+        )
+
+
+class CchatFavorite(db.Model, ModelMixin):
+    __tablename__ = 'cChatfavorites'
+    id = db.Column(db.Integer, primary_key=True)
+    created_time = db.Column(db.Integer, default=0)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    weibo_id = db.Column(db.Integer)
+    comment_id = db.Column(db.Integer)
+    cchat_id = db.Column(db.Integer)
+
+    def __init__(self, form):
+        self.created_time = timestamp()
+        self.weibo_id = form.get('weibo_id', None)
+        self.comment_id = form.get('comment_id', None)
+        self.cchat_id = form.get('cchat_id', None)
+
+    def save_Favorite(self, user):
+        if self.cchat_id is None:
+            return False, None, '喜欢失败，该评论不存在'
+        ccf = CchatFavorite.query.filter_by(cchat_id=self.cchat_id, comment_id=self.comment_id, user_id=user.id).first()
+        if ccf is None:
+            self.user_id = user.id
+            self.save()
+            cc = Commentchat.query.get(self.cchat_id)
+            cc.fav_num += 1
+            cc.save()
+            return True, self.response(), '喜欢成功'
+        else:
+            ccf.delete()
+            cc = Commentchat.query.get(ccf.comment_id)
+            cc.fav_num -= 1
+            cc.save()
+            return True, ccf.response(), '取消喜欢成功'
 
     def response(self):
         return dict(

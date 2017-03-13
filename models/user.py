@@ -1,12 +1,28 @@
 from . import ModelMixin
 from . import db
 from . import timestamp
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+import hashlib
+from werkzeug.security import generate_password_hash, check_password_hash
+from random import randint
+
+
 
 class Follow(db.Model, ModelMixin):
     __tablename__ = 'follows'
     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     followed_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     timestamp = db.Column(db.Integer)
+
+    @classmethod
+    def add_fake_follow(cls):
+        us = User.query.all()
+        l = len(us)
+        for u in us:
+            for i in range(l//2):
+                j = randint(0, l)
+                u.follow(us[j])
+                u.save()
 
 
 class userTag(db.Model, ModelMixin):
@@ -26,6 +42,7 @@ class User(db.Model, ModelMixin):
     password_hash = db.Column(db.String())
     created_time = db.Column(db.Integer, default=0)
     avatar = db.Column(db.String())
+    confirmed = db.Column(db.Boolean, default=False)
     email = db.Column(db.String(), default='')
     note = db.Column(db.String(), default='')
     location = db.Column(db.String(), default='')
@@ -55,6 +72,12 @@ class User(db.Model, ModelMixin):
     def get_avatar(self):
         avatar_n = str(self.id % 10)
         self.avatar = '/static/img/avatar_img/{}.jpg'.format(avatar_n)
+
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     def validate_register(self):
         err_msgs = ''
@@ -107,6 +130,84 @@ class User(db.Model, ModelMixin):
 
     def is_admin(self):
         return self.id == 1
+
+    def confirm(self, token):
+        s = Serializer(secret_key)
+        try:
+            data = s.loads(token)
+        except:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        self.save()
+        return True
+
+    def generate_reset_token(self, expiration=3600):
+        s = Serializer(secret_key, expiration)
+        return s.dumps({'reset': self.id})
+
+    def reset_password(self, token, new_password):
+        s = Serializer(secret_key)
+        try:
+            data = s.loads(token)
+        except:
+            return False
+        if data.get('reset') != self.id:
+            return False
+        self.password = new_password
+        self.save()
+        return True
+
+    def generate_email_change_token(self, new_email, expiration=3600):
+        s = Serializer(secret_key, expiration)
+        return s.dumps({'change_email': self.id, 'new_email': new_email})
+
+    def generate_auth_token(self, expiration):
+        s = Serializer(secret_key,
+                       expires_in=expiration)
+        return s.dumps({'id': self.id})
+
+    def change_email(self, token):
+        s = Serializer(secret_key)
+        try:
+            data = s.loads(token)
+        except:
+            return False
+        if data.get('change_email') != self.id:
+            return False
+        new_email = data.get('new_email')
+        if new_email is None:
+            return False
+        if self.query.filter_by(email=new_email).first() is not None:
+            return False
+        self.email = new_email
+        self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        self.save()
+        return True
+
+    @classmethod
+    def add_fake_user(cls):
+        username = ['Wor若', '瓜', '包', 'lin', 'SumNer', '菜', '森', 'HTML5',
+                    'Python', 'Github精选', '我在扯淡', '微博小员工', '和菜头', 'vzch', 'winter', '徐白', 'Hush', '吹']
+        location = ['北京', '上海', '杭州', '深圳', '广州']
+        num = '1234567890'
+        password = '123'
+        password_hash = generate_password_hash(password)
+        for i in range(len(username)):
+            email = ''.join([num[randint(0, 9)] for i in range(9)]) + '@qq.com'
+            form = {
+                'username': username[i],
+                'email': email,
+                'confirmed': True,
+                'location': location[randint(0, 4)],
+                'intro': '可爱的掏粪工' ,
+                'password_hash': password_hash,
+                'note': '我是北纬40度最帅的掏粪工'
+            }
+            u = User(**form)
+            u.save()
+
 
 
 if __name__ == "__main__":

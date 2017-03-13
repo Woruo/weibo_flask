@@ -1,0 +1,159 @@
+body {
+    background: #bee1f5 url("../img/bg_reg.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
+}
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.flex {
+    display: flex;
+}
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+a:link {
+    color: #333;
+}
+a:visited {
+    color: #333;
+}
+a:hover {
+    color: #eb7350;
+}
+.orange-a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #eb7350;
+}
+.orange-a:link {
+    color: #eb7350;
+}
+.orange-a:visited {
+    color: #eb7350;
+}
+.orange-a:hover {
+    color: #eb7350;
+}
+
+.relative {
+    position: relative;
+}
+.block-div{
+    display: block;
+}
+.hide {
+    display: none;
+}
+.button-white-a {
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+}
+.button-white-a:link {
+    color: #fff;
+}
+.button-white-a:visited  {
+    color: #fff;
+}
+.text-center {
+    text-align: center;
+}
+
+
+
+
+.tool-contianer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid #fa7d3c;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.15);
+}
+.tool-center-container {
+    width: 900px;
+    margin: 0 auto;
+}
+.tool-head {
+    font-size: 50px;
+    height: 164px;
+    padding: 10px 0;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 164px;
+}
+.tool-icon {
+    margin-right: 8px;
+}
+.tool-reg-container {
+    height: 500px;
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 3px;
+}
+.reg-nav {
+    padding: 24px 0px 22px 40px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 22px;
+
+}
+.reg-left-cont {
+    width: 600px;
+    height: 300px;
+    margin: 29px 0 78px 20px;
+}
+.reg-right-cont {
+    width: 210px;
+    margin: 30px 30px 0px 0px;
+
+}
+.reg-item {
+    margin-bottom: 14px;
+}
+.reg-input {
+    margin: 0 7px 0 0;
+}
+.reg-text {
+    width: 160px;
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+    margin-right: 8px;
+}
+.input-reg {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 28px;
+    width: 196px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.15) inset;
+    background-color: rgb(250, 255, 189);
+    font-size: 14px;
+}
+
+.reg-btn {
+    display: inline-block;
+    background: #FFA00A;
+    color: #fff;
+    border: 1px solid #ff9b01;
+    box-shadow: none;
+    padding: 0 10px;
+    width: 196px;
+    height: 38px;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 38px;
+    margin: 10px 0px 12px 168px;
+}
+
