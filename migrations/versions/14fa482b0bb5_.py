@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 485450fc3387
+Revision ID: 14fa482b0bb5
 Revises: 
-Create Date: 2017-03-12 12:05:53.444280
+Create Date: 2017-03-14 13:12:17.797855
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '485450fc3387'
+revision = '14fa482b0bb5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,15 +31,28 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(), nullable=True),
-    sa.Column('password', sa.String(), nullable=True),
+    sa.Column('password_hash', sa.String(), nullable=True),
     sa.Column('created_time', sa.Integer(), nullable=True),
     sa.Column('avatar', sa.String(), nullable=True),
+    sa.Column('confirmed', sa.Boolean(), nullable=True),
     sa.Column('email', sa.String(), nullable=True),
     sa.Column('note', sa.String(), nullable=True),
     sa.Column('location', sa.String(), nullable=True),
     sa.Column('intro', sa.String(), nullable=True),
-    sa.Column('tag_id', sa.String(), nullable=True),
+    sa.Column('tag_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['tag_id'], ['usertags.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('username')
+    )
+    op.create_table('cChatfavorites',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('created_time', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('weibo_id', sa.Integer(), nullable=True),
+    sa.Column('comment_id', sa.Integer(), nullable=True),
+    sa.Column('cchat_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('cfavorites',
@@ -80,7 +93,7 @@ def upgrade():
     sa.Column('cite_id', sa.Integer(), nullable=True),
     sa.Column('origin_w_id', sa.Integer(), nullable=True),
     sa.Column('is_hidden', sa.Integer(), nullable=True),
-    sa.Column('tag_id', sa.String(), nullable=True),
+    sa.Column('tag_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['tag_id'], ['weibotags.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -129,6 +142,7 @@ def downgrade():
     op.drop_table('wcollects')
     op.drop_table('follows')
     op.drop_table('cfavorites')
+    op.drop_table('cChatfavorites')
     op.drop_table('users')
     op.drop_table('weibotags')
     op.drop_table('usertags')

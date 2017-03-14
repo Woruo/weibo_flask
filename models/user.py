@@ -7,7 +7,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from random import randint
 
 
-
 class Follow(db.Model, ModelMixin):
     __tablename__ = 'follows'
     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
@@ -19,8 +18,8 @@ class Follow(db.Model, ModelMixin):
         us = User.query.all()
         l = len(us)
         for u in us:
-            for i in range(l//2):
-                j = randint(0, l)
+            for i in range(l // 2):
+                j = randint(0, l-1)
                 u.follow(us[j])
                 u.save()
 
@@ -38,12 +37,12 @@ class userTag(db.Model, ModelMixin):
 class User(db.Model, ModelMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String())
+    username = db.Column(db.String(), unique=True)
     password_hash = db.Column(db.String())
     created_time = db.Column(db.Integer, default=0)
     avatar = db.Column(db.String())
     confirmed = db.Column(db.Boolean, default=False)
-    email = db.Column(db.String(), default='')
+    email = db.Column(db.String(), default='', unique=True)
     note = db.Column(db.String(), default='')
     location = db.Column(db.String(), default='')
     intro = db.Column(db.String(), default='')
@@ -62,10 +61,11 @@ class User(db.Model, ModelMixin):
     wcollects = db.relationship('WCollect', backref='user', lazy='dynamic', order_by='desc(WCollect.id)')
     wfavorites = db.relationship('WFavorite', backref='user', lazy='dynamic', order_by='desc(WFavorite.id)')
     cfavorites = db.relationship('CFavorite', backref='user', lazy='dynamic', order_by='desc(CFavorite.id)')
-    tag_id = db.Column(db.String(), db.ForeignKey('usertags.id'))
+    tag_id = db.Column(db.Integer(), db.ForeignKey('usertags.id'))
 
     def __init__(self, form):
         self.username = form.get('username', '')
+        self.email = form.get('email', '')
         self.password = form.get('password', '')
         self.created_time = timestamp()
 
@@ -73,7 +73,7 @@ class User(db.Model, ModelMixin):
         avatar_n = str(self.id % 10)
         self.avatar = '/static/img/avatar_img/{}.jpg'.format(avatar_n)
 
-    def password(self, password):
+    def hash_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def verify_password(self, password):
@@ -87,6 +87,7 @@ class User(db.Model, ModelMixin):
         if len(self.password) <= 2:
             err_msgs += '密码长度必须大于2<br>'
         if err_msgs == '':
+            self.hash_password()
             self.save()
             self.get_avatar()
             self.save()
@@ -97,9 +98,9 @@ class User(db.Model, ModelMixin):
     def validate_login(self):
         err_msg = '登录失败'
         suc_msg = '登录成功'
-        user = User.query.filter_by(username=self.username,
-                                    password=self.password).first()
-        if user is not None:
+        user = User.query.filter_by(username=self.username).first()
+        print(self.password_hash, generate_password_hash('123'), user)
+        if check_password_hash(user.password_hash, self.password):
             return user.id, suc_msg
         return None, err_msg
 
@@ -132,6 +133,7 @@ class User(db.Model, ModelMixin):
         return self.id == 1
 
     def confirm(self, token):
+        from app import secret_key
         s = Serializer(secret_key)
         try:
             data = s.loads(token)
@@ -144,10 +146,12 @@ class User(db.Model, ModelMixin):
         return True
 
     def generate_reset_token(self, expiration=3600):
+        from app import secret_key
         s = Serializer(secret_key, expiration)
         return s.dumps({'reset': self.id})
 
     def reset_password(self, token, new_password):
+        from app import secret_key
         s = Serializer(secret_key)
         try:
             data = s.loads(token)
@@ -160,15 +164,18 @@ class User(db.Model, ModelMixin):
         return True
 
     def generate_email_change_token(self, new_email, expiration=3600):
+        from app import secret_key
         s = Serializer(secret_key, expiration)
         return s.dumps({'change_email': self.id, 'new_email': new_email})
 
     def generate_auth_token(self, expiration):
+        from app import secret_key
         s = Serializer(secret_key,
                        expires_in=expiration)
         return s.dumps({'id': self.id})
 
     def change_email(self, token):
+        from app import secret_key
         s = Serializer(secret_key)
         try:
             data = s.loads(token)
@@ -199,15 +206,16 @@ class User(db.Model, ModelMixin):
             form = {
                 'username': username[i],
                 'email': email,
-                'confirmed': True,
-                'location': location[randint(0, 4)],
-                'intro': '可爱的掏粪工' ,
-                'password_hash': password_hash,
-                'note': '我是北纬40度最帅的掏粪工'
             }
-            u = User(**form)
+            u = User(form)
+            u.confirmed = True
+            u.location = location[randint(0, 4)]
+            u.note = '我是北纬40度最帅的掏粪工'
+            u.intro = '可爱的掏粪工'
+            u.password_hash = password_hash
             u.save()
-
+            u.get_avatar()
+            u.save()
 
 
 if __name__ == "__main__":

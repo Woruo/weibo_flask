@@ -22,7 +22,7 @@ def api_response(status=False, data=None, message=None):
         data=data,
         message=message
     )
-    print(json.dumps(r, ensure_ascii=False))
+    # print(json.dumps(r, ensure_ascii=False))
     return json.dumps(r, ensure_ascii=False)
 
 
@@ -39,7 +39,9 @@ def login_required(f):
     @wraps(f)
     def function(*args, **kwargs):
         u = current_user()
-        if u is None and u.confirmed:
+        if u is None:
+            return redirect(url_for('user.login_view'))
+        if not u.confirmed:
             return redirect(url_for('user.login_view'))
         return f(u, *args, **kwargs)
 

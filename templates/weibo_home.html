@@ -125,16 +125,6 @@
                     <input class="input-weibo-nav-search" placeholder="搜索我关注人的微博">
                 </div>
             </div>
-            <div class="weibo-collect-bar clearfix hide">
-                <div class="weibo-collect-items float-left flex">
-                    <div class="weibo-collect-item"><a href="#">我的收藏 <span class="weibo-collect-num"> (共4条) </span></a></div>
-                    <div class="weibo-collect-item"><a href="#">热门收藏</a></div>
-                </div>
-                <div class="weibo-nav-search float-right">
-                    <input class="input-weibo-nav-search" placeholder="搜索我关注人的微博">
-                </div>
-            </div>
-            <div class="weibo-fav-bar hide">赞过的微博</div>
             <div class="weibo-container">
                 {% for w in weibos %}
                     <div id="id-weibo-cell-{{ w.id }}" data-id="{{ w.id }}" class="weibo-cell">
@@ -168,41 +158,41 @@
                                     </div>
                                 </div>
                                 {% if w.has_cite %}
-                                  <div class="weibo-cell-cite" id="id-weibo-cite-{{ w.cite_id }}" data-id="{{ w.cite_id }}">
+                                  <div class="weibo-cell-cite" id="id-weibo-cite-{{ w.origin_w_id }}" data-id="{{ w.origin_w_id }}">
                                     <div class="weibo-cite-detail">
-                                      {% if not w.cite_w.is_hidden %}
+                                      {% if not w.origin_w.is_hidden %}
                                         <div>
                                             <div class="weibo-cite-user">
-                                                <a href={{ url_for('weibo.homepage', user_id=w.cite_w.user_id) }}>
-                                                    {{ w.cite_w.user.username }}
+                                                <a href={{ url_for('weibo.homepage', user_id=w.origin_w.user_id) }}>
+                                                    {{ w.origin_w.user.username }}
                                                 </a>
                                             </div>
                                             <div class="weibo-cite-content">
-                                                {{ w.cite_w.content }}
+                                                {{ w.origin_w.content }}
                                             </div>
                                             <div class="weibo-cite-bottom clearfix">
-                                                <div class="weibo-cite-time float-left">{{ w.cite_w.created_time }}</div>
+                                                <div class="weibo-cite-time float-left">{{ w.origin_w.created_time }}</div>
                                                 <div class="weibo-cite-cell-fav float-right flex">
                                                     <div class="weibo-cite-cell-item">
-                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                        <a href={{ url_for('weibo.detail', id=w.origin_w.id) }}>
                                                           <span class="weibo-cite-fav-icon icon-exit"></span>
-                                                          {% if w.cite_w.cite_num %}
-                                                            {{ w.cite_w.cite_num }}
+                                                          {% if w.origin_w.cite_num %}
+                                                            {{ w.origin_w.cite_num }}
                                                           {% else %}
                                                             0
                                                           {% endif %}
                                                         </a>
                                                     </div>
                                                     <div class="weibo-cite-cell-item">
-                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                        <a href={{ url_for('weibo.detail', id=w.origin_w.id) }}>
                                                           <span class="weibo-cite-fav-icon icon-bubble2"></span>
-                                                          {{ w.cite_w.comments_num }}
+                                                          {{ w.origin_w.comments_num }}
                                                         </a>
                                                     </div>
                                                     <div class="weibo-cite-cell-item">
-                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                        <a href={{ url_for('weibo.detail', id=w.origin_w.id) }}>
                                                           <span class="weibo-cite-fav-icon icon-heart"></span>
-                                                          {{ w.cite_w.fav_time }}
+                                                          {{ w.origin_w.fav_time }}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -357,18 +347,18 @@
                     </div>
                     <div class="person-detail">
                         <div class="person-name">
-                            <span class="person-name-left"><a href="#">{{ user.username }}</a></span>
+                            <span class="person-name-left"><a href={{ url_for('weibo.homepage', user_id=user.id) }}>{{ user.username }}</a></span>
                             <span class="person-name-right">LV4</span>
                         </div>
                         <div class="person-focus flex">
                             <div class="person-focus-item">
-                                <a href="#">{{ folowed_n }} <span>关注</span></a>
+                                <a href={{ url_for('weibo.focus_detail', user_id=user.id) }}>{{ folowed_n }} <span>关注</span></a>
                             </div>
                             <div class="person-focus-item">
-                                <a href="#">{{ followers_n }} <span>粉丝</span></a>
+                                <a href={{ url_for('weibo.follower_detail', user_id=user.id) }}>{{ followers_n }} <span>粉丝</span></a>
                             </div>
                             <div class="person-focus-item">
-                                <a href="#">{{ ws_l }} <span>微博</span></a>
+                                <a href={{ url_for('weibo.homepage', user_id=user.id) }}>{{ ws_l }} <span>微博</span></a>
                             </div>
                         </div>
                     </div>

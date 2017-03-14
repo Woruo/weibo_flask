@@ -29,6 +29,8 @@ class Weibo(db.Model, ModelMixin):
     cite_id = db.Column(db.Integer, default=0)
     origin_w_id = db.Column(db.Integer, default=0)
     is_hidden = db.Column(db.Integer, default=False)
+    only_self = db.Column(db.Boolean, default=False)
+    only_friends = db.Column(db.Boolean, default=False)
     comments = db.relationship(
         'Comment',
         backref='weibo',
@@ -42,6 +44,7 @@ class Weibo(db.Model, ModelMixin):
         self.created_time = timestamp()
         self.tag_id = form.get('tag_id', None)
         self.cite_id = form.get('cite_id', None)
+        self.origin_w_id = form.get('origin_w_id', None)
 
     def save_weibo(self, user):
         w = self.content.strip()
@@ -89,8 +92,8 @@ class Weibo(db.Model, ModelMixin):
         return True, cs, '查询转发评论成功'
 
     @classmethod
-    def add_fake_weibo(cls, user):
-        weibo = ['什么标签都没有的微博啊啊啊啊啊～', '后端啊啊啊啊啊啊～', '前端啊啊啊啊啊啊～', '生活啊啊啊啊啊啊～', '互联网啊啊啊啊啊啊～',
+    def add_fake_weibo(cls):
+        weibo = ['后端啊啊啊啊啊啊～', '前端啊啊啊啊啊啊～', '生活啊啊啊啊啊啊～', '互联网啊啊啊啊啊啊～',
                  '长微博啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
                  啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
                  啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
@@ -98,15 +101,28 @@ class Weibo(db.Model, ModelMixin):
                  啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
                  啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～\
                  啊啊啊啊啊啊～啊啊啊啊啊啊～啊啊啊啊啊啊～']
-        for i in range(1, 30):
-            id = i % 5
-            form = {
-                'content': weibo[id],
-                'tag_id': id,
-                'user_id': user.id
-            }
-            w = Weibo(**form)
-            w.save()
+        us = User.query.all()
+        t_begin = 1483200000
+        t_end = 1489475993
+        for u in us:
+            for i in range(0, 15):
+                id = i % 5
+                form = {
+                    'content': weibo[id],
+                    'tag_id': id + 1,
+                }
+                w = Weibo(form)
+                w.user_id = u.id
+                w.created_time = randint(t_begin, t_end)
+                w.save()
+
+    @classmethod
+    def add_fake_cite_weibo(cls):
+        us = User.query.all()
+
+
+
+
 
     def response(self):
         return dict(
@@ -167,15 +183,18 @@ class WCollect(db.Model, ModelMixin):
     def add_fake_wcollect(cls):
         ws = Weibo.query.all()
         us = User.query.all()
-        for i in range(15):
-            j = randint(0, len(ws))
-            k = randint(0, len(us))
+        for i in range(200):
+            j = randint(0, len(ws)-1)
+            k = randint(0, len(us)-1)
+            w = ws[j]
             form = {
-                'weibo_id': ws[j].id,
-                'user_id': us[k].id
+                'weibo_id': w.id,
             }
-            wc = WCollect(**form)
+            wc = WCollect(form)
+            wc.user_id = us[k].id
             wc.save()
+            w.col_num += 1
+            w.save()
 
     def response(self):
         return dict(
@@ -219,15 +238,18 @@ class WFavorite(db.Model, ModelMixin):
     def add_fake_wfavorite(cls):
         ws = Weibo.query.all()
         us = User.query.all()
-        for i in range(20):
-            j = randint(0, len(ws))
-            k = randint(0, len(us))
+        for i in range(200):
+            j = randint(0, len(ws)-1)
+            k = randint(0, len(us)-1)
+            w = ws[j]
             form = {
-                'weibo_id': ws[j].id,
-                'user_id': us[k].id
+                'weibo_id': w.id,
             }
-            wf = WFavorite(**form)
+            wf = WFavorite(form)
+            wf.user_id = us[k].id
             wf.save()
+            w.fav_num += 1
+            w.save()
 
     def response(self):
         return dict(
@@ -293,16 +315,19 @@ class Comment(db.Model, ModelMixin):
         l = len(comment)
         ws = Weibo.query.all()
         us = User.query.all()
-        for w in ws:
-            for i in range(l):
-                user = us[randint(0, len(us))]
+        for i in range(100):
+            w = ws[randint(0, len(ws) - 1)]
+            for id in range(l):
+                user = us[randint(0, len(us)-1)]
                 form = {
                     'content': comment[id],
                     'weibo_id': w.id,
-                    'user_id': user.id
                 }
-                c = Comment(**form)
+                c = Comment(form)
+                c.user_id = user.id
                 c.save()
+                w.comments_num += 1
+                w.save()
 
     def response(self):
         return dict(
@@ -347,6 +372,25 @@ class CFavorite(db.Model, ModelMixin):
             c.save()
             return True, cf.response(), '取消喜欢成功'
 
+    @classmethod
+    def add_fake_cfavorite(cls):
+        cs = Comment.query.all()
+        us = User.query.all()
+        for i in range(100):
+            j = randint(0, len(cs)-1)
+            k = randint(0, len(us)-1)
+            c = cs[j]
+            w = Weibo.query.get(c.weibo_id)
+            form = {
+                'comment_id': c.id,
+                'weibo_id': w.id
+            }
+            cf = CFavorite(form)
+            cf.user_id = us[k].id
+            cf.save()
+            c.fav_num += 1
+            c.save()
+
     def response(self):
         return dict(
             id=self.id,
@@ -387,21 +431,22 @@ class Commentchat(db.Model, ModelMixin):
 
     @classmethod
     def add_fake_commentchat(cls):
-        comment = ['哈哈哈，成功捕捉一枚野生瓜']
         g = User.query.filter_by(username='瓜').first()
         cs = Comment.query.filter_by(user_id=g.id).all()
         us = User.query.all()
         for c in cs:
             for i in range(10):
-                user = us[randint(0, len(us))]
+                user = us[randint(0, len(us)-1)]
                 w = Weibo.query.get(c.weibo_id)
                 form = {
-                    'content': comment,
+                    'content': '哈哈哈，成功捕捉一枚野生瓜',
                     'comment_id': c.id,
-                    'user_id': user.id,
                     'weibo_id': w.id
                 }
-                c = Comment(**form)
+                cc = cls(**form)
+                cc.user_id = user.id
+                cc.save()
+                c.chat_num += 1
                 c.save()
 
     @classmethod
@@ -465,6 +510,27 @@ class CchatFavorite(db.Model, ModelMixin):
             cc.fav_num -= 1
             cc.save()
             return True, ccf.response(), '取消喜欢成功'
+
+    @classmethod
+    def add_fake_ccfavorite(cls):
+        ccs = Commentchat.query.all()
+        us = User.query.all()
+        for i in range(30):
+            j = randint(0, len(ccs)-1)
+            k = randint(0, len(us)-1)
+            cc = ccs[j]
+            w = Weibo.query.get(cc.weibo_id)
+            c = Comment.query.get(cc.comment_id)
+            form = {
+                'cchat_id': cc.id,
+                'comment_id': c.id,
+                'weibo_id': w.id
+            }
+            ccf = cls(form)
+            ccf.user_id = us[k].id
+            ccf.save()
+            cc.fav_num += 1
+            cc.save()
 
     def response(self):
         return dict(

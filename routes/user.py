@@ -7,14 +7,17 @@ from threading import Thread
 from flask_mail import Mail
 from flask import current_app
 
-
-
 main = Blueprint('user', __name__)
+
 
 @main.route('/')
 def login_view():
     u = current_user()
-    if u is None or u.confirmed:
+    if u is None:
+        ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.id.desc()).all()
+        print('weibo', len(ws))
+        return render_template('weibo.html', weibos=ws)
+    if not u.confirmed:
         ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.id.desc()).all()
         print('weibo', len(ws))
         return render_template('weibo.html', weibos=ws)
@@ -29,7 +32,8 @@ def register():
     user_id, msg = u.validate_register()
     if user_id is None:
         return api_response(message=msg)
-    return api_response(True, {'id': user_id})
+    ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.id.desc()).all()
+    return render_template('weibo.html', weibos=ws)
 
 
 @main.route('/login', methods=['POST'])
@@ -48,6 +52,20 @@ def login():
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('.login_view'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @main.route('/confirm/<token>')
@@ -77,7 +95,6 @@ def resend_confirmation():
                'auth/email/confirm', user=current_user, token=token)
     flash(u'新的确认邮件已经发到你的邮箱')
     return redirect(url_for('main.index'))
-
 
 
 @main.route('/change-password', methods=['GET', 'POST'])
@@ -153,8 +170,6 @@ def change_email(token):
     else:
         flash(u'非法请求')
     return redirect(url_for('main.index'))
-
-
 
 
 @main.route('/profile')
