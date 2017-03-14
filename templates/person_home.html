@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>{{ u.username }} 微博</title>
+    <title>{{ user.username }} 微博</title>
     <link rel="stylesheet" href="/static/css/weibo.css">
     <link rel="stylesheet" href="/static/css/person_home.css">
     <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
@@ -12,38 +12,73 @@
 </head>
 <body>
     <div class="nav">
-        <div class="nav-top flex">
-            <div class="nav-logo"><a href="#"><span class="logo-icon icon-github"></span>微博</a></div>
-            <div class="nav-container clearfix">
-                <div class="weibo-search-div float-left">
-                    <input class="weibo-search" type="search" placeholder="大家正在搜">
+        {% if not c_u %}
+            <div class="nav-top flex">
+                <div class="nav-logo">
+                    <a href={{ url_for('user.login_view') }}>
+                        <span class="logo-icon icon-github"></span>微博
+                    </a>
                 </div>
-                <div class="nav-item-list float-right flex">
-                    <div class="nav-item"><a href="#">首页</a></div>
-                    <div class="nav-item"><a href="#">后端</a></div>
-                    <div class="nav-item"><a href="#">前端</a></div>
-                    <div class="nav-item"><a href="#">发现</a></div>
-                    <div class="nav-item"><a href="#">Wor若</a></div>
+                <div class="nav-container clearfix">
+                    <div class="weibo-search-div float-left">
+                        <input class="weibo-search" type="search" placeholder="大家正在搜">
+                    </div>
+                    <div class="nav-item-list float-right flex">
+                        <div class="nav-item"><a href={{ url_for('user.login_view') }}>首页</a></div>
+                        <div class="nav-item"><a href={{ url_for('user.login_view') }}>后端</a></div>
+                        <div class="nav-item"><a href={{ url_for('user.login_view') }}>前端</a></div>
+                        <div class="nav-item"><a href={{ url_for('user.login_view') }}>发现</a></div>
+                    </div>
+                </div>
+                <div class="nav-login flex">
+                    <div class="nav-login-item"><a href="#">登陆</a></div>
+                    <div class="nav-login-item"><a href="#">注册</a></div>
                 </div>
             </div>
-            <div class="nav-setting flex">
-                <div class="nav-setting-item"><a href="#"><span class="icon-cog"></span></a></div>
-                <div class="nav-setting-item"><a href="#"><span class="icon-pencil"></span></a></div>
+        {% else %}
+            <div class="nav-top flex">
+                <div class="nav-logo"><a href={{ url_for('weibo.timeline_view', user_id=user.id) }}><span class="logo-icon icon-github"></span>微博</a></div>
+                <div class="nav-container clearfix">
+                    <div class="weibo-search-div float-left">
+                        <input class="weibo-search" type="search" placeholder="大家正在搜">
+                    </div>
+                    <div class="nav-item-list float-right flex">
+                        <div class="nav-item my-home-button">
+                            <a href={{ url_for('weibo.timeline_view', user_id=user.id) }}>首页</a>
+                        </div>
+                        <div class="nav-item tag-button" data-id="1">
+                            <a href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=1) }}>后端</a>
+                        </div>
+                        <div class="nav-item tag-button" data-id="2">
+                            <a href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=2) }}>前端</a>
+                        </div>
+                        <div class="nav-item"><a href="#">发现</a></div>
+                        <div class="nav-item"><a href={{ url_for('weibo.homepage', user_id=c_u.id) }}>{{ c_u.username }}</a></div>
+                    </div>
+                </div>
+                <div class="nav-setting flex">
+                    <div class="nav-setting-item"><a href="#"><span class="icon-cog"></span></a></div>
+                    <div class="nav-setting-item"><a href="#"><span class="icon-pencil"></span></a></div>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
     <div class="main-container">
         <div class="homepage-container">
             <div class="homepage-header relative">
                 <div class="homepage-person-detail">
                     <div class="header-avatar">
-                        <img class="big-avatar" src="{{ u.avatar }}">
+                        <img class="big-avatar" src="{{ user.avatar }}">
                     </div>
-                    <div class="header-person">{{ u.username }}</div>
-                    <div class="header-note">{{ u.note }}</div>
-                    {% if current_u and current_u.id != u.id %}
+                    <div class="header-person">{{ user.username }}</div>
+                    <div class="header-note">{{ user.note }}</div>
+                    {% if c_u and c_u.id != user.id %}
                     <div class="header-option flex">
-                        <div class="header-option-item header-option-item-active"><a class="button-white-a" href="#">关注</a></div>
+                        {% if is_followed %}
+                            <div class="header-option-item"><a class="button-white-a" href="#">已关注</a></div>
+                        {% else %}
+                            <div class="header-option-item header-option-item-active"><a class="button-white-a" href="#">关注</a></div>
+                        {% endif %}
                         <div class="header-option-item"><a class="button-white-a" href="#">私信</a></div>
                     </div>
                     {% endif %}
@@ -53,10 +88,13 @@
                 </div>
                 <div class="header-nav">
                     <div class="header-nav-wrapper flex">
-                        <div class="header-nav-item orange-border-active"><a href="#">我的主页</a></div>
-                        <div class="header-nav-item"><a href="#">我的相册</a></div>
-                        {% if current_u and current_u.id == u.id  %}
-                        <div class="header-nav-item"><a href="#">管理中心</a></div>
+                        {% if c_u and c_u.id == user.id  %}
+                            <div class="header-nav-item orange-border-active"><a href="#">我的主页</a></div>
+                            <div class="header-nav-item"><a href="#">我的相册</a></div>
+                            <div class="header-nav-item"><a href="#">管理中心</a></div>
+                        {% else %}
+                            <div class="header-nav-item orange-border-active"><a href="#">主页</a></div>
+                            <div class="header-nav-item"><a href="#">相册</a></div>
                         {% endif %}
                     </div>
                 </div>
@@ -80,62 +118,84 @@
                     <div class="homepage-person-info">
                         <div class="section-top">个人信息</div>
                         <div class="info-section-bottom">
-                            <div class="info-section-item info-section-note">个性签名: {{ u.note }}</div>
-                            <div class="info-section-item info-section-location">{{ u.location }}</div>
-                            <div class="info-section-item info-section-email">邮箱: {{ u.email }}</div>
-                            <div class="info-section-item info-section-intro">简介: {{ u.intro }}</div>
+                            <div class="info-section-item info-section-note">个性签名: {{ user.note }}</div>
+                            <div class="info-section-item info-section-location">{{ user.location }}</div>
+                            <div class="info-section-item info-section-email">邮箱: {{ user.email }}</div>
+                            <div class="info-section-item info-section-intro">简介: {{ user.intro }}</div>
                         </div>
                         <div class="section-more"><a href="#">查看更多<span class="icon-more icon-arrow-right2"></span></a></div>
                     </div>
+
+                    {% if c_u and c_u.id != user.id %}
                     <div class="homepage-person-rel">
                         <div class="section-top">微关系</div>
                         <div class="rel-section-bottom">
+                        {% if cf_n > 4 %}
                             <div class="rel-section-common-focus">
-                                <div class="rel-common-focus-bar">共同关注(14)</div>
+                                <div class="rel-common-focus-bar">共同关注 {{ cf_n }}</div>
                                 <div class="rel-common-focus-person flex">
-                                    <div class="rel-common-focus-item">
-                                        <a href="#"><img class="focus-avatar-img" src="../static/img/avatar_img/1.jpg"></a>
-                                        <div>瓜1</div>
-                                    </div>
-                                    <div class="rel-common-focus-item">
-                                        <a href="#"><img class="focus-avatar-img" src="../static/img/avatar_img/2.jpg"></a>
-                                        <div>瓜1</div>
-                                    </div>
-                                    <div class="rel-common-focus-item">
-                                        <a href="#"><img class="focus-avatar-img" src="../static/img/avatar_img/3.jpg"></a>
-                                        <div>瓜1</div>
-                                    </div>
-                                    <div class="rel-common-focus-item">
-                                        <a href="#"><img class="focus-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                                        <div>瓜1</div>
-                                    </div>
+                                    {% for f in com_followed[0:5] %}
+                                        <div class="rel-common-focus-item">
+                                            <a href={{ url_for('weibo.homepage', user_id=f.id) }}>
+                                                <img class="focus-avatar-img" src={{ f.avatar }}>
+                                            </a>
+                                            <div>{{ f.username }}</div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
+                            <div class="section-more"><a href="#">查看更多<span class="icon-more icon-arrow-right2"></span></a></div>
+                        {% else %}
+                            <div class="rel-section-common-focus">
+                                <div class="rel-common-focus-bar">共同关注 {{ cf_n }}</div>
+                                <div class="rel-common-focus-person flex">
+                                    {% for f in com_followed %}
+                                        <div class="rel-common-focus-item">
+                                            <a href={{ url_for('weibo.homepage', user_id=f.id) }}>
+                                                <img class="focus-avatar-img" src={{ f.avatar }}>
+                                            </a>
+                                            <div>{{ f.username }}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if sf_n > 4 %}
                             <div class="rel-section-focus-too">
-                                我关注的人也关注他(13)
+                                <div class="rel-focus-too-bar">我关注的人也关注他 {{ sf_n }}</div>
                                 <div class="rel-focus-too-person flex">
-                                    <div class="rel-focus-too-item">
-                                        <a href="#"><img class="focus-avatar-img" src="../static/img/avatar_img/5.jpg"></a>
-                                        <div>瓜1</div>
-                                    </div>
-                                    <div class="rel-focus-too-item">
-                                        <a href="#"><img class="focus-avatar-img" src="../static/img/avatar_img/6.jpg"></a>
-                                        <div>瓜1</div>
-                                    </div>
-                                    <div class="rel-focus-too-item">
-                                        <a href="#"><img class="focus-avatar-img" src="../static/img/avatar_img/7.jpg"></a>
-                                        <div>瓜1</div>
-                                    </div>
-                                    <div class="rel-focus-too-item">
-                                        <a href="#"><img class="focus-avatar-img" src="../static/img/avatar_img/8.jpg"></a>
-                                        <div>瓜1</div>
-                                    </div>
+                                    {% for f in com_followed %}
+                                        <div class="rel-focus-too-item">
+                                            <a href={{ url_for('weibo.homepage', user_id=f.id) }}>
+                                                <img class="focus-avatar-img" src={{ f.avatar }}>
+                                            </a>
+                                            <div>{{ f.username }}</div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
+                            <div class="section-more"><a href="#">查看更多<span class="icon-more icon-arrow-right2"></span></a></div>
+                        {% else %}
+                            <div class="rel-section-focus-too">
+                                <div class="rel-focus-too-bar">我关注的人也关注他 {{ sf_n }}</div>
+                                <div class="rel-focus-too-person flex">
+                                    {% for f in same_follow[0:5] %}
+                                        <div class="rel-focus-too-item">
+                                            <a href={{ url_for('weibo.homepage', user_id=f.id) }}>
+                                                <img class="focus-avatar-img" src={{ f.avatar }}>
+                                            </a>
+                                            <div>{{ f.username }}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="section-more"><a href="#">查看更多<span class="icon-more icon-arrow-right2"></span></a></div>
+                        {% endif %}
                         </div>
-                        <div class="section-more"><a href="#">查看更多<span class="icon-more icon-arrow-right2"></span></a></div>
                     </div>
-                    <div class="hm-sidebar-article">
+                    {% endif %}
+                    <div class="hm-sidebar-article hide">
                         <div class="section-top"><a href="#">文章 <span class="article-num">25</span></a></div>
                         <div class="article-section-bottom">
                             <div class="article-section-item">
@@ -170,207 +230,6 @@
                             <div class="float-right"><span class="logo-icon icon-spinner2"></span><a href="#">刷新</a></div>
                         </div>
                         <div class="recomm-content-container">
-                            <div class="rec-weibo-cell">
-                                <div class="rec-weibo-cell-top flex">
-                                    <div class="rec-weibo-cell-avatar">
-                                        <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                                    </div>
-                                    <div class="rec-weibo-cell-person">
-                                        <a href="#">凤凰科技</a>
-                                    </div>
-                                    <div class="rec-weibo-cell-time">
-                                        <a href="#">03月06日 18:12</a>
-                                    </div>
-                                </div>
-                                <div class="rec-weibo-cell-content">
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                </div>
-                                <div class="rec-weibo-cell-bottom clearfix">
-                                    <div class="float-right flex">
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rec-weibo-cell">
-                                <div class="rec-weibo-cell-top flex">
-                                    <div class="rec-weibo-cell-avatar">
-                                        <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                                    </div>
-                                    <div class="rec-weibo-cell-person">
-                                        <a href="#">凤凰科技</a>
-                                    </div>
-                                    <div class="rec-weibo-cell-time">
-                                        <a href="#">03月06日 18:12</a>
-                                    </div>
-                                </div>
-                                <div class="rec-weibo-cell-content">
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                </div>
-                                <div class="rec-weibo-cell-bottom clearfix">
-                                    <div class="float-right flex">
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rec-weibo-cell">
-                                <div class="rec-weibo-cell-top flex">
-                                    <div class="rec-weibo-cell-avatar">
-                                        <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                                    </div>
-                                    <div class="rec-weibo-cell-person">
-                                        <a href="#">凤凰科技</a>
-                                    </div>
-                                    <div class="rec-weibo-cell-time">
-                                        <a href="#">03月06日 18:12</a>
-                                    </div>
-                                </div>
-                                <div class="rec-weibo-cell-content">
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                </div>
-                                <div class="rec-weibo-cell-bottom clearfix">
-                                    <div class="float-right flex">
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rec-weibo-cell">
-                                <div class="rec-weibo-cell-top flex">
-                                    <div class="rec-weibo-cell-avatar">
-                                        <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                                    </div>
-                                    <div class="rec-weibo-cell-person">
-                                        <a href="#">凤凰科技</a>
-                                    </div>
-                                    <div class="rec-weibo-cell-time">
-                                        <a href="#">03月06日 18:12</a>
-                                    </div>
-                                </div>
-                                <div class="rec-weibo-cell-content">
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                </div>
-                                <div class="rec-weibo-cell-bottom clearfix">
-                                    <div class="float-right flex">
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rec-weibo-cell">
-                                <div class="rec-weibo-cell-top flex">
-                                    <div class="rec-weibo-cell-avatar">
-                                        <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                                    </div>
-                                    <div class="rec-weibo-cell-person">
-                                        <a href="#">凤凰科技</a>
-                                    </div>
-                                    <div class="rec-weibo-cell-time">
-                                        <a href="#">03月06日 18:12</a>
-                                    </div>
-                                </div>
-                                <div class="rec-weibo-cell-content">
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                </div>
-                                <div class="rec-weibo-cell-bottom clearfix">
-                                    <div class="float-right flex">
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rec-weibo-cell">
-                                <div class="rec-weibo-cell-top flex">
-                                    <div class="rec-weibo-cell-avatar">
-                                        <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                                    </div>
-                                    <div class="rec-weibo-cell-person">
-                                        <a href="#">凤凰科技</a>
-                                    </div>
-                                    <div class="rec-weibo-cell-time">
-                                        <a href="#">03月06日 18:12</a>
-                                    </div>
-                                </div>
-                                <div class="rec-weibo-cell-content">
-                                    这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                                </div>
-                                <div class="rec-weibo-cell-bottom clearfix">
-                                    <div class="float-right flex">
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                        </div>
-                                        <div class="rec-weibo-b-item">
-                                            <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="rec-weibo-cell">
                                 <div class="rec-weibo-cell-top flex">
                                     <div class="rec-weibo-cell-avatar">
@@ -452,7 +311,7 @@
                                               {% if not w.cite_w.is_hidden %}
                                                 <div>
                                                     <div class="weibo-cite-user">
-                                                        <a href={{ url_for('weibo.homepage', user_id=w.cite_w.user_id) }}>
+                                                        <a href={{ url_for('weibo.homepage', user_id=w.cite_w.user.id) }}>
                                                             {{ w.cite_w.user.username }}
                                                         </a>
                                                     </div>

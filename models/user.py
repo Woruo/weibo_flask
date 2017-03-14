@@ -195,8 +195,8 @@ class User(db.Model, ModelMixin):
 
     @classmethod
     def add_fake_user(cls):
-        username = ['Wor若', '瓜', '包', 'lin', 'SumNer', '菜', '森', 'HTML5',
-                    'Python', 'Github精选', '我在扯淡', '微博小员工', '和菜头', 'vzch', 'winter', '徐白', 'Hush', '吹']
+        username = ['Wor若', '瓜', '包', 'lin', 'SumNer', '菜', '森', '菜菜',
+                    '学姐', 'Github精选', '彭彭', '微博小员工', '菊', 'vzch', 'winter', '徐白', 'Hush', '吹', '夜弄影']
         location = ['北京', '上海', '杭州', '深圳', '广州']
         num = '1234567890'
         password = '123'

@@ -197,12 +197,12 @@
                                 <div id="id-comment-cell-{{ c.id }}" data-id="{{ c.id }}" class="weibo-comment-cell flex">
                                     <div class="comment-avatar">
                                         <a href={{ url_for('weibo.homepage', user_id=c.user_id) }}>
-                                            <img class="comment-avatar-img" src="{{ c.avatar }}">
+                                            <img class="comment-avatar-img" src="{{ c.user.avatar }}">
                                         </a>
                                     </div>
                                     <div class="comment-detail">
                                         <div class="comment-user">
-                                            <a class="orange-a" href={{ url_for('weibo.homepage', user_id=c.user_id) }}>{{ c.username }}:</a>
+                                            <a class="orange-a" href={{ url_for('weibo.homepage', user_id=c.user_id) }}>{{ c.user.username }}:</a>
                                             <span class="comment-content">
                                                 {{ c.content }}
                                             </span>
@@ -333,169 +333,6 @@
                             这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
                             这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
                             这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                        </div>
-                        <div class="rec-weibo-cell-bottom clearfix">
-                            <div class="float-right flex">
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rec-weibo-cell">
-                        <div class="rec-weibo-cell-top flex">
-                            <div class="rec-weibo-cell-avatar">
-                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                            </div>
-                            <div class="rec-weibo-cell-person">
-                                <a href="#">凤凰科技</a>
-                            </div>
-                            <div class="rec-weibo-cell-time">
-                                <a href="#">03月06日 18:12</a>
-                            </div>
-                        </div>
-                        <div class="rec-weibo-cell-content">
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                        </div>
-                        <div class="rec-weibo-cell-bottom clearfix">
-                            <div class="float-right flex">
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rec-weibo-cell">
-                        <div class="rec-weibo-cell-top flex">
-                            <div class="rec-weibo-cell-avatar">
-                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                            </div>
-                            <div class="rec-weibo-cell-person">
-                                <a href="#">凤凰科技</a>
-                            </div>
-                            <div class="rec-weibo-cell-time">
-                                <a href="#">03月06日 18:12</a>
-                            </div>
-                        </div>
-                        <div class="rec-weibo-cell-content">
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                        </div>
-                        <div class="rec-weibo-cell-bottom clearfix">
-                            <div class="float-right flex">
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rec-weibo-cell">
-                        <div class="rec-weibo-cell-top flex">
-                            <div class="rec-weibo-cell-avatar">
-                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                            </div>
-                            <div class="rec-weibo-cell-person">
-                                <a href="#">凤凰科技</a>
-                            </div>
-                            <div class="rec-weibo-cell-time">
-                                <a href="#">03月06日 18:12</a>
-                            </div>
-                        </div>
-                        <div class="rec-weibo-cell-content">
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                        </div>
-                        <div class="rec-weibo-cell-bottom clearfix">
-                            <div class="float-right flex">
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rec-weibo-cell">
-                        <div class="rec-weibo-cell-top flex">
-                            <div class="rec-weibo-cell-avatar">
-                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                            </div>
-                            <div class="rec-weibo-cell-person">
-                                <a href="#">凤凰科技</a>
-                            </div>
-                            <div class="rec-weibo-cell-time">
-                                <a href="#">03月06日 18:12</a>
-                            </div>
-                        </div>
-                        <div class="rec-weibo-cell-content">
-                            这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
-                        </div>
-                        <div class="rec-weibo-cell-bottom clearfix">
-                            <div class="float-right flex">
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-exit"></span>30</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-bubble2"></span>11</a>
-                                </div>
-                                <div class="rec-weibo-b-item">
-                                    <a href="#"><span class="weibo-cell-icon icon-heart"></span>45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rec-weibo-cell">
-                        <div class="rec-weibo-cell-top flex">
-                            <div class="rec-weibo-cell-avatar">
-                                <a href="#"><img class="rec-weibo-avatar-img" src="../static/img/avatar_img/4.jpg"></a>
-                            </div>
-                            <div class="rec-weibo-cell-person">
-                                <a href="#">凤凰科技</a>
-                            </div>
-                            <div class="rec-weibo-cell-time">
-                                <a href="#">03月06日 18:12</a>
-                            </div>
-                        </div>
-                        <div class="rec-weibo-cell-content">
                             这是推荐的微博的内容啊，今天很开心，吃饭睡觉打豆豆
                         </div>
                         <div class="rec-weibo-cell-bottom clearfix">
