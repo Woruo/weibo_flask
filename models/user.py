@@ -26,7 +26,7 @@ class Follow(db.Model, ModelMixin):
 class userTag(db.Model, ModelMixin):
     __tablename__ = 'usertags'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String())
+    name = db.Column(db.String(100))
     users = db.relationship('User', backref='usertag', lazy='dynamic')
 
     def __init__(self, form):
@@ -36,15 +36,14 @@ class userTag(db.Model, ModelMixin):
 class User(db.Model, ModelMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(), unique=True)
-    password_hash = db.Column(db.String())
-    created_time = db.Column(db.String(), default=0)
-    avatar = db.Column(db.String())
-    confirmed = db.Column(db.Boolean, default=False)
-    email = db.Column(db.String(), default='', unique=True)
-    note = db.Column(db.String(), default='')
-    location = db.Column(db.String(), default='')
-    intro = db.Column(db.String(), default='')
+    username = db.Column(db.String(100), unique=True)
+    password_hash = db.Column(db.String(200))
+    created_time = db.Column(db.String(100))
+    avatar = db.Column(db.String(100))
+    email = db.Column(db.String(100), default='', unique=True)
+    note = db.Column(db.String(100), default='')
+    location = db.Column(db.String(100), default='')
+    intro = db.Column(db.String(100), default='')
     weibos = db.relationship('Weibo', backref='user', lazy='dynamic', order_by="desc(Weibo.id)")
     comments = db.relationship('Comment', backref='user', lazy='dynamic', order_by="desc(Comment.id)")
     followed = db.relationship('Follow',
@@ -86,12 +85,12 @@ class User(db.Model, ModelMixin):
         if len(self.password) <= 2:
             err_msgs += '密码长度必须大于2<br>'
         if err_msgs == '':
-            self.hash_password()
+            self.hash_password(self.password)
             self.save()
             self.get_avatar()
             self.follow(self)
             self.save()
-            return self.id, suc_msg
+            return True, suc_msg
         err_msgs += '注册失败'
         return None, err_msgs
 
@@ -167,6 +166,18 @@ class User(db.Model, ModelMixin):
         if fe is not None:
             fe.delete()
 
+    def follow_person(self, u_id):
+        u = User.query.get(u_id)
+        if u is None:
+            return False, None, '不存在该用户，关注失败'
+        else:
+            if self.is_following(u):
+                self.unfollow(u)
+                return True, u_id, '取消关注成功'
+            else:
+                self.follow(u)
+                return True, u_id, '关注成功'
+
     def is_following(self, user):
         return self.followed.filter_by(followed_id=user.id).first() is not None
 
@@ -191,7 +202,6 @@ class User(db.Model, ModelMixin):
                 'email': email,
             }
             u = User(form)
-            u.confirmed = True
             u.location = location[randint(0, 4)]
             u.note = '我是北纬40度最帅的掏粪工'
             u.intro = '可爱的掏粪工'

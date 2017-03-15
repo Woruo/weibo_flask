@@ -24,7 +24,7 @@
         <div class="follow-container-bottom">
             <div class="follower-container">
                 {% for u in f_us %}
-                <div class="follow-person-cell flex">
+                <div class="follow-person-cell flex" id="id-follow-{{ u.id }}" data-id={{ u.id }}>
                     <div class="follow-person-avatar">
                         <a href={{ url_for('weibo.homepage', user_id=u.id) }}>
                             <img class="follow-person-avatar-img" src={{ u.avatar }}>
@@ -66,9 +66,9 @@
                             <div class="follow-person-tools flex">
                                 <div class="follow-person-focus">
                                     {% if u.is_followed_by_cu %}
-                                        <a href="#">已关注</a>
+                                        <a href="#" class="follow-btn followed">已关注</a>
                                     {% else %}
-                                        <a href="#"><span class="icon-checkmark"></span> 关注</a>
+                                        <a href="#" class="follow-btn"><span class="icon-checkmark"></span> 关注</a>
                                     {% endif %}
                                 </div>
                             </div>

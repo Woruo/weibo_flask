@@ -11,9 +11,7 @@ main = Blueprint('weiboApi', __name__)
 def add(user):
     form = request.form
     w = Weibo(form)
-    print('weibo add', w, type(w.tag_id))
     status, data, msg = w.save_weibo(user)
-    print('weibo add', status, data, msg)
     return api_response(status, data, msg)
 
 
@@ -24,7 +22,6 @@ def delete(user):
     w = Weibo.query.get(weibo_id)
     if w is not None:
         status, data, msg = w.delete_weibo(user)
-        print(status, data, msg)
     else:
         status, data, msg = False, None, '该微博不存在'
     return api_response(status, data, msg)

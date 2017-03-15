@@ -37,8 +37,6 @@ def login_required(f):
         u = current_user()
         if u is None:
             return redirect(url_for('user.login_view'))
-        if not u.confirmed:
-            return redirect(url_for('user.login_view'))
         return f(u, *args, **kwargs)
 
     return function

@@ -5,6 +5,7 @@ from models import db
 
 
 from routes.user import main as routes_user
+from routes.user_api import main as routes_api_user
 from routes.weibo import main as routes_weibo
 from routes.weibo_api import main as routes_api_weibo
 
@@ -16,6 +17,7 @@ manager = Manager(app)
 
 def register_route(app):
     app.register_blueprint(routes_user)
+    app.register_blueprint(routes_api_user, url_prefix='/api/user')
     app.register_blueprint(routes_weibo, url_prefix='/weibo')
     app.register_blueprint(routes_api_weibo, url_prefix='/api/weibo')
 

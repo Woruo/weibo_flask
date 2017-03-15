@@ -8,7 +8,7 @@ from random import randint
 class weiboTag(db.Model, ModelMixin):
     __tablename__ = 'weibotags'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String())
+    name = db.Column(db.String(100))
     weibos = db.relationship('Weibo', backref='weibotag', lazy='dynamic')
 
     def __init__(self, form):
@@ -18,8 +18,8 @@ class weiboTag(db.Model, ModelMixin):
 class Weibo(db.Model, ModelMixin):
     __tablename__ = 'weibos'
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String())
-    created_time = db.Column(db.String())
+    content = db.Column(db.String(500))
+    created_time = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comments_num = db.Column(db.Integer, default=0)
     fav_num = db.Column(db.Integer, default=0)
@@ -117,20 +117,7 @@ class Weibo(db.Model, ModelMixin):
                 w.created_time = change_time(randint(t_begin, t_end))
                 w.save()
 
-    @classmethod
-    def add_fake_cite_weibo(cls):
-        us = User.query.all()
-        for u in us:
-            for i in range(0, 10):
-                id = i % 5
-                form = {
-                    'content': weibo[id],
-                    'tag_id': id + 1,
-                }
-                w = Weibo(form)
-                w.user_id = u.id
-                w.created_time = randint(t_begin, t_end)
-                w.save()
+
 
     def response(self):
         return dict(
@@ -150,7 +137,7 @@ class Weibo(db.Model, ModelMixin):
 class WCollect(db.Model, ModelMixin):
     __tablename__ = 'wcollects'
     id = db.Column(db.Integer, primary_key=True)
-    created_time = db.Column(db.String(), default=0)
+    created_time = db.Column(db.String(100), default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     weibo_id = db.Column(db.Integer)
 
@@ -218,7 +205,7 @@ class WCollect(db.Model, ModelMixin):
 class WFavorite(db.Model, ModelMixin):
     __tablename__ = 'wfavorites'
     id = db.Column(db.Integer, primary_key=True)
-    created_time = db.Column(db.String(), default=0)
+    created_time = db.Column(db.String(100), default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     weibo_id = db.Column(db.Integer)
 
@@ -276,8 +263,8 @@ class WFavorite(db.Model, ModelMixin):
 class Comment(db.Model, ModelMixin):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String())
-    created_time = db.Column(db.String(), default=0)
+    content = db.Column(db.String(200))
+    created_time = db.Column(db.String(100), default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     weibo_id = db.Column(db.Integer, db.ForeignKey('weibos.id'))
     fav_num = db.Column(db.Integer, default=0)
@@ -360,7 +347,7 @@ class Comment(db.Model, ModelMixin):
 class CFavorite(db.Model, ModelMixin):
     __tablename__ = 'cfavorites'
     id = db.Column(db.Integer, primary_key=True)
-    created_time = db.Column(db.String(), default=0)
+    created_time = db.Column(db.String(100), default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     weibo_id = db.Column(db.Integer)
     comment_id = db.Column(db.Integer)

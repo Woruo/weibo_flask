@@ -40,7 +40,7 @@ def weibo_detail(ws, u, c_u):
 
 @main.route('/hot')
 def hot_weibo():
-    ws = Weibo.query.order_by(Weibo.comments_num.desc()).all()
+    ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.comments_num.desc()).all()
     c_u = current_user()
     if c_u is None:
         return render_template('weibo.html', weibos=ws)
@@ -49,8 +49,7 @@ def hot_weibo():
 
 @main.route('/tag/<int:tag_id>')
 def tag_weibo(tag_id):
-    ws = Weibo.query.filter(Weibo.tag_id == tag_id).order_by(Weibo.created_time.desc()).all()
-    print('tag weibo', tag_id, len(ws))
+    ws = Weibo.query.filter(Weibo.tag_id == tag_id).filter_by(has_cite=False).order_by(Weibo.created_time.desc()).all()
     c_u = current_user()
     if c_u is None:
         return render_template('weibo.html', weibos=ws)
@@ -70,7 +69,6 @@ def find_weibo():
 def timeline_view(u, user_id):
     ws = Weibo.query.join(Follow, Follow.followed_id == Weibo.user_id). \
         filter(Follow.follower_id == u.id).order_by(Weibo.created_time.desc()).all()
-    print('length of weibo', len(ws))
     form = weibo_detail(ws, u, u)
     return render_template('weibo_home.html', **form)
 
@@ -80,7 +78,6 @@ def timeline_view(u, user_id):
 def col_weibo_view(u, user_id):
     ws = Weibo.query.join(WCollect, WCollect.weibo_id == Weibo.id). \
         filter(WCollect.user_id == u.id).order_by(Weibo.created_time.desc()).all()
-    print('length of collect weibo', len(ws))
     form = weibo_detail(ws, u, u)
     return render_template('weibo_collect.html', **form)
 
@@ -90,7 +87,6 @@ def col_weibo_view(u, user_id):
 def fav_weibo_view(u, user_id):
     ws = Weibo.query.join(WFavorite, WFavorite.weibo_id == Weibo.id). \
         filter(WFavorite.user_id == u.id).order_by(Weibo.created_time.desc()).all()
-    print('length of collect weibo', len(ws))
     form = weibo_detail(ws, u, u)
     return render_template('weibo_favor.html', **form)
 
@@ -100,7 +96,6 @@ def fav_weibo_view(u, user_id):
 def tag_weibo_view(u, user_id, tag_id):
     ws = Weibo.query.join(Follow, Follow.followed_id == Weibo.user_id). \
         filter(Follow.follower_id == u.id).filter(Weibo.tag_id == tag_id).order_by(Weibo.created_time.desc()).all()
-    print('tag weibo', tag_id, len(ws))
     form = weibo_detail(ws, u, u)
     return render_template('weibo_home.html', **form)
 
@@ -119,8 +114,9 @@ def detail(id):
     c_u = current_user()
     w = Weibo.query.get(id)
     if w.has_cite:
-        w.cite_w = Weibo.query.filter_by(id=w.origin_w_id).first()
-        w.cite_w.user = User.query.filter_by(id=w.origin_w_id.user_id).first()
+        o_w = Weibo.query.filter_by(id=w.origin_w_id).first()
+        w.cite_w = o_w
+        w.cite_w.user = User.query.filter_by(id=o_w.user_id).first()
     if w.comments_num != 0:
         for c in w.comments:
             c.user = User.query.get(c.user_id)

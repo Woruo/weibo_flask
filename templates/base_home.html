@@ -3,7 +3,7 @@
 {% block main_contianer %}
     <div class="homepage-container">
         <div class="homepage-header relative">
-            <div class="homepage-person-detail">
+            <div class="homepage-person-detail" id="id-person-{{ user.id }}" data-id={{ user.id }}>
                 <div class="header-avatar">
                     <a href={{ url_for('weibo.homepage', user_id=user.id) }}>
                         <img class="big-avatar" src="{{ user.avatar }}">

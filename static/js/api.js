@@ -6,7 +6,6 @@ api.ajax = function (url, method, form, callback) {
         type: method,
         data: form,
         success: function (response) {
-            log('ajax', response);
             var r = JSON.parse(response);
             callback(r)
         },
@@ -89,3 +88,9 @@ api.commentFavorite = function(form, response) {
     var url = '/api/weibo/comment/favorite';
     api.post(url, form, response)
 };
+
+api.followPerson = function(form, response) {
+    var url = '/api/user/follow';
+    api.post(url, form, response)
+};
+

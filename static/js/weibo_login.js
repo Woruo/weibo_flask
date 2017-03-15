@@ -15,7 +15,6 @@ var bindEventCommentToggle = function () {
                 if (r.success) {
                     comments = '';
                     cs = r.data;
-                    log('cs', cs)
                     for (var i = 0; i < cs.length; i++) {
                         if (cs[i].is_fav) {
                             comments += commentTempalte_fav(cs[i])
@@ -258,7 +257,6 @@ var bindEventWeiboTag = function () {
         log('weibo-tag click')
         var self = $(this);
         var active_item = $('.weibo-send-tag-active');
-        log(self, active_item)
         if (self.data('id') == active_item.data('id')) {
             self.removeClass('weibo-send-tag-active')
         } else {
@@ -275,13 +273,10 @@ var bindEventWeiboAdd = function () {
         var form = {
             content: content,
         };
-        log('weibo add form', content, tag_id)
         if ($.inArray(tag_id, [1, 2, 3, 4, 5]) != -1) {
             form['tag_id'] = tag_id
         }
-        log('weibo add click', form);
         var response = function (r) {
-            log('weibo add r', r);
             if (r.success) {
                 log('add weibo success');
                 var weibo = weiboTemplate(r.data);
@@ -303,9 +298,7 @@ var bindEventWeiboDelete = function () {
         var form = {
             weibo_id: weibo_id
         };
-        log('delete click', form);
         var response = function (r) {
-            log('weibo delete', r);
             if (r.success) {
                 log('weibo delete success');
                 weiboContainer.slideUp('slow').remove()
@@ -338,7 +331,6 @@ var bindEventCiteToggle = function () {
                 if (r.success) {
                     cites = '';
                     cs = r.data;
-                    log('cs', cs);
                     for (var i = 0; i < cs.length; i++) {
                         if (cs[i].is_fav) {
                             cites += citeTempalte_fav(cs[i])
@@ -349,7 +341,6 @@ var bindEventCiteToggle = function () {
                     citeContainer.children().children('.cite-comments').append(cites);
                     if (origin_weibo_id) {
                         var content = '//@' + weibo_user + ':' + weibo_content;
-                        log('cite textarea', content);
                         cite_send_textarea.text(content)
                     }
                     if ( !commentContainer.hasClass('hide') ) {
@@ -385,10 +376,8 @@ var bindEventWeiboCiteAdd = function () {
             origin_w_id: origin_weibo_id
         };
         var response = function (r) {
-            log('cite add response', r);
             if (r.success) {
                 var cite = citeTempalte(r.data);
-                log(weiboCitesContainer, $(this));
                 weiboCitesContainer.prepend(cite).slideDown('slow');
             } else {
                 log('add cite fail')
@@ -404,7 +393,6 @@ var bindEventWeiboCiteAdd = function () {
 var weiboCollect = function (form, collect_btn) {
     var response = function (r) {
         if (r.success) {
-            log('weibo collect', r.data);
             collect_btn.children('.weibo-cell-b-item-text').text('已收藏');
             collect_btn.children('.weibo-cell-icon').removeClass('icon-star-empty')
                 .addClass('weibo-cell-icon-big icon-star-full');
@@ -419,7 +407,6 @@ var weiboCollect = function (form, collect_btn) {
 var weiboDisCollect = function (form, collect_btn) {
     var response = function (r) {
         if (r.success) {
-            log('weibo discollect', r.data);
             collect_btn.children('.weibo-cell-b-item-text').text('收藏');
             collect_btn.children('.weibo-cell-icon').removeClass('weibo-cell-icon-big icon-star-full')
                 .addClass('icon-star-empty');
@@ -435,7 +422,6 @@ var bindEventWeiboCollect = function () {
     $('.main-container').on('click', '.collect-button', function () {
         var weibo_id = $(this).closest('.weibo-cell').data('id');
         var collect_btn = $(this);
-        log('collect_btn', collect_btn);
         var form = {
             weibo_id: weibo_id
         };
@@ -456,10 +442,9 @@ var bindEventWeiboCollect = function () {
 var weiboFavorite = function (form, fav_btn) {
     var response = function (r) {
         if (r.success) {
-            log('weibo favor', r.data);
             var f_text = fav_btn.children().children('.weibo-fav-num').text();
             var f_n_text = String(parseInt(f_text) + 1);
-            log('weibo favor', f_text, f_n_text)
+            log('weibo favor')
             fav_btn.children().children('.weibo-fav-num').text(f_n_text)
             fav_btn.children('.weibo-cell-icon').addClass('weibo-cell-icon-big');
             fav_btn.addClass('lightbutton')
@@ -471,10 +456,9 @@ var weiboFavorite = function (form, fav_btn) {
 var weiboUnFavorite = function (form, fav_btn) {
     var response = function (r) {
         if (r.success) {
-            log('weibo unfavor', r.data);
             var f_text = fav_btn.children().children('.weibo-fav-num').text();
             var f_n_text = String(parseInt(f_text) - 1);
-            log('weibo unfavor', f_text, f_n_text)
+            log('weibo unfavor');
             fav_btn.children().children('.weibo-fav-num').text(f_n_text)
             fav_btn.children('.weibo-cell-icon').removeClass('weibo-cell-icon-big');
             fav_btn.removeClass('lightbutton')
@@ -505,16 +489,14 @@ var bindEventCommentAdd = function () {
         var content = $(this).parent().parent().prev().children().val();
         var weibo_id = $(this).closest('.weibo-cell').data('id');
         var weiboCommentsContainer = $(this).parents('.comment-container').children('.weibo-comments');
-        log('comment add click', content, weibo_id);
         var form = {
             content: content,
             weibo_id: weibo_id
         };
         var response = function (r) {
-            log('comment add response', r);
+            log('comment add success');
             if (r.success) {
                 var comment = commentTempalte(r.data);
-                log(weiboCommentsContainer, $(this))
                 weiboCommentsContainer.prepend(comment).slideDown('slow');
             } else {
                 log('add comment fail')
@@ -530,10 +512,8 @@ var bindEventCommentAdd = function () {
 var commentFavorite = function (form, fav_btn) {
     var response = function (r) {
         if (r.success) {
-            log('comment favor', r.data);
             var f_text = fav_btn.children().children('.comment-fav-num').text();
             var f_n_text = String(parseInt(f_text) + 1);
-            log('comment favor', f_text, f_n_text);
             fav_btn.children().children('.comment-fav-num').text(f_n_text);
             fav_btn.children('.comment-fav-icon').addClass('weibo-cell-icon-big');
             fav_btn.addClass('lightbutton')
@@ -545,10 +525,9 @@ var commentFavorite = function (form, fav_btn) {
 var commentUnFavorite = function (form, fav_btn) {
     var response = function (r) {
         if (r.success) {
-            log('comment unfavor', r.data);
             var f_text = fav_btn.children().children('.comment-fav-num').text();
             var f_n_text = String(parseInt(f_text) - 1);
-            log('comment unfavor', f_text, f_n_text)
+            log('comment unfavor');
             fav_btn.children().children('.comment-fav-num').text(f_n_text);
             fav_btn.children('.comment-fav-icon').removeClass('weibo-cell-icon-big');
             fav_btn.removeClass('lightbutton')
@@ -576,6 +555,92 @@ var bindEventCommentFav = function () {
 };
 
 
+
+//关注和取消关注
+var Follow = function (form, follow_btn) {
+    var response = function (r) {
+        if (r.success) {
+            var f_text = follow_btn.text();
+            var f_n_text = '已关注';
+            log('follow success');
+            follow_btn.empty().append(f_n_text);
+            follow_btn.addClass('followed');
+        }
+    };
+    api.followPerson(form, response);
+};
+
+var unFollow = function (form, follow_btn) {
+    var response = function (r) {
+        if (r.success) {
+            var f_text = follow_btn.text();
+            var f_n_text = `<span class="icon-checkmark"></span> 关注`;
+            log('unfollow success');
+            follow_btn.empty().append(f_n_text);
+            follow_btn.removeClass('followed');
+        }
+    };
+    api.followPerson(form, response);
+};
+
+var bindEventFollow = function () {
+    $('.main-container').on('click', '.follow-btn', function () {
+        var u_id = $(this).closest('.follow-person-cell').data('id');
+        var follow_btn = $(this);
+        var form = {
+            u_id: u_id,
+        };
+        if (follow_btn.hasClass('followed')) {
+            unFollow(form, follow_btn)
+        } else {
+            Follow(form, follow_btn)
+        }
+        return false;
+    })
+};
+
+
+var BigFollow = function (form, follow_btn) {
+    var response = function (r) {
+        if (r.success) {
+            var f_n_text = '已关注';
+            log('follow success');
+            follow_btn.empty().append(f_n_text);
+            follow_btn.removeClass('header-option-item-active');
+        }
+    };
+    api.followPerson(form, response);
+};
+
+var unBigFollow = function (form, follow_btn) {
+    var response = function (r) {
+        if (r.success) {
+            var f_n_text = `关注`;
+            log('unfollow success');
+            follow_btn.empty().append(f_n_text);
+            follow_btn.addClass('header-option-item-active');
+        }
+    };
+    api.followPerson(form, response);
+};
+
+var bindEventBigFollow = function () {
+    $('.main-container').on('click', '.follow-button', function () {
+        var u_id = $(this).closest('.homepage-person-detail').data('id');
+        var follow_btn = $(this);
+        var form = {
+            u_id: u_id,
+        };
+        if ( !follow_btn.hasClass('header-option-item-active') ) {
+            unBigFollow(form, follow_btn)
+        } else {
+            BigFollow(form, follow_btn)
+        }
+        return false;
+    })
+};
+
+
 var bindEvent = function () {
     bindEventCommentToggle();
     bindEventStatusPanelToggle();
@@ -588,6 +653,8 @@ var bindEvent = function () {
     bindEventWeiboCollect();
     bindEventWeiboFav();
     bindEventCommentFav();
+    bindEventFollow();
+    bindEventBigFollow();
 };
 
 
