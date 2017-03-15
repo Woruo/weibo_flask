@@ -38,7 +38,7 @@ class User(db.Model, ModelMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(), unique=True)
     password_hash = db.Column(db.String())
-    created_time = db.Column(db.Integer, default=0)
+    created_time = db.Column(db.String(), default=0)
     avatar = db.Column(db.String())
     confirmed = db.Column(db.Boolean, default=False)
     email = db.Column(db.String(), default='', unique=True)
@@ -197,5 +197,6 @@ class User(db.Model, ModelMixin):
             u.intro = '可爱的掏粪工'
             u.password_hash = password_hash
             u.save()
+            u.follow(u)
             u.get_avatar()
             u.save()

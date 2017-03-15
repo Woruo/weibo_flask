@@ -1,13 +1,22 @@
 from flask_sqlalchemy import SQLAlchemy
 import time
+
 # from models.user import User
 # from models.weibo import Weibo, WCollect, WFavorite
 
 db = SQLAlchemy()
 
+
 def current_time():
-    format = '%Y/%m/%d %H:%M:%S'
+    format = '%Y/%m/%d %H:%M'
     value = time.localtime(int(time.time()))
+    dt = time.strftime(format, value)
+    return dt
+
+
+def change_time(t):
+    format = '%Y/%m/%d %H:%M'
+    value = time.localtime(t)
     dt = time.strftime(format, value)
     return dt
 

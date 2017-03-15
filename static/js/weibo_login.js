@@ -5,6 +5,7 @@ var log = function () {
 var bindEventCommentToggle = function () {
     $('.main-container').on('click', '.comment-button', function () {
         var commentContainer = $(this).parent().parent().next('.weibo-comment-container');
+        var citeContainer = commentContainer.parent().children('.weibo-cite-container');
         if (commentContainer.hasClass('hide')) {
             var weibo_id = commentContainer.parent().data('id');
             var form = {
@@ -22,7 +23,11 @@ var bindEventCommentToggle = function () {
                             comments += commentTempalte(cs[i])
                         }
                     }
-                    commentContainer.children().children('.weibo-comments').append(comments)
+                    commentContainer.children().children('.weibo-comments').append(comments);
+                    if ( !citeContainer.hasClass('hide') ) {
+                        citeContainer.addClass('hide')
+                        citeContainer.hide()
+                    }
                     commentContainer.slideDown('slow').removeClass('hide');
                 }
             };
@@ -65,7 +70,7 @@ var commentTempalte = function (c) {
               <div class="comment-time float-left">${ c.created_time }</div>
               <div class="comment-cell-fav float-right flex">
                   <div class="comment-cell-fav-item">
-                      <a class="comment-fav-button lightbutton" href="#">
+                      <a class="comment-fav-button" href="#">
                            <span class="comment-fav-icon icon-heart"></span>
                            <span class="comment-fav-num"><span class="comment-fav-num">${ c.fav_num }</span></span>
                       </a>
@@ -128,42 +133,7 @@ var citeTempalte = function (c) {
         </div>
         <div class="clearfix">
             <div class="cite-time float-left">${ c.created_time }</div>
-            <div class="cite-cell-fav float-right flex">
-                <div class="cite-cell-item">
-                    <a href="#"><span class="cite-fav-icon icon-heart"></span><span class="comment-fav-num">${ c.fav_num }</span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-  `
-    return t
-}
-
-var citeTempalte_fav = function (c) {
-    t = `
-  <div class="weibo-cite-cell flex">
-    <div class="comment-avatar">
-        <a href=" ${ "/weibo/" + c.user_id + "/homepage" }">
-            <img class="cite-avatar-img" src="${ c.avatar }">
-        </a>
-    </div>
-    <div class="cite-detail">
-        <div class="cite-user">
-            <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }>${ c.username }:</a>
-            <span class="cite-content">
-               ${ c.content }
-            </span>
-        </div>
-        <div class="clearfix">
-            <div class="cite-time float-left">${ c.created_time }</div>
-            <div class="cite-cell-fav float-right flex">
-                <div class="cite-cell-item">
-                    <a href="#">
-                      <span class="cite-fav-icon icon-heart weibo-cell-icon-big"></span>
-                      <span class="comment-fav-num">${ c.fav_num }</span>
-                    </a>
-                </div>
+            <div class="cite-cell-fav float-right flex">               
             </div>
         </div>
     </div>
@@ -353,13 +323,14 @@ var bindEventWeiboDelete = function () {
 var bindEventCiteToggle = function () {
     $('.main-container').on('click', '.cite-button', function () {
         var citeContainer = $(this).parent().parent().next().next();
-        var weibo_cell = citeContainer.parent()
-        var weibo_user = $.trim(weibo_cell.find('.weibo-user').text())
-        var weibo_content = $.trim(weibo_cell.find('.weibo-content').text())
+        var commentContainer = citeContainer.parent().children('.weibo-comment-container');
+        var weibo_cell = citeContainer.parent();
+        var weibo_user = $.trim(weibo_cell.find('.weibo-user').text());
+        var weibo_content = $.trim(weibo_cell.find('.weibo-content').text());
         var origin_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
         if (citeContainer.hasClass('hide')) {
             var weibo_id = citeContainer.parent().data('id');
-            var cite_send_textarea = citeContainer.find('.cite-send-textarea')
+            var cite_send_textarea = citeContainer.find('.cite-send-textarea');
             var form = {
                 weibo_id: weibo_id
             };
@@ -375,11 +346,16 @@ var bindEventCiteToggle = function () {
                             cites += citeTempalte(cs[i])
                         }
                     }
-                    citeContainer.children().children('.cite-comments').append(cites)
+                    citeContainer.children().children('.cite-comments').append(cites);
                     if (origin_weibo_id) {
-                        var content = '//@' + weibo_user + ':' + weibo_content
-                        log('cite textarea', content)
+                        var content = '//@' + weibo_user + ':' + weibo_content;
+                        log('cite textarea', content);
                         cite_send_textarea.text(content)
+                    }
+                    if ( !commentContainer.hasClass('hide') ) {
+                        commentContainer.addClass('hide');
+                        commentContainer.children().children('.weibo-comments').children().slideUp('slow').remove()
+                        commentContainer.hide()
                     }
                     citeContainer.slideDown('slow').removeClass('hide');
                 }
@@ -412,7 +388,7 @@ var bindEventWeiboCiteAdd = function () {
             log('cite add response', r);
             if (r.success) {
                 var cite = citeTempalte(r.data);
-                log(weiboCitesContainer, $(this))
+                log(weiboCitesContainer, $(this));
                 weiboCitesContainer.prepend(cite).slideDown('slow');
             } else {
                 log('add cite fail')
@@ -557,8 +533,8 @@ var commentFavorite = function (form, fav_btn) {
             log('comment favor', r.data);
             var f_text = fav_btn.children().children('.comment-fav-num').text();
             var f_n_text = String(parseInt(f_text) + 1);
-            log('comment favor', f_text, f_n_text)
-            fav_btn.children().children('.comment-fav-num').text(f_n_text)
+            log('comment favor', f_text, f_n_text);
+            fav_btn.children().children('.comment-fav-num').text(f_n_text);
             fav_btn.children('.comment-fav-icon').addClass('weibo-cell-icon-big');
             fav_btn.addClass('lightbutton')
         }
@@ -613,6 +589,7 @@ var bindEvent = function () {
     bindEventWeiboFav();
     bindEventCommentFav();
 };
+
 
 var __main = function () {
     bindEvent();

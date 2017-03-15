@@ -8,6 +8,7 @@ main = Blueprint('weibo', __name__)
 def weibo_detail(ws, u, c_u):
     folowed_n = len(u.followed.all())
     followers_n = len(u.followers.all())
+    cu_wl = len(u.weibos.all())
     ws_l = len(ws)
     is_followed = False
     if c_u:
@@ -29,6 +30,7 @@ def weibo_detail(ws, u, c_u):
         'folowed_n': folowed_n,
         'followers_n': followers_n,
         'ws_l': ws_l,
+        'cu_wl': cu_wl,
         'weibos': ws,
         'user': u,
         'is_followed': is_followed
@@ -132,7 +134,11 @@ def detail(id):
 def focus_detail(user_id):
     c_u = current_user()
     form = User.all_followed(user_id, c_u)
-    form.update({'c_u': c_u})
+    is_followed = False
+    if c_u:
+        u = User.query.get(user_id)
+        is_followed = c_u.is_following(u)
+    form.update({'c_u': c_u, 'is_followed': is_followed})
     return render_template('person_followed.html', **form)
 
 
@@ -140,5 +146,9 @@ def focus_detail(user_id):
 def follower_detail(user_id):
     c_u = current_user()
     form = User.all_followers(user_id, c_u)
-    form.update({'c_u': c_u})
+    is_followed = False
+    if c_u:
+        u = User.query.get(user_id)
+        is_followed = c_u.is_following(u)
+    form.update({'c_u': c_u, 'is_followed': is_followed})
     return render_template('person_followers.html', **form)

@@ -8,11 +8,6 @@ from routes import *
 main = Blueprint('user', __name__)
 
 
-@main.route('/favicon')
-def favicon():
-    pass
-
-
 @main.route('/')
 def login_view():
     u = current_user()

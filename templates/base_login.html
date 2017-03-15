@@ -3,6 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>{% block title %}我的微博{% endblock %}</title>
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="Bookmark" href="/static/img/favicon.ico">
     <link rel="stylesheet" href="/static/css/weibo.css">
     <link rel="stylesheet" href="/static/css/weibo_login.css">
     <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
@@ -98,7 +100,7 @@
                                 <a href={{ url_for('weibo.follower_detail', user_id=user.id) }}>{{ followers_n }} <span>粉丝</span></a>
                             </div>
                             <div class="person-focus-item">
-                                <a href={{ url_for('weibo.homepage', user_id=user.id) }}>{{ ws_l }} <span>微博</span></a>
+                                <a href={{ url_for('weibo.homepage', user_id=user.id) }}>{{ cu_wl }} <span>微博</span></a>
                             </div>
                         </div>
                     </div>

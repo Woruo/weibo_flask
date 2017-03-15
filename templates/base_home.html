@@ -18,9 +18,9 @@
                 {% if c_u and c_u.id != user.id %}
                 <div class="header-option flex">
                     {% if is_followed %}
-                        <div class="header-option-item"><a class="button-white-a" href="#">已关注</a></div>
+                        <div class="header-option-item follow-button"><a class="button-white-a" href="#">已关注</a></div>
                     {% else %}
-                        <div class="header-option-item header-option-item-active"><a class="button-white-a" href="#">关注</a></div>
+                        <div class="header-option-item follow-button header-option-item-active"><a class="button-white-a" href="#">关注</a></div>
                     {% endif %}
                     <div class="header-option-item"><a class="button-white-a" href="#">私信</a></div>
                 </div>

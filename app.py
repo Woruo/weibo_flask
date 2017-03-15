@@ -47,10 +47,9 @@ def server():
 
 def make_shell_context():
     from models.user import User, Follow
-    from models.weibo import Weibo, WCollect, WFavorite, Comment, CFavorite, Commentchat, CchatFavorite
+    from models.weibo import Weibo, WCollect, WFavorite, Comment, CFavorite
     return dict(app=app, db=db, User=User, Follow=Follow, Comment=Comment, Weibo=Weibo,
-                WCollect=WCollect, WFavorite=WFavorite, CFavorite=CFavorite,
-                Commentchat=Commentchat, CchatFavorite=CchatFavorite)
+                WCollect=WCollect, WFavorite=WFavorite, CFavorite=CFavorite)
 
 
 def configure_manager():

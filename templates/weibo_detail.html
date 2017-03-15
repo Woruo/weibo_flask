@@ -136,7 +136,11 @@
                     <div class="comment-container">
                         <div class="comment-input-div flex">
                             <div class="comment-avatar">
-                                <img class="comment-avatar-img" src="{{ w.avatar }}">
+                                {% if c_u %}
+                                    <img class="comment-avatar-img" src="{{ c_u.avatar }}">
+                                {% else %}
+                                    <img class="comment-avatar-img" src="">
+                                {% endif %}
                             </div>
                             <div class="comment-right">
                                 <div class="comment-send-div">
