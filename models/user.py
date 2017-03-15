@@ -18,7 +18,7 @@ class Follow(db.Model, ModelMixin):
         for u in us:
             u.follow(u)
             for i in range(l // 2):
-                j = randint(0, l-1)
+                j = randint(0, l - 1)
                 u.follow(us[j])
                 u.save()
 
@@ -111,6 +111,50 @@ class User(db.Model, ModelMixin):
             return True
         else:
             return False
+
+    @classmethod
+    def all_followed(cls, user_id, c_u):
+        u = User.query.get(user_id)
+        folowed_n = len(u.followed.all())
+        followers_n = len(u.followers.all())
+        fs = u.followed.all()
+        f_us = []
+        for f in fs:
+            followed_u = User.query.get(f.followed_id)
+            followed_u.followed_n = len(followed_u.followed.all())
+            followed_u.followers_n = len(followed_u.followers.all())
+            followed_u.weibo_n = len(followed_u.weibos.all())
+            followed_u.is_followed_by_cu = c_u.is_following(followed_u)
+            f_us.append(followed_u)
+        form = {
+            'folowed_n': folowed_n,
+            'followers_n': followers_n,
+            'f_us': f_us,
+            'user': u,
+        }
+        return form
+
+    @classmethod
+    def all_followers(cls, user_id, c_u):
+        u = User.query.get(user_id)
+        folowed_n = len(u.followed.all())
+        followers_n = len(u.followers.all())
+        fs = u.followers.all()
+        f_us = []
+        for f in fs:
+            follower_u = User.query.get(f.follower_id)
+            follower_u.followed_n = len(follower_u.followed.all())
+            follower_u.followers_n = len(follower_u.followers.all())
+            follower_u.weibo_n = len(follower_u.weibos.all())
+            follower_u.is_followed_by_cu = c_u.is_following(follower_u)
+            f_us.append(follower_u)
+        form = {
+            'folowed_n': folowed_n,
+            'followers_n': followers_n,
+            'f_us': f_us,
+            'user': u,
+        }
+        return form
 
     def follow(self, user):
         fe = self.followed.filter_by(followed_id=user.id).first()

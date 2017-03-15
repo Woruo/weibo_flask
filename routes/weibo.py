@@ -1,5 +1,5 @@
 from routes import *
-from models.weibo import Weibo, WCollect, WFavorite, Comment
+from models.weibo import Weibo, WCollect, WFavorite, Comment, CFavorite
 from models.user import User, Follow
 
 main = Blueprint('weibo', __name__)
@@ -9,7 +9,9 @@ def weibo_detail(ws, u, c_u):
     folowed_n = len(u.followed.all())
     followers_n = len(u.followers.all())
     ws_l = len(ws)
-    is_followed = c_u.is_following(u)
+    is_followed = False
+    if c_u:
+        is_followed = c_u.is_following(u)
     for w in ws:
         w.user = User.query.filter_by(id=w.user_id).first()
         if c_u is not None:
@@ -32,6 +34,33 @@ def weibo_detail(ws, u, c_u):
         'is_followed': is_followed
     }
     return form
+
+
+@main.route('/hot')
+def hot_weibo():
+    ws = Weibo.query.order_by(Weibo.comments_num.desc()).all()
+    c_u = current_user()
+    if c_u is None:
+        return render_template('weibo.html', weibos=ws)
+    else:
+        return render_template('weibo_find.html', weibos=ws, c_u=c_u, user=c_u)
+
+@main.route('/tag/<int:tag_id>')
+def tag_weibo(tag_id):
+    ws = Weibo.query.filter(Weibo.tag_id == tag_id).order_by(Weibo.created_time.desc()).all()
+    print('tag weibo', tag_id, len(ws))
+    c_u = current_user()
+    if c_u is None:
+        return render_template('weibo.html', weibos=ws)
+    else:
+        return render_template('weibo_find.html', weibos=ws, c_u=c_u, user=c_u)
+
+
+@main.route('/find')
+def find_weibo():
+    ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.created_time.desc()).all()
+    c_u = current_user()
+    return render_template('weibo_find.html', weibos=ws, c_u=c_u, user=c_u)
 
 
 @main.route('/<int:user_id>/timeline')
@@ -90,40 +119,26 @@ def detail(id):
     if w.has_cite:
         w.cite_w = Weibo.query.filter_by(id=w.origin_w_id).first()
         w.cite_w.user = User.query.filter_by(id=w.origin_w_id.user_id).first()
-    for c in w.comments:
-        c.user = User.query.get(c.user_id)
-    return render_template('weibo_detail.html', w=w, c_u=c_u)
+    if w.comments_num != 0:
+        for c in w.comments:
+            c.user = User.query.get(c.user_id)
+            c.is_favored = False
+            if c_u is not None:
+                c.is_favored = CFavorite.query.filter_by(user_id=c_u.id, comment_id=c.id).first() is not None
+    return render_template('weibo_detail.html', w=w, c_u=c_u, user=c_u)
 
 
-@main.route('/<int:user_id>/focus_detail')
+@main.route('/<int:user_id>/followed_detail')
 def focus_detail(user_id):
     c_u = current_user()
-    u = User.query.get(user_id)
-    folowed_n = len(u.followed.all())
-    followers_n = len(u.followers.all())
-    fs = u.followed.all()
-    form = {
-        'folowed_n': folowed_n,
-        'followers_n': followers_n,
-        'fs': fs,
-        'user': u,
-        'c_u': c_u
-    }
-    return render_template('followed_detail.html', **form)
+    form = User.all_followed(user_id, c_u)
+    form.update({'c_u': c_u})
+    return render_template('person_followed.html', **form)
 
 
 @main.route('/<int:user_id>/follower_detail')
 def follower_detail(user_id):
     c_u = current_user()
-    u = User.query.get(user_id)
-    folowed_n = len(u.followed.all())
-    followers_n = len(u.followers.all())
-    fs = u.followed.all()
-    form = {
-        'folowed_n': folowed_n,
-        'followers_n': followers_n,
-        'fs': fs,
-        'user': u,
-        'c_u': c_u
-    }
-    return render_template('follower_detail.html', w=w, c_u=c_u)
+    form = User.all_followers(user_id, c_u)
+    form.update({'c_u': c_u})
+    return render_template('person_followers.html', **form)

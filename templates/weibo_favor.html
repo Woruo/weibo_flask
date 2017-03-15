@@ -1,79 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>我的首页 微博</title>
-    <link rel="stylesheet" href="/static/css/weibo.css">
-    <link rel="stylesheet" href="/static/css/weibo_login.css">
-    <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
-    <script src="/static/js/jquery-3.0.0.min.js"></script>
-    <script src="/static/js/api.js"></script>
-    <script src="/static/js/weibo_login.js"></script>
-</head>
-<body>
-    <div class="nav">
-        <div class="nav-top flex">
-            <div class="nav-logo"><a href={{ url_for('weibo.timeline_view', user_id=user.id) }}><span class="logo-icon icon-github"></span>微博</a></div>
-            <div class="nav-container clearfix">
-                <div class="weibo-search-div float-left">
-                    <input class="weibo-search" type="search" placeholder="大家正在搜">
-                </div>
-                <div class="nav-item-list float-right flex">
-                    <div class="nav-item my-home-button">
-                        <a href={{ url_for('weibo.timeline_view', user_id=user.id) }}>首页</a>
-                    </div>
-                    <div class="nav-item tag-button" data-id="1">
-                        <a href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=1) }}>后端</a>
-                    </div>
-                    <div class="nav-item tag-button" data-id="2">
-                        <a href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=2) }}>前端</a>
-                    </div>
-                    <div class="nav-item"><a href="#">发现</a></div>
-                    <div class="nav-item"><a href={{ url_for('weibo.homepage', user_id=user.id) }}>{{ user.username }}</a></div>
-                </div>
-            </div>
-            <div class="nav-setting flex">
-                <div class="nav-setting-item"><a href="#"><span class="icon-cog"></span></a></div>
-                <div class="nav-setting-item"><a href="#"><span class="icon-pencil"></span></a></div>
-            </div>
-        </div>
-    </div>
-    <div class="main-container flex">
-        <div class="main-nav">
-            <div class="main-nav-item-t my-home-button">
-                <a class="white-a" href={{ url_for('weibo.timeline_view', user_id=user.id) }}>首页</a>
-            </div>
-            <div class="main-nav-item-t my-col-button">
-                <a class="white-a" href={{ url_for('weibo.col_weibo_view', user_id=user.id) }}>我的收藏</a>
-            </div>
-            <div class="main-nav-item-t my-fav-button">
-                <a class="white-a" href={{ url_for('weibo.fav_weibo_view', user_id=user.id) }}>我的赞</a>
-            </div>
-            <div class="main-nav-line"></div>
-            <div class="main-nav-item-m hot-w-button">
-                <a class="white-a" href="#">热门微博</a>
-            </div>
-            <div class="main-nav-line"></div>
-            <div class="main-nav-item-m tag-button" data-id="1">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=1) }}>后端</a>
-            </div>
-            <div class="main-nav-item-m tag-button" data-id="2">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=2) }}>前端</a>
-            </div>
-            <div class="main-nav-item-m tag-button" data-id="3">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=3) }}>生活</a>
-            </div>
-            <div class="main-nav-item-m tag-button" data-id="4">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=4) }}>互联网</a>
-            </div>
-            <div class="main-nav-item-m tag-button" data-id="5">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=5) }}>长微博</a>
-            </div>
-            <div class="main-nav-line"></div>
-        </div>
-        <div class="main-content-container">
-            <div class="weibo-fav-bar">赞过的微博</div>
-            <div class="weibo-container">
+{% extends 'base_login.html' %}
+{% block title %} 赞过的微博 {% endblock %}
+
+
+{% block container %}
+    <div class="weibo-fav-bar">赞过的微博</div>
+    <div class="weibo-container">
                 {% for w in weibos %}
                     <div id="id-weibo-cell-{{ w.id }}" data-id="{{ w.id }}" class="weibo-cell">
                         <div class="weibo-cell-top flex">
@@ -283,41 +214,6 @@
                     </div>
                 {% endfor %}
             </div>
-        </div>
-        <div class="main-sidebar">
-            <div>
-                <div class="person-info relative">
-                    <div class="skin_cover">
-                        <img class="skin-cover-img" src="/static/img/cover.png">
-                    </div>
-                    <div class="person-avatar-div">
-                        <a href={{ url_for('weibo.homepage', user_id=user.id) }}><img class="person-avatar" src={{ user.avatar }}></a>
-                    </div>
-                    <div class="person-detail">
-                        <div class="person-name">
-                            <span class="person-name-left"><a href="#">{{ user.username }}</a></span>
-                            <span class="person-name-right">LV4</span>
-                        </div>
-                        <div class="person-focus flex">
-                            <div class="person-focus-item">
-                                <a href="#">{{ folowed_n }} <span>关注</span></a>
-                            </div>
-                            <div class="person-focus-item">
-                                <a href="#">{{ followers_n }} <span>粉丝</span></a>
-                            </div>
-                            <div class="person-focus-item">
-                                <a href="#">{{ ws_l }} <span>微博</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
-        <div class="footer-container">
-            Copyright © 2017 Wor.
-        </div>
-    </div>
-</body>
-</html>
+{% endblock %}
+
+

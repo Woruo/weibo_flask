@@ -1,0 +1,86 @@
+{% extends 'base_home.html' %}
+{% block title %} 我的关注 {% endblock %}
+{% block import %}
+    <link rel="stylesheet" href="/static/css/person_follow.css">
+{% endblock %}
+
+{% block homepage_sidebar %}
+    <div class="focus-detail-div">
+            <a class="focus-detail gray-a" href={{ url_for('weibo.focus_detail', user_id=user.id) }}>
+                关注
+                <span class="focus-num">{{ folowed_n }}</span>
+            </a>
+            <a class="follow-detail gray-a" href={{ url_for('weibo.follower_detail', user_id=user.id) }}>
+                粉丝
+                <span class="follow-num">{{ followers_n }}</span>
+            </a>
+        </div>
+{% endblock %}
+
+
+{% block main_content_container %}
+    <div class="follow-person-container">
+        <div class="follow-container-top">粉丝 <span class="focus-person-num">{{ followers_n }}</span></div>
+        <div class="follow-container-bottom">
+            <div class="follower-container">
+                {% for u in f_us %}
+                <div class="follow-person-cell flex">
+                    <div class="follow-person-avatar">
+                        <a href={{ url_for('weibo.homepage', user_id=u.id) }}>
+                            <img class="follow-person-avatar-img" src={{ u.avatar }}>
+                        </a>
+                    </div>
+                    <div class="follow-detail-div clearfix">
+                        <div class="follow-detail-left float-left">
+                            <div class="follow-user">
+                                <a href={{ url_for('weibo.homepage', user_id=u.id) }}><span>{{ u.username }}</span></a>
+                            </div>
+                            <div class="follow-user-pop flex">
+                                <div class="follow-user-pop-item">
+                                    关注
+                                    <a class="orange-a" href={{ url_for('weibo.focus_detail', user_id=u.id) }}>
+                                        <span class="follow-user-focus-num">{{ u.followed_n }}</span>
+                                    </a>
+                                </div>
+                                <div class="follow-user-pop-item">
+                                    粉丝
+                                    <a class="orange-a" href={{ url_for('weibo.follower_detail', user_id=u.id) }}>
+                                        <span class="follow-user-fol-num">{{ u.followers_n }}</span>
+                                    </a>
+                                </div>
+                                <div class="follow-user-pop-item">
+                                    微博
+                                    <a class="orange-a" href={{ url_for('weibo.homepage', user_id=u.id) }}>
+                                        <span class="follow-user-weibo-num">{{ u.weibo_n }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="follow-user-location">
+                                地址 <span class="follow-user-location">{{ u.location }}</span>
+                            </div>
+                            <div class="follow-user-rec">
+                                通过微博推荐关注
+                            </div>
+                        </div>
+                        <div class="follow-detail-right float-right">
+                            <div class="follow-person-tools flex">
+                                <div class="follow-person-focus">
+                                    {% if u.is_followed_by_cu %}
+                                        <a href="#">已关注</a>
+                                    {% else %}
+                                        <a href="#"><span class="icon-checkmark"></span> 关注</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

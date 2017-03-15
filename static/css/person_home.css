@@ -31,12 +31,23 @@ body {
 }
 .header-person {
     color: #ffffff;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     margin-top: 5px;
 }
+.header-person a:link {
+    color: #fff;
+}
+.header-person a:visited  {
+    color: #fff;
+}
+.header-person a:hover {
+    color: #fff;
+}
 .header-note {
     color: #ffffff;
+    font-size: 14px;
+    margin-top:5px;
 }
 .header-option {
     margin-top: 15px;

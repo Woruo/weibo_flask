@@ -3,7 +3,7 @@ var log = function () {
 };
 
 var bindEventCommentToggle = function () {
-    $('.weibo-container').on('click', '.comment-button', function () {
+    $('.main-container').on('click', '.comment-button', function () {
         var commentContainer = $(this).parent().parent().next('.weibo-comment-container');
         if (commentContainer.hasClass('hide')) {
             var weibo_id = commentContainer.parent().data('id');
@@ -37,7 +37,7 @@ var bindEventCommentToggle = function () {
 };
 
 var bindEventStatusPanelToggle = function () {
-    $('.weibo-container').on('click', '.id-status-panel-control', function () {
+    $('.main-container').on('click', '.id-status-panel-control', function () {
         var statusPanel = $(this).next('.id-status-panel');
         statusPanel.toggleClass('hide');
         log('panel click');
@@ -327,7 +327,7 @@ var bindEventWeiboAdd = function () {
 };
 
 var bindEventWeiboDelete = function () {
-    $('.weibo-container').on('click', '.delete-button', function () {
+    $('.main-container').on('click', '.delete-button', function () {
         var weibo_id = $(this).closest('.weibo-cell').data('id');
         var weiboContainer = $(this).closest('.weibo-cell');
         var form = {
@@ -351,7 +351,7 @@ var bindEventWeiboDelete = function () {
 
 // 微博转发
 var bindEventCiteToggle = function () {
-    $('.weibo-container').on('click', '.cite-button', function () {
+    $('.main-container').on('click', '.cite-button', function () {
         var citeContainer = $(this).parent().parent().next().next();
         var weibo_cell = citeContainer.parent()
         var weibo_user = $.trim(weibo_cell.find('.weibo-user').text())
@@ -395,7 +395,7 @@ var bindEventCiteToggle = function () {
 };
 
 var bindEventWeiboCiteAdd = function () {
-    $('.weibo-container').on('click', '.cite-send-button', function () {
+    $('.main-container').on('click', '.cite-send-button', function () {
         var content = $(this).parent().parent().prev().children().val();
         var weibo_id = $(this).closest('.weibo-cell').data('id');
         var origin_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
@@ -456,7 +456,7 @@ var weiboDisCollect = function (form, collect_btn) {
 };
 
 var bindEventWeiboCollect = function () {
-    $('.weibo-container').on('click', '.collect-button', function () {
+    $('.main-container').on('click', '.collect-button', function () {
         var weibo_id = $(this).closest('.weibo-cell').data('id');
         var collect_btn = $(this);
         log('collect_btn', collect_btn);
@@ -508,7 +508,7 @@ var weiboUnFavorite = function (form, fav_btn) {
 };
 
 var bindEventWeiboFav = function () {
-    $('.weibo-container').on('click', '.fav-button', function () {
+    $('.main-container').on('click', '.fav-button', function () {
         var weibo_id = $(this).closest('.weibo-cell').data('id');
         var fav_btn = $(this);
         var form = {
@@ -525,7 +525,7 @@ var bindEventWeiboFav = function () {
 
 
 var bindEventCommentAdd = function () {
-    $('.weibo-container').on('click', '.comment-send-button', function () {
+    $('.main-container').on('click', '.comment-send-button', function () {
         var content = $(this).parent().parent().prev().children().val();
         var weibo_id = $(this).closest('.weibo-cell').data('id');
         var weiboCommentsContainer = $(this).parents('.comment-container').children('.weibo-comments');
@@ -582,7 +582,7 @@ var commentUnFavorite = function (form, fav_btn) {
 };
 
 var bindEventCommentFav = function () {
-    $('.weibo-container').on('click', '.comment-fav-button', function () {
+    $('.main-container').on('click', '.comment-fav-button', function () {
         var weibo_id = $(this).closest('.weibo-cell').data('id');
         var fav_btn = $(this);
         var comment_id = fav_btn.closest('.weibo-comment-cell').data('id');

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>{% block title %}  {% endblock %}</title>
     <link rel="stylesheet" href="/static/css/weibo.css">
-    <link rel="stylesheet" href="/static/css/person_home.css">
+    <link rel="stylesheet" href="/static/css/weibo_unlogin.css">
     <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
     <script src="/static/js/jquery-3.0.0.min.js"></script>
     <script src="/static/js/api.js"></script>
-    <script src="/static/js/weibo_login.js"></script>
+    <script src="/static/js/weibo_unlogin.js"></script>
     {% block import %}
 
 
@@ -31,7 +31,7 @@
                         <div class="nav-item"><a href={{ url_for('user.login_view') }}>首页</a></div>
                         <div class="nav-item"><a href={{ url_for('weibo.tag_weibo', tag_id=1) }}>后端</a></div>
                         <div class="nav-item"><a href={{ url_for('weibo.tag_weibo', tag_id=2) }}>前端</a></div>
-                        <div class="nav-item"><a href={{ url_for('user.login_view') }}>发现</a></div>
+                        <div class="nav-item"><a href={{ url_for('weibo.tag_weibo', tag_id=3) }}>生活</a></div>
                     </div>
                 </div>
                 <div class="nav-login flex">
@@ -56,12 +56,8 @@
                         <div class="nav-item tag-button" data-id="2">
                             <a href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=2) }}>前端</a>
                         </div>
-                        <div class="nav-item">
-                            <a href={{ url_for('weibo.find_weibo') }}>发现</a>
-                        </div>
-                        <div class="nav-item">
-                            <a href={{ url_for('weibo.homepage', user_id=c_u.id) }}>{{ c_u.username }}</a>
-                        </div>
+                        <div class="nav-item"><a href={{ url_for('weibo.find_weibo') }}>发现</a></div>
+                        <div class="nav-item"><a href={{ url_for('weibo.homepage', user_id=c_u.id) }}>{{ c_u.username }}</a></div>
                     </div>
                 </div>
                 <div class="nav-setting flex">
@@ -71,10 +67,34 @@
             </div>
         {% endif %}
     </div>
-    <div class="main-container">
-        {% block main_contianer %}
 
-        {% endblock %}
+    <div class="main-container flex">
+        <div class="main-nav">
+            <div class="main-nav-item-t">
+                <a class="white-a" href={{ url_for('weibo.hot_weibo') }}>
+                    <span class="main-nav-item-icon icon-fire"></span>热门
+                </a>
+            </div>
+            <div class="main-nav-line"></div>
+            <div class="main-nav-item-t"><a class="white-a" href={{ url_for('weibo.tag_weibo', tag_id=1) }}>后端</a></div>
+            <div class="main-nav-item-t"><a class="white-a" href={{ url_for('weibo.tag_weibo', tag_id=2) }}>前端</a></div>
+            <div class="main-nav-item-t"><a class="white-a" href={{ url_for('weibo.tag_weibo', tag_id=3) }}>生活</a></div>
+            <div class="main-nav-item-t"><a class="white-a" href={{ url_for('weibo.tag_weibo', tag_id=4) }}>互联网</a></div>
+            <div class="main-nav-line"></div>
+            <div class="main-nav-item-m"><a class="white-a" href={{ url_for('weibo.tag_weibo', tag_id=5) }}>长微博</a></div>
+            <div class="main-nav-line"></div>
+        </div>
+        <div class="main-content-container ">
+            {% block main_content_container %}
+
+            {% endblock %}
+        </div>
+        <div class="main-sidebar">
+            {% block main_sidebar %}
+
+            {% endblock %}
+        </div>
+
     </div>
     <div class="footer">
         <div class="footer-container">

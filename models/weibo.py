@@ -119,6 +119,20 @@ class Weibo(db.Model, ModelMixin):
     @classmethod
     def add_fake_cite_weibo(cls):
         us = User.query.all()
+        for u in us:
+            for i in range(0, 10):
+                id = i % 5
+                form = {
+                    'content': weibo[id],
+                    'tag_id': id + 1,
+                }
+                w = Weibo(form)
+                w.user_id = u.id
+                w.created_time = randint(t_begin, t_end)
+                w.save()
+
+
+
 
     def response(self):
         return dict(
@@ -234,7 +248,7 @@ class WFavorite(db.Model, ModelMixin):
     def add_fake_wfavorite(cls):
         ws = Weibo.query.all()
         us = User.query.all()
-        for i in range(200):
+        for i in range(300):
             j = randint(0, len(ws) - 1)
             k = randint(0, len(us) - 1)
             w = ws[j]
@@ -280,10 +294,9 @@ class Comment(db.Model, ModelMixin):
         for c in comments:
             c.user = User.query.get(c.user_id)
             r = c.response()
-            if CFavorite.query.filter_by(comment_id=c.id, user_id=user.id).first() is not None:
+            r['is_fav'] = False
+            if user is not None and CFavorite.query.filter_by(comment_id=c.id, user_id=user.id).first() is not None:
                 r['is_fav'] = True
-            else:
-                r['is_fav'] = False
             cs.append(r)
         print(cs)
         return True, cs, '查询评论成功'
@@ -311,7 +324,7 @@ class Comment(db.Model, ModelMixin):
         l = len(comment)
         ws = Weibo.query.all()
         us = User.query.all()
-        for i in range(100):
+        for i in range(200):
             w = ws[randint(0, len(ws) - 1)]
             for id in range(l):
                 user = us[randint(0, len(us) - 1)]
@@ -372,7 +385,7 @@ class CFavorite(db.Model, ModelMixin):
     def add_fake_cfavorite(cls):
         cs = Comment.query.all()
         us = User.query.all()
-        for i in range(100):
+        for i in range(200):
             j = randint(0, len(cs) - 1)
             k = randint(0, len(us) - 1)
             c = cs[j]

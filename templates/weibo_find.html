@@ -1,0 +1,61 @@
+{% extends 'base_violet.html' %}
+{% block title %} 发现-热门微博-推荐 {% endblock %}
+
+{% block main_content_container %}
+    <div class="weibo-container">
+      {% for w in weibos %}
+          <div id="id-weibo-cell-{{ w.id }}" data-id="{{ w.id }}" class="w-cell">
+            <div class="w-content">
+                {{ w.content }}
+            </div>
+            <div class="w-bottom cleafix">
+                <div class="w-bottom-left float-left flex">
+                    <div class="w-avatar">
+                        <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>
+                            <img class="w-avatar-img" src="{{ w.user.avatar }}">
+                        </a>
+                    </div>
+                    <div class="w-user">
+                        <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>{{ w.user.username }}</a>
+                    </div>
+                    <div class="w-time">{{ w.created_time }}</div>
+                </div>
+                <div class="w-bottom-right float-right">
+                    <div class="weibo-cite-cell-fav float-right flex">
+                        <div class="weibo-cite-cell-item">
+                            <a href={{ url_for('weibo.detail', id=w.id) }}>
+                            <span class="weibo-cite-fav-icon icon-exit"></span>
+                            {% if w.cite_num %}
+                                {{ w.cite_num }}
+                            {% else %}
+                                0
+                            {% endif %}
+                            </a>
+                        </div>
+                        <div class="weibo-cite-cell-item">
+                            <a href={{ url_for('weibo.detail', id=w.id) }}>
+                                <span class="weibo-cite-fav-icon icon-bubble2"></span>
+                                {{ w.comments_num }}
+                            </a>
+                        </div>
+                        <div class="weibo-cite-cell-item">
+                            <a href={{ url_for('weibo.detail', id=w.id) }}>
+                                <span class="weibo-cite-fav-icon icon-heart"></span>
+                                {{ w.fav_time }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block main_sidebar %}
+    <div class="hot-weibo-class">
+        <div>热门微博分类</div>
+    </div>
+{% endblock %}
+

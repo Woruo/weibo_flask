@@ -1,311 +1,205 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>我的收藏 微博</title>
-    <link rel="stylesheet" href="/static/css/weibo.css">
-    <link rel="stylesheet" href="/static/css/weibo_login.css">
-    <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
-    <script src="/static/js/jquery-3.0.0.min.js"></script>
-    <script src="/static/js/api.js"></script>
-    <script src="/static/js/weibo_login.js"></script>
-</head>
-<body>
-    <div class="nav">
-        <div class="nav-top flex">
-            <div class="nav-logo"><a href={{ url_for('weibo.timeline_view', user_id=user.id) }}><span class="logo-icon icon-github"></span>微博</a></div>
-            <div class="nav-container clearfix">
-                <div class="weibo-search-div float-left">
-                    <input class="weibo-search" type="search" placeholder="大家正在搜">
-                </div>
-                <div class="nav-item-list float-right flex">
-                    <div class="nav-item my-home-button">
-                        <a href={{ url_for('weibo.timeline_view', user_id=user.id) }}>首页</a>
-                    </div>
-                    <div class="nav-item tag-button" data-id="1">
-                        <a href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=1) }}>后端</a>
-                    </div>
-                    <div class="nav-item tag-button" data-id="2">
-                        <a href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=2) }}>前端</a>
-                    </div>
-                    <div class="nav-item"><a href="#">发现</a></div>
-                    <div class="nav-item"><a href={{ url_for('weibo.homepage', user_id=user.id) }}>{{ user.username }}</a></div>
-                </div>
-            </div>
-            <div class="nav-setting flex">
-                <div class="nav-setting-item"><a href="#"><span class="icon-cog"></span></a></div>
-                <div class="nav-setting-item"><a href="#"><span class="icon-pencil"></span></a></div>
-            </div>
+{% extends 'base_login.html' %}
+{% block title %} 我的收藏 微博 {% endblock %}
+
+
+{% block container %}
+    <div class="weibo-collect-bar clearfix">
+        <div class="weibo-collect-items float-left flex">
+            <div class="weibo-collect-item"><a href="#">我的收藏 <span class="weibo-collect-num"> (共 <span>{{ ws_l }}</span> 条) </span></a></div>
+        </div>
+        <div class="weibo-nav-search float-right">
+            <input class="input-weibo-nav-search" placeholder="搜索我关注人的微博">
         </div>
     </div>
-    <div class="main-container flex">
-        <div class="main-nav">
-            <div class="main-nav-item-t my-home-button">
-                <a class="white-a" href={{ url_for('weibo.timeline_view', user_id=user.id) }}>首页</a>
-            </div>
-            <div class="main-nav-item-t my-col-button">
-                <a class="white-a" href={{ url_for('weibo.col_weibo_view', user_id=user.id) }}>我的收藏</a>
-            </div>
-            <div class="main-nav-item-t my-fav-button">
-                <a class="white-a" href={{ url_for('weibo.fav_weibo_view', user_id=user.id) }}>我的赞</a>
-            </div>
-            <div class="main-nav-line"></div>
-            <div class="main-nav-item-m hot-w-button">
-                <a class="white-a" href="#">热门微博</a>
-            </div>
-            <div class="main-nav-line"></div>
-            <div class="main-nav-item-m tag-button" data-id="1">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=1) }}>后端</a>
-            </div>
-            <div class="main-nav-item-m tag-button" data-id="2">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=2) }}>前端</a>
-            </div>
-            <div class="main-nav-item-m tag-button" data-id="3">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=3) }}>生活</a>
-            </div>
-            <div class="main-nav-item-m tag-button" data-id="4">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=4) }}>互联网</a>
-            </div>
-            <div class="main-nav-item-m tag-button" data-id="5">
-                <a class="white-a" href={{ url_for('weibo.tag_weibo_view', user_id=user.id, tag_id=5) }}>长微博</a>
-            </div>
-            <div class="main-nav-line"></div>
-        </div>
-        <div class="main-content-container ">
-            <div class="weibo-collect-bar clearfix">
-                <div class="weibo-collect-items float-left flex">
-                    <div class="weibo-collect-item"><a href="#">我的收藏 <span class="weibo-collect-num"> (共 <span>{{ ws_l }}</span> 条) </span></a></div>
-                </div>
-                <div class="weibo-nav-search float-right">
-                    <input class="input-weibo-nav-search" placeholder="搜索我关注人的微博">
-                </div>
-            </div>
-            <div class="weibo-container">
-                {% for w in weibos %}
-                    <div id="id-weibo-cell-{{ w.id }}" data-id="{{ w.id }}" class="weibo-cell">
-                        <div class="weibo-cell-top flex">
-                            <div class="weibo-avatar-cell">
-                                <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>
-                                    <img class="weibo-avatar-img" src="{{ w.user.avatar }}">
-                                </a>
-                            </div>
-                            <div class="weibo-detail">
-                                <div class="clearfix">
-                                    <div class="weibo-detail-left float-left">
-                                        <div class="weibo-user">
-                                          <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>
-                                            {{ w.user.username }}
-                                          </a>
-                                        </div>
-                                        <div class="weibo-time">{{ w.created_time }}</div>
-                                        <div class="weibo-content">
-                                            {{ w.content }}
-                                        </div>
-                                    </div>
-                                    {% if w.user_id == user.id %}
-                                    <div class="weibo-detail-right float-right relative">
-                                        <a class="id-status-panel-control" href="#"><span class="icon-circle-down"></span></a>
-                                        <div class="id-status-panel weibo-status-div hide">
-                                            <div class="weibo-status-item"><a href="#" class="delete-button weibo-status-item-a">删除</a></div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
+    <div class="weibo-container">
+        {% for w in weibos %}
+            <div id="id-weibo-cell-{{ w.id }}" data-id="{{ w.id }}" class="weibo-cell">
+                <div class="weibo-cell-top flex">
+                    <div class="weibo-avatar-cell">
+                        <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>
+                            <img class="weibo-avatar-img" src="{{ w.user.avatar }}">
+                        </a>
+                    </div>
+                    <div class="weibo-detail">
+                        <div class="clearfix">
+                            <div class="weibo-detail-left float-left">
+                                <div class="weibo-user">
+                                  <a href={{ url_for('weibo.homepage', user_id=w.user_id) }}>
+                                    {{ w.user.username }}
+                                  </a>
                                 </div>
-                                {% if w.has_cite %}
-                                  <div class="weibo-cell-cite" id="id-weibo-cite-{{ w.cite_id }}" data-id="{{ w.cite_id }}">
-                                    <div class="weibo-cite-detail">
-                                      {% if not w.cite_w.is_hidden %}
-                                        <div>
-                                            <div class="weibo-cite-user">
-                                                <a href={{ url_for('weibo.homepage', user_id=w.cite_w.user_id) }}>
-                                                    {{ w.cite_w.user.username }}
+                                <div class="weibo-time">{{ w.created_time }}</div>
+                                <div class="weibo-content">
+                                    {{ w.content }}
+                                </div>
+                            </div>
+                            {% if w.user_id == user.id %}
+                            <div class="weibo-detail-right float-right relative">
+                                <a class="id-status-panel-control" href="#"><span class="icon-circle-down"></span></a>
+                                <div class="id-status-panel weibo-status-div hide">
+                                    <div class="weibo-status-item"><a href="#" class="delete-button weibo-status-item-a">删除</a></div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% if w.has_cite %}
+                          <div class="weibo-cell-cite" id="id-weibo-cite-{{ w.cite_id }}" data-id="{{ w.cite_id }}">
+                            <div class="weibo-cite-detail">
+                              {% if not w.cite_w.is_hidden %}
+                                <div>
+                                    <div class="weibo-cite-user">
+                                        <a href={{ url_for('weibo.homepage', user_id=w.cite_w.user_id) }}>
+                                            {{ w.cite_w.user.username }}
+                                        </a>
+                                    </div>
+                                    <div class="weibo-cite-content">
+                                        {{ w.cite_w.content }}
+                                    </div>
+                                    <div class="weibo-cite-bottom clearfix">
+                                        <div class="weibo-cite-time float-left">{{ w.cite_w.created_time }}</div>
+                                        <div class="weibo-cite-cell-fav float-right flex">
+                                            <div class="weibo-cite-cell-item">
+                                                <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                  <span class="weibo-cite-fav-icon icon-exit"></span>
+                                                  {% if w.cite_w.cite_num %}
+                                                    {{ w.cite_w.cite_num }}
+                                                  {% else %}
+                                                    0
+                                                  {% endif %}
                                                 </a>
                                             </div>
-                                            <div class="weibo-cite-content">
-                                                {{ w.cite_w.content }}
+                                            <div class="weibo-cite-cell-item">
+                                                <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                  <span class="weibo-cite-fav-icon icon-bubble2"></span>
+                                                  {{ w.cite_w.comments_num }}
+                                                </a>
                                             </div>
-                                            <div class="weibo-cite-bottom clearfix">
-                                                <div class="weibo-cite-time float-left">{{ w.cite_w.created_time }}</div>
-                                                <div class="weibo-cite-cell-fav float-right flex">
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
-                                                          <span class="weibo-cite-fav-icon icon-exit"></span>
-                                                          {% if w.cite_w.cite_num %}
-                                                            {{ w.cite_w.cite_num }}
-                                                          {% else %}
-                                                            0
-                                                          {% endif %}
-                                                        </a>
-                                                    </div>
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
-                                                          <span class="weibo-cite-fav-icon icon-bubble2"></span>
-                                                          {{ w.cite_w.comments_num }}
-                                                        </a>
-                                                    </div>
-                                                    <div class="weibo-cite-cell-item">
-                                                        <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
-                                                          <span class="weibo-cite-fav-icon icon-heart"></span>
-                                                          {{ w.cite_w.fav_time }}
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                            <div class="weibo-cite-cell-item">
+                                                <a href={{ url_for('weibo.detail', id=w.cite_w.id) }}>
+                                                  <span class="weibo-cite-fav-icon icon-heart"></span>
+                                                  {{ w.cite_w.fav_time }}
+                                                </a>
                                             </div>
                                         </div>
-                                      {% else %}
-                                        <div class="weibo-cite-empty">
-                                            <div class="weibo-empty-content"><span class="icon-cancel-circle"></span>抱歉，该微博已被原作者删除</div>
-                                        </div>
-                                      {% endif %}
                                     </div>
                                 </div>
-                              {% endif%}
-                            </div>
-                        </div>
-                        <div class="weibo-cell-bottom flex">
-                            <div class="weibo-cell-b-item">
-                              {% if w.is_collected %}
-                                <a class="collect-button lightbutton" href="#">
-                                    <span class="weibo-cell-icon icon-star-full weibo-cell-icon-big"></span>
-                                    <span class="weibo-cell-b-item-text">已收藏</span>
-                                </a>
                               {% else %}
-                                <a class="collect-button" href="#">
-                                    <span class="weibo-cell-icon icon-star-empty"></span>
-                                    <span class="weibo-cell-b-item-text">收藏</span>
-                                </a>
+                                <div class="weibo-cite-empty">
+                                    <div class="weibo-empty-content"><span class="icon-cancel-circle"></span>抱歉，该微博已被原作者删除</div>
+                                </div>
                               {% endif %}
                             </div>
-                            <div class="weibo-cell-b-item">
-                                <a class="cite-button" href="#">
-                                  <span class="weibo-cell-icon icon-exit"></span>
-                                  {% if w.cite_num %}
-                                    {{ w.cite_num }}
-                                  {% else %}
-                                    转发
-                                  {% endif %}
-                                </a>
+                        </div>
+                      {% endif%}
+                    </div>
+                </div>
+                <div class="weibo-cell-bottom flex">
+                    <div class="weibo-cell-b-item">
+                      {% if w.is_collected %}
+                        <a class="collect-button lightbutton" href="#">
+                            <span class="weibo-cell-icon icon-star-full weibo-cell-icon-big"></span>
+                            <span class="weibo-cell-b-item-text">已收藏</span>
+                        </a>
+                      {% else %}
+                        <a class="collect-button" href="#">
+                            <span class="weibo-cell-icon icon-star-empty"></span>
+                            <span class="weibo-cell-b-item-text">收藏</span>
+                        </a>
+                      {% endif %}
+                    </div>
+                    <div class="weibo-cell-b-item">
+                        <a class="cite-button" href="#">
+                          <span class="weibo-cell-icon icon-exit"></span>
+                          {% if w.cite_num %}
+                            {{ w.cite_num }}
+                          {% else %}
+                            转发
+                          {% endif %}
+                        </a>
+                    </div>
+                    <div class="weibo-cell-b-item">
+                      <a class="comment-button" href="#">
+                        <span class="weibo-cell-icon icon-bubble2"></span>{{ w.comments_num }}
+                      </a>
+                    </div>
+                    <div class="weibo-cell-b-item">
+                        {% if w.is_favored %}
+                          <a class="fav-button lightbutton" href="#">
+                              <span class="weibo-cell-icon icon-heart weibo-cell-icon-big"></span>
+                              <span class="weibo-cell-b-item-text"><span class="weibo-fav-num">{{ w.fav_num }}</span></span>
+                          </a>
+                        {% else %}
+                          <a class="fav-button" href="#">
+                              <span class="weibo-cell-icon icon-heart"></span>
+                              <span class="weibo-cell-b-item-text"><span class="weibo-fav-num">{{ w.fav_num }}</span></span>
+                          </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="weibo-comment-container hide">
+                    <div class="comment-container">
+                        <div class="comment-input-div flex">
+                            <div class="comment-avatar">
+                                <img class="comment-avatar-img" src="{{ w.avatar }}">
                             </div>
-                            <div class="weibo-cell-b-item">
-                              <a class="comment-button" href="#">
-                                <span class="weibo-cell-icon icon-bubble2"></span>{{ w.comments_num }}
-                              </a>
-                            </div>
-                            <div class="weibo-cell-b-item">
-                                {% if w.is_favored %}
-                                  <a class="fav-button lightbutton" href="#">
-                                      <span class="weibo-cell-icon icon-heart weibo-cell-icon-big"></span>
-                                      <span class="weibo-cell-b-item-text"><span class="weibo-fav-num">{{ w.fav_num }}</span></span>
-                                  </a>
-                                {% else %}
-                                  <a class="fav-button" href="#">
-                                      <span class="weibo-cell-icon icon-heart"></span>
-                                      <span class="weibo-cell-b-item-text"><span class="weibo-fav-num">{{ w.fav_num }}</span></span>
-                                  </a>
-                                {% endif %}
+                            <div class="comment-right">
+                                <div class="comment-send-div">
+                                    <textarea class="comment-send-textarea"></textarea>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="comment-send-tool float-left flex">
+                                        <div class="comment-send-item">
+                                            <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
+                                        </div>
+                                        <div class="comment-send-item">
+                                            <a href="#"><span class="weibo-send-icon icon-image"></span></a>
+                                        </div>
+                                    </div>
+                                    <div class="comment-setting float-right">
+                                        <a class="comment-send-button button-white-a" href="#">
+                                            评论
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="weibo-comment-container hide">
-                            <div class="comment-container">
-                                <div class="comment-input-div flex">
-                                    <div class="comment-avatar">
-                                        <img class="comment-avatar-img" src="{{ w.avatar }}">
-                                    </div>
-                                    <div class="comment-right">
-                                        <div class="comment-send-div">
-                                            <textarea class="comment-send-textarea"></textarea>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="comment-send-tool float-left flex">
-                                                <div class="comment-send-item">
-                                                    <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                </div>
-                                                <div class="comment-send-item">
-                                                    <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                </div>
-                                            </div>
-                                            <div class="comment-setting float-right">
-                                                <a class="comment-send-button button-white-a" href="#">
-                                                    评论
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="weibo-comments">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="weibo-cite-container hide">
-                            <div class="cite-container">
-                                <div class="cite-input-div">
-                                    <div class="cite-top flex">
-                                        <div class="cite-top-item cite-top-item-active"><a href="#">转发到微博</a></div>
-                                        <div class="cite-top-item"><a href="#">转发到私信</a></div>
-                                    </div>
-                                    <div class="cite-bottom">
-                                        <div class="cite-send-div">
-                                            <textarea class="cite-send-textarea"></textarea>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="cite-send-tool float-left flex">
-                                                <div class="cite-send-item">
-                                                    <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
-                                                </div>
-                                                <div class="cite-send-item">
-                                                    <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                                                </div>
-                                            </div>
-                                            <div class="cite-setting float-right">
-                                                <a class="cite-send-button button-white-a" href="#">
-                                                    转发
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cite-comments">
-                                </div>
-                            </div>
+                        <div class="weibo-comments">
                         </div>
                     </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="main-sidebar">
-            <div>
-                <div class="person-info relative">
-                    <div class="skin_cover">
-                        <img class="skin-cover-img" src="/static/img/cover.png">
-                    </div>
-                    <div class="person-avatar-div">
-                        <a href={{ url_for('weibo.homepage', user_id=user.id) }}><img class="person-avatar" src={{ user.avatar }}></a>
-                    </div>
-                    <div class="person-detail">
-                        <div class="person-name">
-                            <span class="person-name-left"><a href="#">{{ user.username }}</a></span>
-                            <span class="person-name-right">LV4</span>
+                </div>
+                <div class="weibo-cite-container hide">
+                    <div class="cite-container">
+                        <div class="cite-input-div">
+                            <div class="cite-top flex">
+                                <div class="cite-top-item cite-top-item-active"><a href="#">转发到微博</a></div>
+                                <div class="cite-top-item"><a href="#">转发到私信</a></div>
+                            </div>
+                            <div class="cite-bottom">
+                                <div class="cite-send-div">
+                                    <textarea class="cite-send-textarea"></textarea>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="cite-send-tool float-left flex">
+                                        <div class="cite-send-item">
+                                            <a href="#"><span class="weibo-send-icon icon-smile"></span></a>
+                                        </div>
+                                        <div class="cite-send-item">
+                                            <a href="#"><span class="weibo-send-icon icon-image"></span></a>
+                                        </div>
+                                    </div>
+                                    <div class="cite-setting float-right">
+                                        <a class="cite-send-button button-white-a" href="#">
+                                            转发
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="person-focus flex">
-                            <div class="person-focus-item">
-                                <a href="#">{{ folowed_n }} <span>关注</span></a>
-                            </div>
-                            <div class="person-focus-item">
-                                <a href="#">{{ followers_n }} <span>粉丝</span></a>
-                            </div>
-                            <div class="person-focus-item">
-                                <a href="#">{{ ws_l }} <span>微博</span></a>
-                            </div>
+                        <div class="cite-comments">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
-    <div class="footer">
-        <div class="footer-container">
-            Copyright © 2017 Wor.
-        </div>
-    </div>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block main_contianer %}
+    <div class="homepage-container">
+        <div class="homepage-header relative">
+            <div class="homepage-person-detail">
+                <div class="header-avatar">
+                    <a href={{ url_for('weibo.homepage', user_id=user.id) }}>
+                        <img class="big-avatar" src="{{ user.avatar }}">
+                    </a>
+                </div>
+                <div class="header-person">
+                     <a href={{ url_for('weibo.homepage', user_id=user.id) }}>
+                         {{ user.username }}
+                     </a>
+                </div>
+                <div class="header-note">{{ user.note }}</div>
+                {% if c_u and c_u.id != user.id %}
+                <div class="header-option flex">
+                    {% if is_followed %}
+                        <div class="header-option-item"><a class="button-white-a" href="#">已关注</a></div>
+                    {% else %}
+                        <div class="header-option-item header-option-item-active"><a class="button-white-a" href="#">关注</a></div>
+                    {% endif %}
+                    <div class="header-option-item"><a class="button-white-a" href="#">私信</a></div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="header-bg">
+                <img class="header-bg-img" src="/static/img/cover.png">
+            </div>
+            <div class="header-nav">
+                <div class="header-nav-wrapper flex">
+                    {% if c_u and c_u.id == user.id  %}
+                        <div class="header-nav-item orange-border-active"><a href="#">我的主页</a></div>
+                        <div class="header-nav-item"><a href="#">我的相册</a></div>
+                        <div class="header-nav-item"><a href="#">管理中心</a></div>
+                    {% else %}
+                        <div class="header-nav-item orange-border-active"><a href="#">主页</a></div>
+                        <div class="header-nav-item"><a href="#">相册</a></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="homepage-sidebar">
+                {% block homepage_sidebar %}
+
+                {% endblock %}
+            </div>
+            <div class="main-content-container ">
+                {% block main_content_container %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

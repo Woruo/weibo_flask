@@ -25,8 +25,6 @@ def configure_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_path)
     db.init_app(app)
-    from routes import mail
-    mail.init_app(app)
     register_route(app)
 
 

@@ -25,7 +25,6 @@ var setup = function () {
     });
 };
 
-
 var bindEventLogin = function () {
     $('#id-login-button').on('click', function () {
         log('login click')

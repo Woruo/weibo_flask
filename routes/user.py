@@ -8,19 +8,20 @@ from routes import *
 main = Blueprint('user', __name__)
 
 
+@main.route('/favicon')
+def favicon():
+    pass
+
+
 @main.route('/')
 def login_view():
     u = current_user()
     if u is None:
-        ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.id.desc()).all()
-        print('weibo', len(ws))
-        return render_template('weibo.html', weibos=ws)
-    if not u.confirmed:
-        ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.id.desc()).all()
-        print('weibo', len(ws))
+        ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.created_time.desc()).all()
         return render_template('weibo.html', weibos=ws)
     else:
         return redirect(url_for('weibo.timeline_view', user_id=u.id))
+
 
 
 @main.route('/register', methods=['POST'])
@@ -47,7 +48,7 @@ def login():
 
 @main.route('/logout')
 @login_required
-def logout():
+def logout(user):
     session.pop('user_id', None)
     return redirect(url_for('.login_view'))
 

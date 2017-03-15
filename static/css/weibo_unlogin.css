@@ -132,13 +132,25 @@ body {
     color: #808080;
     line-height: 20px;
 }
+
 .w-avatar-img {
     width: 18px;
     height: 18px;
 }
 .w-user {
+    margin-left: 5px;
     padding-right: 10px;
 }
 .w-time {
     padding-right: 10px;
+}
+
+.hot-weibo-class {
+    width: 200px;
+    margin-right: 20px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    height: 150px;
+    padding: 10px 15px 10px 15px;
 }
