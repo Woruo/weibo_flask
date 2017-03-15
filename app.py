@@ -11,14 +11,6 @@ from routes.weibo_api import main as routes_api_weibo
 app = Flask(__name__)
 db_path = 'Wor.db'
 secret_key = 'random_string'
-FLASKY_MAIL_SUBJECT_PREFIX = '[Weibo_register]'
-FLASKY_MAIL_SENDER = '731051689@qq.com'
-FLASKY_ADMIN = 'Wor若'
-MAIL_SERVER = 'smtp.qq.com'
-MAIL_PORT = 587
-MAIL_USERNAME = '731051689@qq.com'
-MAIL_PASSWORD = 'pwyiftwecmccbbfh'
-
 manager = Manager(app)
 
 

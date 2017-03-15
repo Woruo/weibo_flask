@@ -47,7 +47,7 @@ var bindEventStatusPanelToggle = function () {
 
 
 var commentTempalte = function (c) {
-  t = `
+    t = `
   <div id="id-comment-cell-${ c.id }" data-id="${ c.id }" class="weibo-comment-cell flex">
       <div class="comment-avatar">
           <a href=" ${ "/weibo/" + c.user_id + "/homepage" }">
@@ -56,7 +56,7 @@ var commentTempalte = function (c) {
       </div>
       <div class="comment-detail">
           <div class="comment-user">
-              <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }">${ c.username }:</a>
+              <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }>${ c.username }:</a>
               <span class="comment-content">
                   ${ c.content }
               </span>
@@ -65,13 +65,10 @@ var commentTempalte = function (c) {
               <div class="comment-time float-left">${ c.created_time }</div>
               <div class="comment-cell-fav float-right flex">
                   <div class="comment-cell-fav-item">
-                      <a href="#">删除</a>
-                  </div>
-                  <div class="comment-cell-fav-item">
-                      <a href="#">回复</a>
-                  </div>
-                  <div class="comment-cell-fav-item">
-                      <a href="#"><span class="comment-fav-icon icon-heart"></span><span class="comment-fav-num">${ c.fav_num }</span></a>
+                      <a class="comment-fav-button lightbutton" href="#">
+                           <span class="comment-fav-icon icon-heart"></span>
+                           <span class="comment-fav-num"><span class="comment-fav-num">${ c.fav_num }</span></span>
+                      </a>
                   </div>
               </div>
           </div>
@@ -91,7 +88,7 @@ var commentTempalte_fav = function (c) {
         </div>
         <div class="comment-detail">
             <div class="comment-user">
-                <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }">${ c.username }:</a>
+                <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }>${ c.username }:</a>
                 <span class="comment-content">
                     ${ c.content }
                 </span>
@@ -99,12 +96,6 @@ var commentTempalte_fav = function (c) {
             <div class="clearfix">
                 <div class="comment-time float-left">${ c.created_time }</div>
                 <div class="comment-cell-fav float-right flex">
-                    <div class="comment-cell-fav-item">
-                        <a href="#">删除</a>
-                    </div>
-                    <div class="comment-cell-fav-item">
-                        <a href="#">回复</a>
-                    </div>
                     <div class="comment-cell-fav-item">
                         <a class="comment-fav-button lightbutton" href="#">
                             <span class="comment-fav-icon icon-heart weibo-cell-icon-big"></span>
@@ -121,7 +112,7 @@ var commentTempalte_fav = function (c) {
 
 
 var citeTempalte = function (c) {
-  t = `
+    t = `
   <div class="weibo-cite-cell flex">
     <div class="comment-avatar">
         <a href=" ${ "/weibo/" + c.user_id + "/homepage" }">
@@ -130,7 +121,7 @@ var citeTempalte = function (c) {
     </div>
     <div class="cite-detail">
         <div class="cite-user">
-            <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }">${ c.username }:</a>
+            <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }>${ c.username }:</a>
             <span class="cite-content">
                ${ c.content }
             </span>
@@ -138,12 +129,6 @@ var citeTempalte = function (c) {
         <div class="clearfix">
             <div class="cite-time float-left">${ c.created_time }</div>
             <div class="cite-cell-fav float-right flex">
-                <div class="cite-cell-item">
-                    <a href="#">删除</a>
-                </div>
-                <div class="cite-cell-item">
-                    <a href="#">转发</a>
-                </div>
                 <div class="cite-cell-item">
                     <a href="#"><span class="cite-fav-icon icon-heart"></span><span class="comment-fav-num">${ c.fav_num }</span></a>
                 </div>
@@ -152,11 +137,11 @@ var citeTempalte = function (c) {
     </div>
   </div>
   `
-  return t
+    return t
 }
 
 var citeTempalte_fav = function (c) {
-  t = `
+    t = `
   <div class="weibo-cite-cell flex">
     <div class="comment-avatar">
         <a href=" ${ "/weibo/" + c.user_id + "/homepage" }">
@@ -165,7 +150,7 @@ var citeTempalte_fav = function (c) {
     </div>
     <div class="cite-detail">
         <div class="cite-user">
-            <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }">${ c.username }:</a>
+            <a class="orange-a" href=${ "/weibo/" + c.user_id + "/homepage" }>${ c.username }:</a>
             <span class="cite-content">
                ${ c.content }
             </span>
@@ -173,12 +158,6 @@ var citeTempalte_fav = function (c) {
         <div class="clearfix">
             <div class="cite-time float-left">${ c.created_time }</div>
             <div class="cite-cell-fav float-right flex">
-                <div class="cite-cell-item">
-                    <a href="#">删除</a>
-                </div>
-                <div class="cite-cell-item">
-                    <a href="#">转发</a>
-                </div>
                 <div class="cite-cell-item">
                     <a href="#">
                       <span class="cite-fav-icon icon-heart weibo-cell-icon-big"></span>
@@ -190,7 +169,7 @@ var citeTempalte_fav = function (c) {
     </div>
   </div>
   `
-  return t
+    return t
 }
 
 
@@ -216,9 +195,6 @@ var weiboTemplate = function (w) {
                     <a class="id-status-panel-control" href="#"><span class="icon-circle-down"></span></a>
                     <div class="id-status-panel weibo-status-div hide">
                         <div class="weibo-status-item"><a href="#" class="delete-button weibo-status-item-a">删除</a></div>
-                        <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">置顶</a></div>
-                        <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为好友圈可见</a></div>
-                        <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为仅自己可见</a></div>
                     </div>
                 </div>
             </div>
@@ -255,11 +231,7 @@ var weiboTemplate = function (w) {
                             </div>
                             <div class="comment-send-item">
                                 <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                            </div>
-                            <div class="comment-send-choice">
-                                <div><input type="checkbox" >同时转发到我的微博</div>
-                                <div><input type="checkbox" >同时评论给 瓜</div>
-                            </div>
+                            </div>                           
                         </div>
                         <div class="comment-setting float-right">
                             <a class="comment-send-button button-white-a" href="#">
@@ -291,19 +263,9 @@ var weiboTemplate = function (w) {
                             </div>
                             <div class="cite-send-item">
                                 <a href="#"><span class="weibo-send-icon icon-image"></span></a>
-                            </div>
-                            <div class="cite-send-choice">
-                                <div><input type="checkbox" >同时评论给 XXX</div>
-                                <div><input type="checkbox" >同时评论给原文作者 XXX</div>
-                            </div>
+                            </div>                           
                         </div>
-                        <div class="cite-setting float-right">
-                            <a class="cite-status-radio" href="#"><span class="cite-status">公开</span><span class="icon-circle-down"></span></a>
-                            <div class="cite-status-div hide">
-                                <div class="cite-status-item"><a href="#" class="cite-status-item-a">公开</a></div>
-                                <div class="cite-status-item"><a href="#" class="cite-status-item-a">好友圈</a></div>
-                                <div class="cite-status-item"><a href="#" class="cite-status-item-a">仅自己可见</a></div>
-                            </div>
+                        <div class="cite-setting float-right">                           
                             <a class="cite-send-button button-white-a" href="#">
                                 转发
                             </a>
@@ -322,18 +284,18 @@ var weiboTemplate = function (w) {
 
 
 var bindEventWeiboTag = function () {
-  $('.weibo-send-item').on('click', function () {
-    log('weibo-tag click')
-    var self = $(this);
-    var active_item = $('.weibo-send-tag-active');
-    log(self, active_item)
-    if (self.data('id') == active_item.data('id')) {
-        self.removeClass('weibo-send-tag-active')
-    } else {
-        $('.weibo-send-tag-active').removeClass('weibo-send-tag-active');
-        self.addClass('weibo-send-tag-active')
-    }
-  });
+    $('.weibo-send-item').on('click', function () {
+        log('weibo-tag click')
+        var self = $(this);
+        var active_item = $('.weibo-send-tag-active');
+        log(self, active_item)
+        if (self.data('id') == active_item.data('id')) {
+            self.removeClass('weibo-send-tag-active')
+        } else {
+            $('.weibo-send-tag-active').removeClass('weibo-send-tag-active');
+            self.addClass('weibo-send-tag-active')
+        }
+    });
 }
 
 var bindEventWeiboAdd = function () {
@@ -344,8 +306,8 @@ var bindEventWeiboAdd = function () {
             content: content,
         };
         log('weibo add form', content, tag_id)
-        if ( $.inArray(tag_id, [1,2,3,4,5]) != -1 ) {
-          form['tag_id'] = tag_id
+        if ($.inArray(tag_id, [1, 2, 3, 4, 5]) != -1) {
+            form['tag_id'] = tag_id
         }
         log('weibo add click', form);
         var response = function (r) {
@@ -387,107 +349,109 @@ var bindEventWeiboDelete = function () {
 };
 
 
-
 // 微博转发
 var bindEventCiteToggle = function () {
-  $('.weibo-container').on('click', '.cite-button', function () {
-      var citeContainer = $(this).parent().parent().next().next();
-      var weibo_cell = citeContainer.parent()
-      var weibo_user = $.trim(weibo_cell.find('.weibo-user').text())
-      var weibo_content = $.trim(weibo_cell.find('.weibo-content').text())
-      var origin_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
-      if (citeContainer.hasClass('hide')) {
-          var weibo_id = citeContainer.parent().data('id');
-          var cite_send_textarea = citeContainer.find('.cite-send-textarea')
-          var form = {
-              weibo_id: weibo_id
-          };
-          var response = function (r) {
-              if (r.success) {
-                  cites = '';
-                  cs = r.data;
-                  log('cs', cs);
-                  for (var i = 0; i < cs.length; i++) {
-                      if (cs[i].is_fav) {
-                          cites += citeTempalte_fav(cs[i])
-                      } else {
-                          cites += citeTempalte(cs[i])
-                      }
-                  }
-                  citeContainer.children().children('.cite-comments').append(cites)
-                  if (origin_weibo_id) {
-                    var content = '//@' + weibo_user + ':' + weibo_content
-                    log('cite textarea', content)
-                    cite_send_textarea.text(content)
-                  }
-                  citeContainer.slideDown('slow').removeClass('hide');
-              }
-          };
-          api.citeShow(form, response);
-      } else {
-          citeContainer.children().children('.cite-comments').children().slideUp('slow').remove();
-          citeContainer.slideUp('slow').addClass('hide');
-      }
-      log('cite button click');
-      return false
-  })
+    $('.weibo-container').on('click', '.cite-button', function () {
+        var citeContainer = $(this).parent().parent().next().next();
+        var weibo_cell = citeContainer.parent()
+        var weibo_user = $.trim(weibo_cell.find('.weibo-user').text())
+        var weibo_content = $.trim(weibo_cell.find('.weibo-content').text())
+        var origin_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
+        if (citeContainer.hasClass('hide')) {
+            var weibo_id = citeContainer.parent().data('id');
+            var cite_send_textarea = citeContainer.find('.cite-send-textarea')
+            var form = {
+                weibo_id: weibo_id
+            };
+            var response = function (r) {
+                if (r.success) {
+                    cites = '';
+                    cs = r.data;
+                    log('cs', cs);
+                    for (var i = 0; i < cs.length; i++) {
+                        if (cs[i].is_fav) {
+                            cites += citeTempalte_fav(cs[i])
+                        } else {
+                            cites += citeTempalte(cs[i])
+                        }
+                    }
+                    citeContainer.children().children('.cite-comments').append(cites)
+                    if (origin_weibo_id) {
+                        var content = '//@' + weibo_user + ':' + weibo_content
+                        log('cite textarea', content)
+                        cite_send_textarea.text(content)
+                    }
+                    citeContainer.slideDown('slow').removeClass('hide');
+                }
+            };
+            api.citeShow(form, response);
+        } else {
+            citeContainer.children().children('.cite-comments').children().slideUp('slow').remove();
+            citeContainer.slideUp('slow').addClass('hide');
+        }
+        log('cite button click');
+        return false
+    })
 };
 
 var bindEventWeiboCiteAdd = function () {
-  $('.weibo-container').on('click', '.cite-send-button', function () {
-      var content = $(this).parent().parent().prev().children().val();
-      var weibo_id = $(this).closest('.weibo-cell').data('id');
-      var origin_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
-      var weiboCitesContainer = $(this).parents('.cite-container').children('.cite-comments');
-      var form = {
-          content: content,
-          cite_id: weibo_id,
-          origin_w_id: origin_weibo_id
-      };
-      var response = function (r) {
-          log('cite add response', r);
-          if (r.success) {
-              var cite = citeTempalte(r.data);
-              log(weiboCitesContainer, $(this))
-              weiboCitesContainer.prepend(cite).slideDown('slow');
-          } else {
-              log('add cite fail')
-          }
-      };
-      api.citeAdd(form, response);
-      return false
-  })
+    $('.weibo-container').on('click', '.cite-send-button', function () {
+        var content = $(this).parent().parent().prev().children().val();
+        var weibo_id = $(this).closest('.weibo-cell').data('id');
+        var origin_weibo_id = $(this).parents('.weibo-cell').find('.weibo-cell-cite').data('id');
+        if (!origin_weibo_id) {
+            origin_weibo_id = weibo_id
+        }
+        var weiboCitesContainer = $(this).parents('.cite-container').children('.cite-comments');
+        var form = {
+            content: content,
+            cite_id: weibo_id,
+            origin_w_id: origin_weibo_id
+        };
+        var response = function (r) {
+            log('cite add response', r);
+            if (r.success) {
+                var cite = citeTempalte(r.data);
+                log(weiboCitesContainer, $(this))
+                weiboCitesContainer.prepend(cite).slideDown('slow');
+            } else {
+                log('add cite fail')
+            }
+        };
+        api.citeAdd(form, response);
+        return false
+    })
 }
 
 
 // 微博收藏
 var weiboCollect = function (form, collect_btn) {
     var response = function (r) {
-            if (r.success) {
-                log('weibo collect', r.data);
-                collect_btn.children('.weibo-cell-b-item-text').text('已收藏');
-                collect_btn.children('.weibo-cell-icon').removeClass('icon-star-empty')
-                                    .addClass('weibo-cell-icon-big icon-star-full');
-                collect_btn.addClass('lightbutton')
-            } else {
-                log('微博收藏失败')
-            }
-        };
+        if (r.success) {
+            log('weibo collect', r.data);
+            collect_btn.children('.weibo-cell-b-item-text').text('已收藏');
+            collect_btn.children('.weibo-cell-icon').removeClass('icon-star-empty')
+                .addClass('weibo-cell-icon-big icon-star-full');
+            collect_btn.addClass('lightbutton')
+        } else {
+            log('微博收藏失败')
+        }
+    };
     api.weiboCollect(form, response);
 };
 
 var weiboDisCollect = function (form, collect_btn) {
     var response = function (r) {
-            if (r.success) {
-                log('weibo discollect', r.data);
-                collect_btn.children('.weibo-cell-b-item-text').text('收藏');
-                collect_btn.children('.weibo-cell-icon').removeClass('weibo-cell-icon-big icon-star-full')
-                                                        .addClass('icon-star-empty');
-                collect_btn.removeClass('lightbutton')
-            } else {
-                log('微博取消收藏失败')
-            }
-        };
+        if (r.success) {
+            log('weibo discollect', r.data);
+            collect_btn.children('.weibo-cell-b-item-text').text('收藏');
+            collect_btn.children('.weibo-cell-icon').removeClass('weibo-cell-icon-big icon-star-full')
+                .addClass('icon-star-empty');
+            collect_btn.removeClass('lightbutton')
+        } else {
+            log('微博取消收藏失败')
+        }
+    };
     api.weiboCollect(form, response);
 };
 
@@ -558,8 +522,6 @@ var bindEventWeiboFav = function () {
         return false;
     });
 };
-
-
 
 
 var bindEventCommentAdd = function () {
@@ -638,13 +600,6 @@ var bindEventCommentFav = function () {
 };
 
 
-var bindEventPersonInfoPanelToggle = function () {
-    $('.weibo-container').on('click', '.weibo-avatar-img', function () {
-
-    })
-};
-
-
 var bindEvent = function () {
     bindEventCommentToggle();
     bindEventStatusPanelToggle();
@@ -657,7 +612,6 @@ var bindEvent = function () {
     bindEventWeiboCollect();
     bindEventWeiboFav();
     bindEventCommentFav();
-    bindEventPersonInfoPanelToggle();
 };
 
 var __main = function () {

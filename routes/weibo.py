@@ -8,8 +8,7 @@ main = Blueprint('weibo', __name__)
 def weibo_detail(ws, u, c_u):
     folowed_n = len(u.followed.all())
     followers_n = len(u.followers.all())
-    w_u = Weibo.query.filter_by(user_id=u.id).all()
-    ws_l = len(w_u)
+    ws_l = len(ws)
     is_followed = c_u.is_following(u)
     for w in ws:
         w.user = User.query.filter_by(id=w.user_id).first()
@@ -81,26 +80,6 @@ def homepage(user_id):
     c_u = current_user()
     ws = Weibo.query.filter_by(user_id=user_id).order_by(Weibo.created_time.desc()).all()
     form = weibo_detail(ws, u, c_u)
-    com_followed = []
-    same_follow = []
-    if c_u is not None:
-        for f in c_u.followed.all():
-            if f in u.followed.all():
-                fu = User.query.get(f.followed_id)
-                com_followed.append(fu)
-        for f in c_u.followed.all():
-            fu = User.query.get(f.followed_id)
-            if u in fu.followed.all():
-                same_follow.append(fu)
-    cf_n = len(com_followed)
-    sf_n = len(same_follow)
-    f_form = {
-        'com_followed': com_followed,
-        'same_follow': same_follow,
-        'cf_n': cf_n,
-        'sf_n': sf_n
-    }
-    form.update(f_form)
     return render_template('person_home.html', c_u=c_u, **form)
 
 
@@ -109,8 +88,8 @@ def detail(id):
     c_u = current_user()
     w = Weibo.query.get(id)
     if w.has_cite:
-        w.cite_w = Weibo.query.filter_by(id=w.cite_id).first()
-        w.cite_w.user = User.query.filter_by(id=w.cite_w.user_id).first()
+        w.cite_w = Weibo.query.filter_by(id=w.origin_w_id).first()
+        w.cite_w.user = User.query.filter_by(id=w.origin_w_id.user_id).first()
     for c in w.comments:
         c.user = User.query.get(c.user_id)
     return render_template('weibo_detail.html', w=w, c_u=c_u)

@@ -33,8 +33,7 @@ body {
     background: #fff;
     border-radius: 3px;
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
-    height: 660px;
-    overflow: scroll;
+    height: 150px;
 }
 
 .sidebar-top {

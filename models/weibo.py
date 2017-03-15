@@ -105,7 +105,7 @@ class Weibo(db.Model, ModelMixin):
         t_begin = 1483200000
         t_end = 1489475993
         for u in us:
-            for i in range(0, 15):
+            for i in range(0, 10):
                 id = i % 5
                 form = {
                     'content': weibo[id],
@@ -119,10 +119,6 @@ class Weibo(db.Model, ModelMixin):
     @classmethod
     def add_fake_cite_weibo(cls):
         us = User.query.all()
-
-
-
-
 
     def response(self):
         return dict(
@@ -184,8 +180,8 @@ class WCollect(db.Model, ModelMixin):
         ws = Weibo.query.all()
         us = User.query.all()
         for i in range(200):
-            j = randint(0, len(ws)-1)
-            k = randint(0, len(us)-1)
+            j = randint(0, len(ws) - 1)
+            k = randint(0, len(us) - 1)
             w = ws[j]
             form = {
                 'weibo_id': w.id,
@@ -239,8 +235,8 @@ class WFavorite(db.Model, ModelMixin):
         ws = Weibo.query.all()
         us = User.query.all()
         for i in range(200):
-            j = randint(0, len(ws)-1)
-            k = randint(0, len(us)-1)
+            j = randint(0, len(ws) - 1)
+            k = randint(0, len(us) - 1)
             w = ws[j]
             form = {
                 'weibo_id': w.id,
@@ -318,7 +314,7 @@ class Comment(db.Model, ModelMixin):
         for i in range(100):
             w = ws[randint(0, len(ws) - 1)]
             for id in range(l):
-                user = us[randint(0, len(us)-1)]
+                user = us[randint(0, len(us) - 1)]
                 form = {
                     'content': comment[id],
                     'weibo_id': w.id,
@@ -377,8 +373,8 @@ class CFavorite(db.Model, ModelMixin):
         cs = Comment.query.all()
         us = User.query.all()
         for i in range(100):
-            j = randint(0, len(cs)-1)
-            k = randint(0, len(us)-1)
+            j = randint(0, len(cs) - 1)
+            k = randint(0, len(us) - 1)
             c = cs[j]
             w = Weibo.query.get(c.weibo_id)
             form = {
@@ -436,7 +432,7 @@ class Commentchat(db.Model, ModelMixin):
         us = User.query.all()
         for c in cs:
             for i in range(10):
-                user = us[randint(0, len(us)-1)]
+                user = us[randint(0, len(us) - 1)]
                 w = Weibo.query.get(c.weibo_id)
                 form = {
                     'content': '哈哈哈，成功捕捉一枚野生瓜',
@@ -516,8 +512,8 @@ class CchatFavorite(db.Model, ModelMixin):
         ccs = Commentchat.query.all()
         us = User.query.all()
         for i in range(30):
-            j = randint(0, len(ccs)-1)
-            k = randint(0, len(us)-1)
+            j = randint(0, len(ccs) - 1)
+            k = randint(0, len(us) - 1)
             cc = ccs[j]
             w = Weibo.query.get(cc.weibo_id)
             c = Comment.query.get(cc.comment_id)

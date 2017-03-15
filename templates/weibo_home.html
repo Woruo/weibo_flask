@@ -147,15 +147,14 @@
                                             {{ w.content }}
                                         </div>
                                     </div>
+                                    {% if w.user_id == user.id %}
                                     <div class="weibo-detail-right float-right relative">
                                         <a class="id-status-panel-control" href="#"><span class="icon-circle-down"></span></a>
                                         <div class="id-status-panel weibo-status-div hide">
                                             <div class="weibo-status-item"><a href="#" class="delete-button weibo-status-item-a">删除</a></div>
-                                            <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">置顶</a></div>
-                                            <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为好友圈可见</a></div>
-                                            <div class="weibo-status-item"><a href="#" class="weibo-status-item-a">转换为仅自己可见</a></div>
                                         </div>
                                     </div>
+                                    {% endif %}
                                 </div>
                                 {% if w.has_cite %}
                                   <div class="weibo-cell-cite" id="id-weibo-cite-{{ w.origin_w_id }}" data-id="{{ w.origin_w_id }}">
@@ -269,12 +268,6 @@
                                                 <div class="comment-send-item">
                                                     <a href="#"><span class="weibo-send-icon icon-image"></span></a>
                                                 </div>
-                                                <div class="comment-send-choice">
-                                                    <div><input type="checkbox" >同时转发到我的微博</div>
-                                                    {% if w.has_cite %}
-                                                        <div><input type="checkbox" >同时评论给 {{ w.cite_w.user.username }}</div>
-                                                    {% endif %}
-                                                </div>
                                             </div>
                                             <div class="comment-setting float-right">
                                                 <a class="comment-send-button button-white-a" href="#">
@@ -307,20 +300,8 @@
                                                 <div class="cite-send-item">
                                                     <a href="#"><span class="weibo-send-icon icon-image"></span></a>
                                                 </div>
-                                                <div class="cite-send-choice">
-                                                    <div><input type="checkbox" >同时评论给 {{ w.username }}</div>
-                                                    {% if w.has_cite %}
-                                                      <div><input type="checkbox" >同时评论给原文作者 {{ w.cite_w.user.username }}</div>
-                                                    {% endif %}
-                                                </div>
                                             </div>
                                             <div class="cite-setting float-right">
-                                                <a class="cite-status-radio" href="#"><span class="cite-status">公开</span><span class="icon-circle-down"></span></a>
-                                                <div class="cite-status-div hide">
-                                                    <div class="cite-status-item"><a href="#" class="cite-status-item-a">公开</a></div>
-                                                    <div class="cite-status-item"><a href="#" class="cite-status-item-a">好友圈</a></div>
-                                                    <div class="cite-status-item"><a href="#" class="cite-status-item-a">仅自己可见</a></div>
-                                                </div>
                                                 <a class="cite-send-button button-white-a" href="#">
                                                     转发
                                                 </a>

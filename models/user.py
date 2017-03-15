@@ -1,8 +1,6 @@
 from . import ModelMixin
 from . import db
 from . import timestamp
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash
 from random import randint
 
@@ -18,6 +16,7 @@ class Follow(db.Model, ModelMixin):
         us = User.query.all()
         l = len(us)
         for u in us:
+            u.follow(u)
             for i in range(l // 2):
                 j = randint(0, l-1)
                 u.follow(us[j])
@@ -90,6 +89,7 @@ class User(db.Model, ModelMixin):
             self.hash_password()
             self.save()
             self.get_avatar()
+            self.follow(self)
             self.save()
             return self.id, suc_msg
         err_msgs += '注册失败'
@@ -132,67 +132,6 @@ class User(db.Model, ModelMixin):
     def is_admin(self):
         return self.id == 1
 
-    def confirm(self, token):
-        from app import secret_key
-        s = Serializer(secret_key)
-        try:
-            data = s.loads(token)
-        except:
-            return False
-        if data.get('confirm') != self.id:
-            return False
-        self.confirmed = True
-        self.save()
-        return True
-
-    def generate_reset_token(self, expiration=3600):
-        from app import secret_key
-        s = Serializer(secret_key, expiration)
-        return s.dumps({'reset': self.id})
-
-    def reset_password(self, token, new_password):
-        from app import secret_key
-        s = Serializer(secret_key)
-        try:
-            data = s.loads(token)
-        except:
-            return False
-        if data.get('reset') != self.id:
-            return False
-        self.password = new_password
-        self.save()
-        return True
-
-    def generate_email_change_token(self, new_email, expiration=3600):
-        from app import secret_key
-        s = Serializer(secret_key, expiration)
-        return s.dumps({'change_email': self.id, 'new_email': new_email})
-
-    def generate_auth_token(self, expiration):
-        from app import secret_key
-        s = Serializer(secret_key,
-                       expires_in=expiration)
-        return s.dumps({'id': self.id})
-
-    def change_email(self, token):
-        from app import secret_key
-        s = Serializer(secret_key)
-        try:
-            data = s.loads(token)
-        except:
-            return False
-        if data.get('change_email') != self.id:
-            return False
-        new_email = data.get('new_email')
-        if new_email is None:
-            return False
-        if self.query.filter_by(email=new_email).first() is not None:
-            return False
-        self.email = new_email
-        self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
-        self.save()
-        return True
-
     @classmethod
     def add_fake_user(cls):
         username = ['Wor若', '瓜', '包', 'lin', 'SumNer', '菜', '森', '菜菜',
@@ -216,21 +155,3 @@ class User(db.Model, ModelMixin):
             u.save()
             u.get_avatar()
             u.save()
-
-
-if __name__ == "__main__":
-    u1 = User.query.get(1)
-    form = dict(
-        username='bao',
-        password=123,
-    )
-    u2 = User(form)
-    us = User.query.all()
-    print('u1', u1)
-    print('u2', u2)
-    u1.follow(u2)
-    print(u1.is_following(u2))
-    u2.follow(u1)
-    print(u1.is_followed_by(u2))
-    print('u1.followed', u1.followed)
-    print('u1.followers', u1.followers)
