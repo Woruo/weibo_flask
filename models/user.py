@@ -36,11 +36,11 @@ class userTag(db.Model, ModelMixin):
 class User(db.Model, ModelMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True)
+    username = db.Column(db.String(100))
     password_hash = db.Column(db.String(200))
     created_time = db.Column(db.String(100))
     avatar = db.Column(db.String(100))
-    email = db.Column(db.String(100), default='', unique=True)
+    email = db.Column(db.String(100), default='')
     note = db.Column(db.String(100), default='')
     location = db.Column(db.String(100), default='')
     intro = db.Column(db.String(100), default='')
