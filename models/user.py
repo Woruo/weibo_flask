@@ -90,7 +90,7 @@ class User(db.Model, ModelMixin):
             self.get_avatar()
             self.follow(self)
             self.save()
-            return True, suc_msg
+            return self.id, suc_msg
         err_msgs += '注册失败'
         return None, err_msgs
 

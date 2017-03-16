@@ -26,8 +26,7 @@ def register():
     user_id, msg = u.validate_register()
     if user_id is None:
         return api_response(message=msg)
-    ws = Weibo.query.filter_by(has_cite=False).order_by(Weibo.id.desc()).all()
-    return render_template('weibo.html', weibos=ws)
+    return api_response(True, {'id': user_id}, message=msg)
 
 
 @main.route('/login', methods=['POST'])
