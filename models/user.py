@@ -98,7 +98,6 @@ class User(db.Model, ModelMixin):
         err_msg = '登录失败'
         suc_msg = '登录成功'
         user = User.query.filter_by(username=self.username).first()
-        print(self.password_hash, generate_password_hash('123'), user)
         if check_password_hash(user.password_hash, self.password):
             return user.id, suc_msg
         return None, err_msg
