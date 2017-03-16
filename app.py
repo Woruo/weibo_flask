@@ -1,8 +1,8 @@
 from flask import Flask
+from flask import render_template, redirect, url_for
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager, Shell
 from models import db
-
 
 from routes.user import main as routes_user
 from routes.user_api import main as routes_api_user
@@ -29,6 +29,10 @@ def configure_app():
     db.init_app(app)
     register_route(app)
 
+
+@app.errorhandler(404)
+def error404(e):
+    return redirect(url_for('user.login_view'))
 
 
 def configured_app():
